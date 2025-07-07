@@ -1,0 +1,83 @@
+/* HERO SECTION SPECIFIC STYLES */
+
+/* Hero section visibility fixes */
+.glass-card .hero-content,
+.glass-card .hero-section,
+.glass-card [data-section="hero"],
+.glass-card #hero {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 20 !important;
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.glass-card .hero-content *,
+.glass-card .hero-section *,
+.glass-card #hero * {
+  display: inherit !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: inherit !important;
+}
+
+/* Force Hero grid layout to work */
+.glass-card .hero-content .grid,
+.glass-card .hero-section .grid,
+.glass-card #hero .grid {
+  display: grid !important;
+  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+}
+
+@media (min-width: 1024px) {
+  .glass-card .hero-content .lg\:grid-cols-2,
+  .glass-card .hero-section .lg\:grid-cols-2,
+  .glass-card #hero .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Ensure Hero buttons are visible and functional */
+.glass-card .hero-content button,
+.glass-card .hero-section button,
+.glass-card #hero button {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure Hero images are visible */
+.glass-card .hero-content img,
+.glass-card .hero-section img,
+.glass-card #hero img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Remove any interfering transforms or filters */
+.glass-card .hero-content,
+.glass-card [data-section="hero"] {
+  transform: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Force hero section content to be visible */
+.glass-card [data-section="hero"] *,
+.glass-card .hero-content *,
+.glass-card h1,
+.glass-card h2,
+.glass-card h3,
+.glass-card p,
+.glass-card div,
+.glass-card span,
+.glass-card button {
+  color: inherit !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
