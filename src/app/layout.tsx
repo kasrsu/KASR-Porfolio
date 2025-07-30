@@ -1,8 +1,8 @@
 import React from "react";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { SmoothScrollProvider } from "@/components/SmoothScroll";
-import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
+import { ThemeProvider } from "@/components/theme_provider";
+import { SmoothScrollProvider } from "@/components/smooth_scroll";
+import { ScrollProgressBar } from "@/components/ui/scroll_progress_bar";
 import "./globals.css";
 // Remove SCSS import temporarily to avoid conflicts
 // import "../styles/globals.scss";

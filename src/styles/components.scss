@@ -7,10 +7,15 @@
   backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid $glass-border-light;
   border-radius: 1.5rem;
-  box-shadow: 
-    0 8px 32px rgba(31, 38, 135, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: $glass-shadow-light;
   transition: $transition-smooth;
+  
+  // Add safe spacing from navigation
+  margin-top: $glass-card-margin-top;
+  
+  @media (min-width: 768px) {
+    margin-top: $glass-card-margin-top-md;
+  }
   
   &:hover {
     transform: translateY(-2px);
@@ -22,6 +27,21 @@
   @media (prefers-color-scheme: dark) {
     background: $glass-bg-dark;
     border-color: $glass-border-dark;
+    box-shadow: $glass-shadow-dark;
+  }
+}
+
+// Navigation safe glass card variant
+.glass-card-nav-safe {
+  @extend .glass-card;
+  margin-top: calc($header-height + $glass-card-margin-top);
+  margin-bottom: $glass-card-margin-bottom;
+  max-height: calc(100vh - $header-height - 3rem);
+  
+  @media (min-width: 768px) {
+    margin-top: calc($header-height-md + $glass-card-margin-top-md);
+    margin-bottom: $glass-card-margin-bottom-md;
+    max-height: calc(100vh - $header-height-md - 4rem);
   }
 }
 

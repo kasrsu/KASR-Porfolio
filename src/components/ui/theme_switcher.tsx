@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
-import { Button } from "./Button";
+import { Button } from "./button";
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();

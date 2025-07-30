@@ -32,22 +32,22 @@ export interface Education {
 export const statistics: Statistic[] = [
   {
     icon: 'project-diagram',
-    value: 50,
+    value: 10,
     label: 'Projects Completed'
   },
   {
     icon: 'users',
-    value: 25,
+    value: 7,
     label: 'Happy Clients'
   },
   {
     icon: 'laptop-code',
-    value: 7,
+    value: 3,
     label: 'Years Experience'
   },
   {
     icon: 'award',
-    value: 12,
+    value: 6,
     label: 'Awards & Certifications'
   }
 ];

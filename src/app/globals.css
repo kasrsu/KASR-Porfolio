@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --header-height: 80px; /* Define header height variable */
 }
 
 @theme inline {
@@ -23,6 +24,24 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  padding-top: 0; /* Remove default padding since header is now hidden */
+  overflow-x: hidden; /* Prevent horizontal scroll issues */
+}
+
+/* Header spacing utilities */
+.header-offset {
+  padding-top: var(--header-height);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 96px; /* Larger header on desktop */
+  }
+}
+
+/* Ensure main content doesn't overlap with fixed header */
+main {
+  margin-top: 0;
 }
 
 /* Global scrollbar styles */
@@ -69,9 +88,98 @@ body {
   }
 }
 
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 8px 32px rgba(139, 92, 246, 0.08),
+      0 0 0 1px rgba(139, 92, 246, 0.12);
+  }
+  50% {
+    box-shadow: 
+      0 16px 64px rgba(139, 92, 246, 0.2),
+      0 8px 32px rgba(139, 92, 246, 0.15),
+      0 0 0 1px rgba(139, 92, 246, 0.25),
+      0 0 40px rgba(139, 92, 246, 0.15);
+  }
+}
+
+@keyframes border-glow {
+  0%, 100% {
+    background: linear-gradient(45deg, 
+      transparent 0%, 
+      rgba(139, 92, 246, 0.05) 25%, 
+      rgba(139, 92, 246, 0.1) 50%,
+      rgba(139, 92, 246, 0.05) 75%, 
+      transparent 100%);
+  }
+  50% {
+    background: linear-gradient(45deg, 
+      transparent 0%, 
+      rgba(139, 92, 246, 0.15) 25%, 
+      rgba(139, 92, 246, 0.25) 50%,
+      rgba(139, 92, 246, 0.15) 75%, 
+      transparent 100%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+/* Gentler glow animation to prevent flickering */
+@keyframes gentle-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Smooth pulse animation */
+@keyframes smooth-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 15px rgba(139, 92, 246, 0.1),
+      0 4px 16px rgba(139, 92, 246, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 25px rgba(139, 92, 246, 0.15),
+      0 6px 24px rgba(139, 92, 246, 0.08);
+  }
+}
+
 /* Global animation classes */
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.animate-border-glow {
+  animation: border-glow 6s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 8s linear infinite;
+}
+
+/* Updated animation classes with smoother transitions */
+.animate-gentle-glow {
+  animation: gentle-glow 3s ease-in-out infinite;
+}
+
+.animate-smooth-pulse {
+  animation: smooth-pulse 2s ease-in-out infinite;
 }
 
 /* Performance optimizations */
@@ -81,4 +189,147 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Z-index hierarchy to prevent conflicts */
+.z-background { z-index: -1; }
+.z-content { z-index: 10; }
+.z-glass-card { z-index: 20; }
+.z-header { z-index: 100; }
+.z-navigation { z-index: 100; }
+.z-mobile-menu-backdrop { z-index: 201; }
+.z-mobile-menu { z-index: 202; }
+
+/* Header hover area with proper z-index */
+.header-hover-area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 99;
+  pointer-events: auto;
+}
+
+/* Smooth header transitions */
+.header-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.header-visible {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Glass card spacing utilities */
+.glass-card-spacing {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .glass-card-spacing {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+  }
+}
+
+/* Section spacing to prevent header overlap */
+.section-with-header-clearance {
+  padding-top: 6rem;
+}
+
+@media (min-width: 768px) {
+  .section-with-header-clearance {
+    padding-top: 8rem;
+  }
+}
+
+/* Glass card safe area - prevents overlap with header and footer */
+.glass-card-safe {
+  margin-top: calc(var(--header-height) + 2rem);
+  margin-bottom: 3rem;
+  padding: 1rem;
+  min-height: calc(100vh - var(--header-height) - 8rem);
+}
+
+@media (min-width: 768px) {
+  .glass-card-safe {
+    margin-top: calc(var(--header-height) + 3rem);
+    margin-bottom: 4rem;
+    padding: 1.5rem;
+    min-height: calc(100vh - var(--header-height) - 10rem);
+  }
+}
+
+/* Navigation spacing utilities */
+.nav-safe-spacing {
+  padding: 1rem 1.5rem;
+  margin: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .nav-safe-spacing {
+    padding: 1.5rem 2rem;
+    margin: 1rem;
+  }
+}
+
+/* Ensure navigation doesn't interfere with glass cards */
+.nav-container {
+  z-index: 100;
+  position: relative;
+}
+
+.nav-backdrop {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dark .nav-backdrop {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(75, 85, 99, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Background stability fixes */
+.fixed-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Smooth gradient backgrounds */
+.gradient-background {
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 1) 0%, 
+    rgba(248, 250, 252, 1) 35%, 
+    rgba(241, 245, 249, 1) 70%, 
+    rgba(226, 232, 240, 1) 100%
+  );
+  background-attachment: fixed;
+  background-size: 100% 120%; /* Slightly larger to prevent edge showing */
+}
+
+.dark .gradient-background {
+  background: linear-gradient(180deg, 
+    rgba(15, 23, 42, 1) 0%, 
+    rgba(30, 41, 59, 1) 35%, 
+    rgba(51, 65, 85, 1) 70%, 
+    rgba(71, 85, 105, 1) 100%
+  );
 }

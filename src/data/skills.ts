@@ -31,7 +31,7 @@ export const skills: Skill[] = [
   },
   {
     name: 'JavaScript/TypeScript',
-    proficiency: 75,
+    proficiency: 100,
     category: 'technical',
     icon: 'typescript',
     color: '#3178C6'

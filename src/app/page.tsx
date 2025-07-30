@@ -2,33 +2,34 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import PageTransition from "@/components/PageTransition";
-import { Navbar } from "@/components/ui/Navbar";
-import Hero from "@/components/sections/hero/Hero";
-import About from "@/components/sections/about/About";
-import Projects from "@/components/sections/Project/Projects";
-import Skills from "@/components/sections/Skills/Skills";
-import Contact from "@/components/sections/Contact/Contact";
-import { GlassCard } from "@/components/ui/GlassCard";
-import { ScrollProgressCircle } from "@/components/ui/ScrollProgressBar";
-import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
+import PageTransition from "@/components/page_transition";
+import { Navbar } from "@/components/ui/navbar";
+import Hero from "@/components/sections/hero/hero";
+import About from "@/components/sections/about/about";
+import Projects from "@/components/sections/project/projects";
+import Skills from "@/components/sections/skills/skills";
+import Contact from "@/components/sections/contact/contact";
+import { GlassCard } from "@/components/ui/glass_card";
+import { ScrollProgressCircle } from "@/components/ui/scroll_progress_bar";
+import { ScrollIndicator } from "@/components/ui/scroll_indicator";
 import { 
   ScrollAnimation, 
   SectionAnimation, 
-  useActiveSection 
-} from "@/components/ui/ScrollAnimation";
-import { SectionErrorBoundary } from "@/components/ui/ErrorBoundary";
+  useActiveSection
+  
+} from "@/components/ui/scroll_animation";
+import { SectionErrorBoundary } from "@/components/ui/error_boundary";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // References for each section
   const sectionRefs = [
-    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // Hero
-    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // About
-    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // Skills
-    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // Projects
-    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>  // Contact
+    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, //Hero
+    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, //About
+    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, //Skills
+    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, //Projects
+    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>  //Contact
   ];
   
   // Use our custom hook to track the active section
@@ -48,13 +49,13 @@ export default function Home() {
     mass: 0.5
   });
   
-  // Background parallax effects
+  // Fixed background parallax effects - reduced movement
   const backgroundY = useTransform(
     smoothProgress, 
     [0, 1], 
-    ['0%', '20%']
+    ['0%', '5%']  // Reduced from 20% to 5% to minimize movement
   );
-  
+
   // Optimized, lighter animation variants for better performance
   const sectionVariants = {
     hero: {
@@ -186,66 +187,75 @@ export default function Home() {
 
   return (
     <div className="bg-gradient-to-br from-white to-slate-100 dark:from-slate-800 dark:to-slate-900">
-      {/* Fixed Background with Parallax Effect */}
+      {/* Fixed Background with minimal parallax */}
       <motion.div 
-        className="fixed inset-0 w-full h-full z-0 bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-slate-800 dark:via-slate-800/90 dark:to-slate-900"
-        style={{ y: backgroundY }}
+        className="fixed inset-0 w-full h-full z-0"
+        style={{ 
+          y: backgroundY,
+          background: 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 50%, rgba(241,245,249,1) 100%)'
+        }}
       >
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-[0.07] dark:opacity-10 overflow-hidden">
+        {/* Dark mode background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-800 via-slate-800/90 to-slate-900 opacity-0 dark:opacity-100 transition-opacity duration-300"></div>
+        
+        {/* Static background pattern - no animation */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] overflow-hidden">
           <svg className="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
             <defs>
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.3" opacity="0.2" />
+              <pattern id="grid" width="5" height="5" patternUnits="userSpaceOnUse">
+                <path d="M 5 0 L 0 0 0 5" fill="none" stroke="currentColor" strokeWidth="0.2" opacity="0.3" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
-          
-          {/* Floating shapes */}
-          <motion.div 
-            className="absolute h-64 w-64 rounded-full bg-purple-400/5 blur-3xl"
-            animate={{ 
-              x: [0, 100, 0], 
-              y: [0, 50, 0],
-              opacity: [0.3, 0.6, 0.3] 
-            }}
-            transition={{ 
-              duration: 20, 
-              repeat: Infinity,
-              repeatType: "reverse" 
-            }}
-            style={{ top: '20%', left: '10%' }}
-          />
-          <motion.div 
-            className="absolute h-96 w-96 rounded-full bg-blue-400/5 blur-3xl"
-            animate={{ 
-              x: [0, -70, 0], 
-              y: [0, 100, 0],
-              opacity: [0.2, 0.5, 0.2] 
-            }}
-            transition={{ 
-              duration: 25, 
-              repeat: Infinity,
-              repeatType: "reverse" 
-            }}
-            style={{ top: '40%', right: '15%' }}
-          />
-          <motion.div 
-            className="absolute h-48 w-48 rounded-full bg-indigo-400/5 blur-3xl"
-            animate={{ 
-              x: [0, 50, 0], 
-              y: [0, 30, 0],
-              opacity: [0.2, 0.3, 0.2] 
-            }}
-            transition={{ 
-              duration: 15, 
-              repeat: Infinity,
-              repeatType: "reverse" 
-            }}
-            style={{ top: '70%', left: '25%' }}
-          />
         </div>
+        
+        {/* Subtle floating shapes - reduced animation */}
+        <motion.div 
+          className="absolute h-32 w-32 rounded-full bg-purple-400/3 blur-2xl"
+          animate={{ 
+            x: [0, 30, 0], 
+            y: [0, 20, 0],
+            opacity: [0.2, 0.4, 0.2] 
+          }}
+          transition={{ 
+            duration: 25, 
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
+          style={{ top: '20%', left: '10%' }}
+        />
+        <motion.div 
+          className="absolute h-48 w-48 rounded-full bg-blue-400/3 blur-3xl"
+          animate={{ 
+            x: [0, -20, 0], 
+            y: [0, 30, 0],
+            opacity: [0.1, 0.3, 0.1] 
+          }}
+          transition={{ 
+            duration: 30, 
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
+          style={{ top: '40%', right: '15%' }}
+        />
+        <motion.div 
+          className="absolute h-24 w-24 rounded-full bg-indigo-400/3 blur-xl"
+          animate={{ 
+            x: [0, 15, 0], 
+            y: [0, 10, 0],
+            opacity: [0.15, 0.25, 0.15] 
+          }}
+          transition={{ 
+            duration: 20, 
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
+          style={{ top: '70%', left: '25%' }}
+        />
       </motion.div>
       
       <main ref={containerRef} className="relative z-10">
@@ -254,9 +264,9 @@ export default function Home() {
         
         {/* Container for all sections */}
         <div className="relative min-h-[500vh]">
-          <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+          <div className="sticky top-0 h-screen w-full flex items-center justify-center pt-16 md:pt-20">
             <GlassCard 
-              className="w-full max-w-[92%] lg:max-w-[88%] xl:max-w-[85%] h-[96vh] rounded-[2.5rem] overflow-hidden mx-auto"
+              className="w-full max-w-[92%] lg:max-w-[88%] xl:max-w-[85%] h-[88vh] md:h-[86vh] rounded-[2.5rem] overflow-hidden mx-auto mt-2 md:mt-4"
               intensity="low"
               color="purple"
               borderGlow={true}

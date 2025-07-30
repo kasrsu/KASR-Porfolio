@@ -9,11 +9,35 @@ $glass-bg-dark: rgba(30, 41, 59, 0.15);
 $glass-border-light: rgba(255, 255, 255, 0.2);
 $glass-border-dark: rgba(255, 255, 255, 0.1);
 
+// Header and Glass Card Spacing Variables
+$header-height: 80px;
+$header-height-md: 96px;
+$glass-card-margin-top: 2rem;
+$glass-card-margin-top-md: 3rem;
+$glass-card-margin-bottom: 2rem;
+$glass-card-margin-bottom-md: 3rem;
+$glass-card-padding: 1rem;
+$glass-card-padding-md: 1.5rem;
+$glass-card-border-radius: 1.5rem;
+
+// Section spacing to prevent header overlap
+$section-header-clearance: 6rem;
+$section-header-clearance-md: 8rem;
+
 // Spacing Variables
 $section-padding-sm: 3rem;
 $section-padding-md: 4rem;
 $section-padding-lg: 5rem;
 $section-padding-xl: 6rem;
+
+// Glass Card Border and Shadow Variables
+$glass-border-width: 1px;
+$glass-shadow-light: 0 8px 32px rgba(31, 38, 135, 0.15), 
+                     0 4px 16px rgba(31, 38, 135, 0.1),
+                     inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+$glass-shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.3),
+                    0 4px 16px rgba(0, 0, 0, 0.2),
+                    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 
 // Animation Variables
 $transition-smooth: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
