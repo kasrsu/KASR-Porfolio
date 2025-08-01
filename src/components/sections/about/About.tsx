@@ -78,6 +78,10 @@ export default function About() {
 
   // Timeline component for experience
   const Timeline = () => {
+    const toggleExperience = (expId: string) => {
+      setVisibleExperience(visibleExperience === expId ? null : expId);
+    };
+
     return (
       <div className="relative mt-10 mb-16">
         {/* Timeline center line */}
@@ -94,8 +98,6 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: index * 0.2 }}
-            onHoverStart={() => setVisibleExperience(exp.id)}
-            onHoverEnd={() => setVisibleExperience(null)}
           >
             {/* Timeline dot */}
             <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-5 h-5 rounded-full bg-purple-500 border-4 border-white dark:border-gray-900"></div>
@@ -105,31 +107,51 @@ export default function About() {
               "w-full md:w-5/12 p-4",
               index % 2 === 0 ? "md:mr-auto" : "md:ml-auto"
             )}>
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-white/30 dark:border-gray-700/30 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="flex items-center mb-3">
-                  {exp.logo && (
-                    <div className="w-10 h-10 mr-3 relative">
-                      <Image
-                        src={exp.logo}
-                        alt={exp.company}
-                        fill
-                        className="object-contain rounded-md"
-                      />
+              <div 
+                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md border border-white/30 dark:border-gray-700/30 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
+                onClick={() => toggleExperience(exp.id)}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center">
+                    {exp.logo && (
+                      <div className="w-10 h-10 mr-3 relative">
+                        <Image
+                          src={exp.logo}
+                          alt={exp.company}
+                          fill
+                          className="object-contain rounded-md"
+                        />
+                      </div>
+                    )}
+                    <div>
+                      <h3 className="font-bold text-lg text-gray-900 dark:text-white">{exp.title}</h3>
+                      <p className="text-purple-600 dark:text-purple-400">{exp.company}</p>
                     </div>
-                  )}
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900 dark:text-white">{exp.title}</h3>
-                    <p className="text-purple-600 dark:text-purple-400">{exp.company}</p>
                   </div>
+                  {/* Click indicator */}
+                  <motion.div
+                    animate={{ rotate: visibleExperience === exp.id ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-purple-600 dark:text-purple-400"
+                  >
+                    <i className="fas fa-chevron-down"></i>
+                  </motion.div>
                 </div>
                 
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                   {exp.startDate} - {exp.endDate} • {exp.location}
                 </p>
                 
-                {/* Detailed tooltip that appears on hover */}
+                {/* Click instruction */}
+                {visibleExperience !== exp.id && (
+                  <p className="text-xs text-purple-500 dark:text-purple-400 italic">
+                    Click to see more details
+                  </p>
+                )}
+                
+                {/* Detailed content that appears on click */}
                 <motion.div 
-                  className="mt-3"
+                  className="mt-3 overflow-hidden"
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ 
                     opacity: visibleExperience === exp.id ? 1 : 0,
@@ -382,65 +404,6 @@ export default function About() {
           ))}
         </div>
 
-        {/* Skills Section with Animated Bars */}
-        <div className="mb-20">
-          <motion.h3
-            className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-          >
-            My <span className="text-purple-600">Skills</span>
-          </motion.h3>
-          
-          {/* Skill category tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {skillCategories.map((category) => (
-              <motion.button
-                key={category.id}
-                className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all",
-                  selectedSkillCategory === category.id 
-                    ? "bg-purple-600 text-white" 
-                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900/30"
-                )}
-                onClick={() => setSelectedSkillCategory(category.id)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {category.name}
-              </motion.button>
-            ))}
-          </div>
-          
-          {/* Skill bars with animation */}
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4"
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-          >
-            {getSkillsByCategory(selectedSkillCategory).map((skill) => (
-              <motion.div
-                key={skill.name}
-                className="mb-4"
-                variants={skillVariants}
-              >
-                <div className="flex justify-between mb-1">
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">{skill.name}</span>
-                  <span className="text-purple-600 dark:text-purple-400 font-medium">{skill.proficiency}%</span>
-                </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
-                  <motion.div
-                    className="h-full rounded-full bg-gradient-to-r from-purple-600 to-indigo-600"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${skill.proficiency}%` }}
-                    transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-                  ></motion.div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
         {/* Experience Timeline */}
         <motion.div
           className="mb-20"

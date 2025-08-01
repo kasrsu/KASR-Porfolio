@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import PageTransition from "@/components/PageTransition";
 import { Navbar } from "@/components/ui/Navbar";
 import Hero from "@/components/sections/hero/Hero";
 import About from "@/components/sections/about/About";
@@ -11,28 +10,27 @@ import Skills from "@/components/sections/Skills/Skills";
 import Contact from "@/components/sections/Contact/Contact";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { ScrollProgressCircle } from "@/components/ui/ScrollProgressBar";
-import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
-import { 
-  ScrollAnimation, 
-  SectionAnimation, 
-  useActiveSection 
-} from "@/components/ui/ScrollAnimation";
+import { useActiveSection } from "@/components/ui/ScrollAnimation";
 import { SectionErrorBoundary } from "@/components/ui/ErrorBoundary";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isGlassCardLoaded, setIsGlassCardLoaded] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentSection, setCurrentSection] = useState(0);
   
-  // References for each section
+  // References for each section - Updated to 6 sections
   const sectionRefs = [
     useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // Hero
-    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // About
+    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // About 1
+    useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // About 2
     useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // Skills
     useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>, // Projects
     useRef<HTMLDivElement>(null) as React.RefObject<HTMLElement>  // Contact
   ];
   
-  // Use our custom hook to track the active section
-  const currentSection = useActiveSection(sectionRefs, 0.4);
+  // Manual section detection with better reliability
+  const detectedSection = useActiveSection(sectionRefs, 0.3);
   
   // Scroll animation setup
   const { scrollYProgress } = useScroll({
@@ -40,21 +38,52 @@ export default function Home() {
     offset: ["start start", "end end"]
   });
   
-  // Smoother scroll progress for animations
   const smoothProgress = useSpring(scrollYProgress, { 
     stiffness: 30,
     damping: 15,
     restDelta: 0.001,
     mass: 0.5
   });
-  
-  // Background parallax effects
-  const backgroundY = useTransform(
-    smoothProgress, 
-    [0, 1], 
-    ['0%', '20%']
-  );
-  
+
+  // Hero section transforms
+  const heroScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.85]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 0.4], [0, -100]);
+  const heroBlur = useTransform(scrollYProgress, [0, 0.3], [0, 8]);
+
+  // Fixed Glass card transforms - Better timing and visibility
+  const glassCardY = useTransform(scrollYProgress, [0.15, 0.4], [100, 0]);
+  const glassCardOpacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
+  const glassCardScale = useTransform(scrollYProgress, [0.15, 0.4], [0.95, 1]);
+
+  // Track scroll progress and glass card loading state - Earlier activation
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange((progress) => {
+      setScrollProgress(progress);
+      setIsGlassCardLoaded(progress >= 0.25);
+      
+      // Manual section detection based on scroll progress
+      if (progress < 0.2) {
+        setCurrentSection(0); // Hero
+      } else if (progress >= 0.2 && progress < 0.35) {
+        setCurrentSection(1); // About 1
+      } else if (progress >= 0.35 && progress < 0.5) {
+        setCurrentSection(2); // About 2
+      } else if (progress >= 0.5 && progress < 0.65) {
+        setCurrentSection(3); // Skills
+      } else if (progress >= 0.65 && progress < 0.8) {
+        setCurrentSection(4); // Projects
+      } else if (progress >= 0.8) {
+        setCurrentSection(5); // Contact
+      }
+    });
+
+    return unsubscribe;
+  }, [scrollYProgress]);
+
+  // Use detected section or manual section, whichever is more reliable
+  const activeSection = detectedSection !== undefined ? detectedSection : currentSection;
+
   // Optimized, lighter animation variants for better performance
   const sectionVariants = {
     hero: {
@@ -185,227 +214,215 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-white to-slate-100 dark:from-slate-800 dark:to-slate-900">
-      {/* Fixed Background with Parallax Effect */}
-      <motion.div 
-        className="fixed inset-0 w-full h-full z-0 bg-gradient-to-b from-white via-slate-50 to-slate-100 dark:from-slate-800 dark:via-slate-800/90 dark:to-slate-900"
-        style={{ y: backgroundY }}
-      >
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-[0.07] dark:opacity-10 overflow-hidden">
+    <div className="matrix-bg scan-lines min-h-screen">
+      {/* Purple matrix background with scan lines */}
+      <div className="fixed inset-0 w-full h-full z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-purple-950/60 to-blue-900/40"></div>
+        {/* Terminal grid pattern */}
+        <div className="absolute inset-0 opacity-[0.08] overflow-hidden">
           <svg className="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
             <defs>
               <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.3" opacity="0.2" />
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#8B5CF6" strokeWidth="0.2" opacity="0.3" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
-          
-          {/* Floating shapes */}
-          <motion.div 
-            className="absolute h-64 w-64 rounded-full bg-purple-400/5 blur-3xl"
-            animate={{ 
-              x: [0, 100, 0], 
-              y: [0, 50, 0],
-              opacity: [0.3, 0.6, 0.3] 
-            }}
-            transition={{ 
-              duration: 20, 
-              repeat: Infinity,
-              repeatType: "reverse" 
-            }}
-            style={{ top: '20%', left: '10%' }}
-          />
-          <motion.div 
-            className="absolute h-96 w-96 rounded-full bg-blue-400/5 blur-3xl"
-            animate={{ 
-              x: [0, -70, 0], 
-              y: [0, 100, 0],
-              opacity: [0.2, 0.5, 0.2] 
-            }}
-            transition={{ 
-              duration: 25, 
-              repeat: Infinity,
-              repeatType: "reverse" 
-            }}
-            style={{ top: '40%', right: '15%' }}
-          />
-          <motion.div 
-            className="absolute h-48 w-48 rounded-full bg-indigo-400/5 blur-3xl"
-            animate={{ 
-              x: [0, 50, 0], 
-              y: [0, 30, 0],
-              opacity: [0.2, 0.3, 0.2] 
-            }}
-            transition={{ 
-              duration: 15, 
-              repeat: Infinity,
-              repeatType: "reverse" 
-            }}
-            style={{ top: '70%', left: '25%' }}
-          />
         </div>
-      </motion.div>
+      </div>
       
       <main ref={containerRef} className="relative z-10">
-        {/* Fixed Navigation */}
+        {/* Navigation */}
         <Navbar />
         
-        {/* Container for all sections */}
-        <div className="relative min-h-[500vh]">
-          <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+        {/* Hero Section */}
+        <motion.div
+          className="fixed inset-0 z-20"
+          style={{
+            scale: heroScale,
+            opacity: heroOpacity,
+            y: heroY,
+            filter: useTransform(heroBlur, (blur) => `blur(${blur}px)`),
+          }}
+        >
+          <div className="w-full h-screen">
+            <Hero />
+          </div>
+        </motion.div>
+        
+        {/* Container for all sections with GlassCard */}
+        <div className="relative min-h-[800vh] z-30">
+          <motion.div 
+            className="sticky top-0 h-screen w-full flex items-center justify-center z-40"
+            style={{
+              y: glassCardY,
+              opacity: glassCardOpacity,
+              scale: glassCardScale,
+            }}
+          >
             <GlassCard 
-              className="w-full max-w-[92%] lg:max-w-[88%] xl:max-w-[85%] h-[96vh] rounded-[2.5rem] overflow-hidden mx-auto"
+              className="w-full max-w-[92%] lg:max-w-[88%] xl:max-w-[85%] h-[88vh] md:h-[86vh] rounded-[2.5rem] overflow-hidden mx-auto mt-6 md:mt-8 lg:mt-10"
               intensity="low"
               color="purple"
               borderGlow={true}
             >
-              <div className="relative w-full h-full z-20 will-change-transform">
+              <div className="relative w-full h-full">
+                {/* Debug overlay to show current section */}
+                <div className="absolute top-4 right-4 z-[100] bg-purple-900/50 backdrop-blur-sm rounded-lg px-3 py-2 text-xs font-terminal text-purple-300">
+                  Section: {activeSection} | Progress: {Math.round(scrollProgress * 100)}%
+                </div>
+
+                {/* Always render sections - no loading condition */}
                 <AnimatePresence mode="wait" initial={false}>
-                  {/* Hero Section - Fixed for proper rendering */}
-                  {currentSection === 0 && (
+                  {/* About Section 1 */}
+                  {activeSection === 1 && (
                     <motion.div 
-                      key="hero-section"
-                      className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar hero-section"
-                      variants={sectionVariants.hero}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      style={{ 
-                        scrollbarWidth: 'thin',
-                        scrollbarColor: 'rgba(139, 92, 246, 0.5) transparent',
-                        display: 'block !important',
-                        width: '100%',
-                        height: '100%'
-                      }}
-                    >
-                      <div className="w-full h-full p-4 md:p-8 lg:p-12" style={{ display: 'block !important', width: '100%', height: '100%' }}>
-                        <SectionErrorBoundary 
-                          sectionName="Hero"
-                          fallback={
-                            <div className="text-gray-900 dark:text-white w-full h-full flex flex-col items-center justify-center">
-                              <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                                Welcome to My Portfolio
-                              </h1>
-                              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl text-center">
-                                This is a fallback Hero section. Your actual Hero component should appear here.
-                              </p>
-                              <button className="px-8 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
-                                Get Started
-                              </button>
-                            </div>
-                          }
-                        >
-                          <div 
-                            className="hero-content w-full h-full" 
-                            style={{ 
-                              display: 'block !important', 
-                              width: '100%', 
-                              height: '100%',
-                              visibility: 'visible',
-                              opacity: '1'
-                            }}
-                            className="[visibility:visible_!important] [opacity:1_!important]"
-                          >
-                            <Hero />
-                          </div>
-                        </SectionErrorBoundary>
-                      </div>
-                    </motion.div>
-                  )}
-                  
-                  {/* About Section */}
-                  {currentSection === 1 && (
-                    <motion.div 
-                      key="about-section"
+                      key="about-section-1"
                       className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                      variants={sectionVariants.about}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      style={{ 
-                        scrollbarWidth: 'thin',
-                        scrollbarColor: 'rgba(139, 92, 246, 0.5) transparent'
-                      }}
+                      initial={{ opacity: 0, x: -50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 50 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
                     >
-                      <div className="p-12 md:p-16 lg:p-20 xl:p-24">
-                        <div className="w-full max-w-6xl mx-auto [&_section]:!bg-transparent [&_section]:!py-8 [&_section]:!px-0 [&_section]:!min-h-0">
+                      <div className="p-8 md:p-12 lg:p-16 xl:p-20">
+                        <div className="w-full max-w-6xl mx-auto text-white">
                           <SectionErrorBoundary sectionName="About">
-                            <About />
+                            <div className="min-h-[60vh]">
+                              <About />
+                            </div>
                           </SectionErrorBoundary>
                         </div>
                       </div>
                     </motion.div>
                   )}
-                  
+
+                  {/* About Section 2 */}
+                  {activeSection === 2 && (
+                    <motion.div 
+                      key="about-section-2"
+                      className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
+                      initial={{ opacity: 0, x: -50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 50 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                    >
+                      <div className="p-8 md:p-12 lg:p-16 xl:p-20">
+                        <div className="w-full max-w-6xl mx-auto text-white">
+                          <SectionErrorBoundary sectionName="About (Extended)">
+                            <div className="min-h-[60vh]">
+                              {/* Terminal header */}
+                              <div className="mb-8 text-center font-terminal">
+                                <div className="inline-flex items-center space-x-2 px-4 py-2 bg-purple-500/20 rounded-full border border-purple-400/30 mb-4">
+                                  <span className="text-purple-400">{">"}</span>
+                                  <span className="text-purple-300 text-sm font-medium">about --extended</span>
+                                </div>
+                              </div>
+                              
+                              <About />
+                              
+                              {/* Additional content */}
+                              <div className="mt-12 p-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-xl border border-purple-500/20 font-terminal">
+                                <h3 className="text-xl font-semibold text-purple-300 mb-4">
+                                  {">"} Extended Background
+                                </h3>
+                                <p className="text-gray-300 mb-4">
+                                  <span className="text-pink-400">// </span>
+                                  This extended view provides additional insights into my journey as a data scientist.
+                                </p>
+                              </div>
+                            </div>
+                          </SectionErrorBoundary>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
                   {/* Skills Section */}
-                  {currentSection === 2 && (
+                  {activeSection === 3 && (
                     <motion.div 
                       key="skills-section"
                       className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                      variants={sectionVariants.skills}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      style={{ 
-                        scrollbarWidth: 'thin',
-                        scrollbarColor: 'rgba(139, 92, 246, 0.5) transparent'
-                      }}
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -50 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
                     >
-                      <div className="p-12 md:p-16 lg:p-20 xl:p-24">
-                        <div className="w-full max-w-6xl mx-auto [&_section]:!bg-transparent [&_section]:!py-8 [&_section]:!px-0 [&_section]:!min-h-0">
+                      <div className="p-8 md:p-12 lg:p-16 xl:p-20">
+                        <div className="w-full max-w-6xl mx-auto text-white">
                           <SectionErrorBoundary sectionName="Skills">
-                            <Skills />
+                            <div className="min-h-[60vh]">
+                              <Skills />
+                            </div>
                           </SectionErrorBoundary>
                         </div>
                       </div>
                     </motion.div>
                   )}
-                  
+
                   {/* Projects Section */}
-                  {currentSection === 3 && (
+                  {activeSection === 4 && (
                     <motion.div 
                       key="projects-section"
                       className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                      variants={sectionVariants.projects}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      style={{ 
-                        scrollbarWidth: 'thin',
-                        scrollbarColor: 'rgba(139, 92, 246, 0.5) transparent'
-                      }}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -50 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
                     >
-                      <div className="p-12 md:p-16 lg:p-20 xl:p-24">
-                        <div className="w-full max-w-6xl mx-auto [&_section]:!bg-transparent [&_section]:!py-8 [&_section]:!px-0 [&_section]:!min-h-0">
+                      <div className="p-8 md:p-12 lg:p-16 xl:p-20">
+                        <div className="w-full max-w-6xl mx-auto text-white">
                           <SectionErrorBoundary sectionName="Projects">
-                            <Projects />
+                            <div className="min-h-[60vh]">
+                              <Projects />
+                            </div>
                           </SectionErrorBoundary>
                         </div>
                       </div>
                     </motion.div>
                   )}
-                  
+
                   {/* Contact Section */}
-                  {currentSection === 4 && (
+                  {activeSection === 5 && (
                     <motion.div 
                       key="contact-section"
                       className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                      variants={sectionVariants.contact}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      style={{ 
-                        scrollbarWidth: 'thin',
-                        scrollbarColor: 'rgba(139, 92, 246, 0.5) transparent'
-                      }}
+            
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -50 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
                     >
-                      <div className="p-12 md:p-16 lg:p-20 xl:p-24">
-                        <div className="w-full max-w-6xl mx-auto [&_section]:!bg-transparent [&_section]:!py-8 [&_section]:!px-0 [&_section]:!min-h-0">
+                      <div className="p-8 md:p-12 lg:p-16 xl:p-20">
+                        <div className="w-full max-w-6xl mx-auto text-white">
                           <SectionErrorBoundary sectionName="Contact">
-                            <Contact />
+                            <div className="min-h-[60vh]">
+                              <Contact />
+                            </div>
                           </SectionErrorBoundary>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Default terminal prompt */}
+                  {activeSection === 0 && (
+                    <motion.div 
+                      key="waiting-section"
+                      className="w-full h-full flex items-center justify-center"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <div className="text-center font-terminal">
+                        <div className="text-purple-400 text-2xl mb-4 hacker-glow">
+                          {">"} Glass interface ready
+                        </div>
+                        <div className="text-pink-400 text-sm mb-2">
+                          $ scroll --down
+                        </div>
+                        <div className="text-gray-400 text-xs">
+                          Session: {activeSection} | Progress: {Math.round(scrollProgress * 100)}%
                         </div>
                       </div>
                     </motion.div>
@@ -413,81 +430,78 @@ export default function Home() {
                 </AnimatePresence>
               </div>
             </GlassCard>
-          </div>
+          </motion.div>
           
-          {/* Invisible sections for scrolling */}
-          <div className="absolute inset-0 pointer-events-none">
-            <section ref={sectionRefs[0]} className="h-screen" id="hero"></section>
-            <section ref={sectionRefs[1]} className="h-screen" id="about"></section>
-            <section ref={sectionRefs[2]} className="h-screen" id="skills"></section>
-            <section ref={sectionRefs[3]} className="h-screen" id="projects"></section>
-            <section ref={sectionRefs[4]} className="h-screen" id="contact"></section>
-          </div>
-        </div>
-        
-        {/* Scroll Indicators */}
-        <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 flex flex-col items-center space-y-4">
-          {Array.from({ length: 5 }).map((_, index) => (
+        {/* Scroll indicators */}
+        <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-[200] flex flex-col items-center space-y-4">
+          {Array.from({ length: 6 }).map((_, index) => (
             <motion.button
               key={index}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                currentSection === index 
-                  ? 'bg-purple-500/80 shadow-sm shadow-purple-500/30'
-                  : 'bg-gray-400/40 dark:bg-gray-600/40 hover:bg-gray-400/60'
+              className={`w-3 h-3 rounded-sm border transition-all duration-300 ${
+                activeSection === index 
+                  ? 'bg-purple-500 border-purple-400 shadow-lg shadow-purple-500/30'
+                  : 'bg-transparent border-purple-400/40 hover:border-purple-400'
               }`}
-              whileHover={{ scale: 1.3 }}
+              whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => {
                 sectionRefs[index].current?.scrollIntoView({
                   behavior: 'smooth'
                 });
               }}
-            />
+            >
+            </motion.button>
           ))}
         </div>
         
-        {/* Scroll Indicator */}
+        {/* Terminal scroll indicator */}
         <AnimatePresence>
           {currentSection === 0 && (
             <motion.div
-              className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50"
+              className="fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50 font-terminal"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.5 }}
             >
               <div className="flex flex-col items-center">
-                <span className="text-sm font-medium text-slate-600 dark:text-slate-300 mb-2 px-4 py-2 bg-white/30 dark:bg-slate-800/30 backdrop-blur-md rounded-full shadow-sm">
-                  Scroll to explore
-                </span>
+                <div className="px-4 py-2 bg-black/30 backdrop-blur-md rounded-lg border border-purple-400/30 mb-4">
+                  <span className="text-purple-400 text-sm">
+                    {">"} scroll --explore-sections
+                  </span>
+                </div>
                 <motion.div
-                  className="w-6 h-10 rounded-full border-2 border-purple-500/70 dark:border-purple-400/70 flex items-start justify-center p-1 bg-white/20 dark:bg-slate-800/20 backdrop-blur-sm"
-                  animate={{ y: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
+                  className="text-purple-400 text-2xl"
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <motion.div 
-                    className="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full"
-                    animate={{ y: [0, 12, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
-                  />
+                  ▼
                 </motion.div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
+                              {/* Invisible sections for scrolling */}
+                      <div className="absolute inset-0 pointer-events-none">
+                        <section ref={sectionRefs[0]} className="h-screen" id="hero"></section>
+                        <section ref={sectionRefs[1]} className="h-[140vh]" id="about-1"></section>
+                        <section ref={sectionRefs[2]} className="h-[140vh]" id="about-2"></section>
+                        <section ref={sectionRefs[3]} className="h-[140vh]" id="skills"></section>
+                        <section ref={sectionRefs[4]} className="h-[140vh]" id="projects"></section>
+                        <section ref={sectionRefs[5]} className="h-[140vh]" id="contact"></section>
+                      </div>
+                    </div>
         
-        {/* Scroll Progress Indicator */}
-        <div className="fixed bottom-6 right-6 z-50">
+        {/* Terminal progress indicator */}
+        <div className="fixed bottom-6 right-6 z-50 pointer-events-auto">
           <div className="relative">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400/20 to-indigo-500/20 blur-xl transform scale-125 animate-pulse"></div>
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/15 to-indigo-600/15 blur-lg transform scale-110 animate-pulse" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute inset-0 rounded-full bg-white/25 dark:bg-slate-800/25 backdrop-blur-lg border border-white/40 dark:border-slate-700/40 animate-pulse-glow shadow-[0_0_30px_rgba(139,92,246,0.3)]"></div>
-            <div className="relative z-10">
+            <div className="absolute inset-0 rounded-lg bg-black/30 backdrop-blur-lg border border-purple-400/30"></div>
+            <div className="relative z-10 p-3">
               <ScrollProgressCircle 
-                size={64}
-                strokeWidth={3}
+                size={48}
+                strokeWidth={2}
                 color="purple"
-                bgColor="rgba(255,255,255,0.15)"
+                bgColor="rgba(139,92,246,0.2)"
               />
             </div>
           </div>

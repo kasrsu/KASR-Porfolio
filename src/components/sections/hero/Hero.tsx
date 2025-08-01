@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useAnimation, useMotionValue, useTransform, useScroll } from 'framer-motion';
+import { motion, useAnimation, useScroll } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
 import TypewriterComponent from 'typewriter-effect';
 import ParticlesBackground from '../../ui/ParticlesBackground';
+
 interface Shape {
   id: number;
   x: number;
@@ -20,7 +20,8 @@ export default function Hero() {
   const imageRef = useRef<HTMLImageElement>(null);
   const controls = useAnimation();
   const { scrollY } = useScroll();
-  
+  const [isMounted, setIsMounted] = useState(false);
+
   // Generate random shapes for floating elements
   const shapes: Shape[] = [
     { id: 1, x: 15, y: 20, color: 'rgba(168, 85, 247, 0.4)', size: 60, type: 'circle', initialRotation: 0 },
@@ -83,228 +84,181 @@ export default function Hero() {
 
   // Handle mouse movement for floating shapes and 3D effect
   useEffect(() => {
+    setIsMounted(true);
+    
     const handleMouseMove = (e: MouseEvent) => {
-      if (heroRef.current) {
+      if (!heroRef.current || !isMounted) return;
+      
+      try {
         const rect = heroRef.current.getBoundingClientRect();
         setMousePosition({
           x: e.clientX - rect.left,
           y: e.clientY - rect.top,
         });
+      } catch (error) {
+        console.warn('Error handling mouse move in hero:', error);
       }
     };
 
-    const heroElement = heroRef.current;
-    if (heroElement) {
-      heroElement.addEventListener("mousemove", handleMouseMove);
-    }
+    // Add a small delay to ensure the component is fully mounted
+    const timeoutId = setTimeout(() => {
+      const heroElement = heroRef.current;
+      if (heroElement && isMounted) {
+        try {
+          heroElement.addEventListener("mousemove", handleMouseMove, { passive: true });
+        } catch (error) {
+          console.warn('Error adding mouse listener to hero:', error);
+        }
+      }
 
-    // Start animations when component mounts
-    controls.start("visible");
+      // Start animations when component mounts
+      try {
+        controls.start("visible");
+      } catch (error) {
+        console.warn('Error starting animations:', error);
+      }
+    }, 100);
 
     return () => {
+      clearTimeout(timeoutId);
+      setIsMounted(false);
+      const heroElement = heroRef.current;
       if (heroElement) {
-        heroElement.removeEventListener("mousemove", handleMouseMove);
+        try {
+          heroElement.removeEventListener("mousemove", handleMouseMove);
+        } catch (error) {
+          console.warn('Error removing mouse listener from hero:', error);
+        }
       }
     };
-  }, [controls]);
+  }, [controls, isMounted]);
 
   // Parallax effect on scroll
   useEffect(() => {
+    if (!isMounted) return;
+    
     return scrollY.onChange(y => {
-      if (imageRef.current) {
-        imageRef.current.style.transform = `translateY(${y * 0.2}px)`;
+      if (imageRef.current && isMounted) {
+        try {
+          imageRef.current.style.transform = `translateY(${y * 0.2}px)`;
+        } catch (error) {
+          console.warn('Error applying parallax effect:', error);
+        }
       }
     });
-  }, [scrollY]);
+  }, [scrollY, isMounted]);
 
-  // Handle smooth scrolling to sections
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+    try {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } catch (error) {
+      console.warn('Error scrolling to section:', error);
     }
   };
 
-  // Render shape based on type
-  const renderShape = (shape: Shape) => {
-    switch (shape.type) {
-      case 'circle':
-        return (
-          <motion.div
-            key={shape.id}
-            className="absolute rounded-full"
-            style={{
-              left: `${shape.x}%`,
-              top: `${shape.y}%`,
-              backgroundColor: shape.color,
-              width: shape.size,
-              height: shape.size,
-            }}
-            animate={{
-              x: mousePosition.x ? (mousePosition.x - window.innerWidth / 2) / 20 : 0,
-              y: mousePosition.y ? (mousePosition.y - window.innerHeight / 2) / 20 : 0,
-              rotate: [shape.initialRotation, shape.initialRotation + 10, shape.initialRotation],
-            }}
-            transition={{
-              x: { type: "spring", stiffness: 50 },
-              y: { type: "spring", stiffness: 50 },
-              rotate: { duration: 10, repeat: Infinity, ease: "linear" },
-            }}
-          />
-        );
-      case 'square':
-        return (
-          <motion.div
-            key={shape.id}
-            className="absolute"
-            style={{
-              left: `${shape.x}%`,
-              top: `${shape.y}%`,
-              backgroundColor: shape.color,
-              width: shape.size,
-              height: shape.size,
-              borderRadius: '10%',
-            }}
-            animate={{
-              x: mousePosition.x ? (mousePosition.x - window.innerWidth / 2) / 30 : 0,
-              y: mousePosition.y ? (mousePosition.y - window.innerHeight / 2) / 30 : 0,
-              rotate: [shape.initialRotation, shape.initialRotation + 15, shape.initialRotation],
-            }}
-            transition={{
-              x: { type: "spring", stiffness: 40 },
-              y: { type: "spring", stiffness: 40 },
-              rotate: { duration: 15, repeat: Infinity, ease: "linear" },
-            }}
-          />
-        );
-      case 'triangle':
-        return (
-          <motion.div
-            key={shape.id}
-            className="absolute"
-            style={{
-              left: `${shape.x}%`,
-              top: `${shape.y}%`,
-              width: 0,
-              height: 0,
-              borderLeft: `${shape.size / 2}px solid transparent`,
-              borderRight: `${shape.size / 2}px solid transparent`,
-              borderBottom: `${shape.size}px solid ${shape.color}`,
-            }}
-            animate={{
-              x: mousePosition.x ? (mousePosition.x - window.innerWidth / 2) / 25 : 0,
-              y: mousePosition.y ? (mousePosition.y - window.innerHeight / 2) / 25 : 0,
-              rotate: [shape.initialRotation, shape.initialRotation + 20, shape.initialRotation],
-            }}
-            transition={{
-              x: { type: "spring", stiffness: 45 },
-              y: { type: "spring", stiffness: 45 },
-              rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-            }}
-          />
-        );
-      default:
-        return null;
-    }
-  };
+  // Don't render until mounted
+  if (!isMounted) {
+    return (
+      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-center max-w-4xl mx-auto">
+              <div className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6">
+                Loading...
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section 
       id="hero" 
       ref={heroRef}
-      className="relative w-full h-full flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8"
-      style={{ 
-        display: 'flex !important',
-        minHeight: '100%',
-        width: '100%'
-      }}
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Particle background */}
-      <div className="absolute inset-0 z-0">
-        <ParticlesBackground />
-      </div>
-
-      {/* Floating shapes */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {shapes.map(renderShape)}
-      </div>
-
-      <div className="container mx-auto w-full z-10" style={{ display: 'block !important', width: '100%' }}>
-        <div className="grid lg:grid-cols-2 gap-12 items-center w-full" style={{ display: 'grid !important', width: '100%' }}>
-          <div className="text-center lg:text-left w-full">
-            {/* Main title with animation */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 z-10">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center max-w-4xl mx-auto">
+            {/* Main title with terminal styling */}
             <motion.h1 
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4"
+              className="text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-6"
               initial="hidden"
               animate={controls}
               variants={titleVariants}
-              style={{ color: 'inherit !important', opacity: '1 !important', visibility: 'visible !important' }}
             >
-              <span className="block">Hi, I'm</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
+              <span className="block mb-2 font-terminal text-purple-400 hacker-glow">
+                {">"} Hello World
+              </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-purple-600 font-hacker">
                 Anusara Esberger
               </span>
             </motion.h1>
 
             {/* Subtitle with typewriter effect */}
             <motion.div 
-              className="text-xl md:text-2xl mb-6 text-gray-700 dark:text-gray-300"
+              className="text-xl md:text-2xl lg:text-3xl mb-8 text-slate-300 font-typewriter"
               initial="hidden"
               animate={controls}
               variants={subtitleVariants}
-              style={{ color: 'inherit !important', opacity: '1 !important', visibility: 'visible !important' }}
             >
-              <div className="h-8 flex items-center justify-center lg:justify-start">
-                <span className="mr-2">I'm a</span>
+              <div className="h-10 flex items-center justify-center">
+                <span className="mr-2 text-pink-400">$</span>
+                <span className="mr-2">whoami:</span>
                 <TypewriterComponent
                   options={{
                     strings: [
                       'Data Scientist',
-                      'ML Engineer',
+                      'ML Engineer', 
                       'Data Analyst',
-                      'Visualisation Expert'
+                      'Visualisation Expert',
+                      'Terminal Hacker'
                     ],
                     autoStart: true,
                     loop: true,
-                    wrapperClassName: "text-purple-600 font-semibold",
-                    cursorClassName: "text-purple-600"
+                    wrapperClassName: "text-purple-400 font-terminal hacker-glow",
+                    cursorClassName: "text-purple-400"
                   }}
                 />
               </div>
             </motion.div>
 
-            {/* Description */}
+            {/* Description with terminal styling */}
             <motion.p 
-              className="text-gray-600 dark:text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0"
+              className="text-lg text-slate-300 mb-12 max-w-2xl mx-auto font-terminal"
               initial="hidden"
               animate={controls}
               variants={subtitleVariants}
-              style={{ color: 'inherit !important', opacity: '1 !important', visibility: 'visible !important' }}
             >
+              <span className="text-pink-400">// </span>
               Turning complex data into actionable insights and building intelligent systems
               that solve real-world problems. Specializing in machine learning, data visualization,
               and predictive analytics.
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons with terminal styling */}
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
               initial="hidden"
               animate={controls}
               variants={buttonVariants}
-              style={{ display: 'flex !important' }}
             >
               <Button 
                 variant="primary" 
                 size="lg" 
                 onClick={() => scrollToSection('projects')}
-                className="group"
+                className="group bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-2 border-purple-400 hover:from-purple-600/30 hover:to-pink-600/30 text-purple-400 px-8 py-4 rounded-lg font-terminal text-lg shadow-lg hover:shadow-purple-500/50"
                 whileHover={{ 
                   scale: 1.05,
-                  boxShadow: "0px 0px 8px rgba(168, 85, 247, 0.5)"
+                  boxShadow: "0px 0px 20px rgba(139, 92, 246, 0.5)"
                 }}
               >
-                View My Work
+                <span className="mr-2">./</span>view_projects.sh
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
                   className="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" 
@@ -312,55 +266,42 @@ export default function Hero() {
                   viewBox="0 0 24 24" 
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Button>
               <Button 
                 variant="secondary" 
                 size="lg" 
                 onClick={() => scrollToSection('contact')}
+                className="border-2 border-pink-400 text-pink-400 hover:bg-pink-400/20 px-8 py-4 rounded-lg font-terminal text-lg transition-all duration-300"
                 whileHover={{ 
                   scale: 1.05,
-                  boxShadow: "0px 0px 8px rgba(203, 213, 225, 0.3)"
+                  boxShadow: "0px 0px 15px rgba(236, 72, 153, 0.3)"
                 }}
               >
-                Contact Me
+                <span className="mr-2">curl</span>contact.sh
               </Button>
             </motion.div>
           </div>
-
-          {/* Profile image with glow effect */}
-          <motion.div 
-            className="relative flex justify-center lg:justify-end"
-            initial="hidden"
-            animate={controls}
-            variants={profileImageVariants}
-            style={{ display: 'flex !important' }}
-          >
-            <div className="relative w-64 h-64 md:w-80 md:h-80">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full blur-2xl opacity-20 animate-pulse"></div>
-              <motion.img
-                ref={imageRef}
-                src="/profile-image.jpg"
-                alt="Anusara Esberger"
-                variants={profileImageVariants}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0px 0px 25px rgba(168, 85, 247, 0.5)",
-                  transition: {
-                    duration: 0.3,
-                    type: "spring",
-                    stiffness: 300,
-                  },
-                }}
-                className="rounded-full object-cover w-full h-full relative z-10 border-4 border-white dark:border-gray-800"
-                style={{ objectPosition: "center" }}
-              />
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full blur opacity-0 group-hover:opacity-30 transition duration-300"></div>
-            </div>
-          </motion.div>
         </div>
       </div>
+
+      {/* Clean terminal scroll indicator */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        <motion.div
+          className="flex flex-col items-center text-purple-400 font-terminal"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <span className="text-sm mb-2 hacker-glow">{">"} scroll --down</span>
+          <div className="text-purple-400 text-xl">▼</div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
