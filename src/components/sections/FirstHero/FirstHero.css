@@ -1,0 +1,144 @@
+/* Hacker Hero Section Styles */
+#first-hero {
+  --hacker-green: #00ff41;
+  --hacker-blue: #00bfff;
+  --hacker-red: #ff4444;
+  --hacker-yellow: #ffff00;
+  --terminal-bg: transparent;
+  --terminal-border: rgba(0, 255, 65, 0.3);
+  background: transparent !important;
+  padding-top: 8rem !important; /* Add significant top padding */
+  min-height: 100vh !important;
+}
+
+/* Add top margin for content container */
+#first-hero .container {
+  margin-top: 2rem;
+}
+
+/* Lightweight scanline animation */
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Matrix character glow */
+.matrix-char {
+  text-shadow: 0 0 3px var(--hacker-green);
+  animation: matrix-flicker 3s infinite ease-in-out;
+}
+
+@keyframes matrix-flicker {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* Terminal typing cursor */
+.typing-cursor {
+  background-color: var(--hacker-green);
+  animation: cursor-blink 1s infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Button hover effects */
+.hacker-button {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hacker-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.hacker-button:hover::before {
+  left: 100%;
+}
+
+/* ASCII art responsiveness */
+@media (max-width: 768px) {
+  #first-hero pre {
+    font-size: 0.5rem;
+    line-height: 1.2;
+  }
+  
+  #first-hero .text-xs {
+    font-size: 0.7rem;
+  }
+  
+  #first-hero .text-sm {
+    font-size: 0.8rem;
+  }
+  
+  #first-hero {
+    padding-top: 6rem !important;
+  }
+  
+  #first-hero .container {
+    margin-top: 1rem;
+  }
+}
+
+/* Terminal window styling with transparent background */
+.terminal-window {
+  background: rgba(10, 10, 10, 0.8) !important;
+  border: 1px solid var(--terminal-border);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 65, 0.1),
+    inset 0 1px 0 rgba(0, 255, 65, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* Status indicator pulse */
+.status-online {
+  animation: status-pulse 2s infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Responsive top spacing adjustments */
+@media (min-width: 1024px) {
+  #first-hero {
+    padding-top: 10rem !important;
+  }
+  
+  #first-hero .container {
+    margin-top: 3rem;
+  }
+}
+
+/* Lightweight performance optimizations */
+.matrix-char,
+.terminal-window,
+.hacker-button {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .matrix-char,
+  .typing-cursor,
+  .status-online,
+  .hacker-button::before {
+    animation: none !important;
+  }
+  
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

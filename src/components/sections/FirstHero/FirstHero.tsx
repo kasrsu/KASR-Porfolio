@@ -1,0 +1,411 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useAnimation } from 'framer-motion';
+import { Button } from '@/components/ui/Button';
+import TypewriterComponent from 'typewriter-effect';
+
+interface MatrixChar {
+  id: number;
+  char: string;
+  x: number;
+  y: number;
+  speed: number;
+  opacity: number;
+}
+
+interface HackerLine {
+  id: number;
+  text: string;
+  type: 'command' | 'output' | 'success' | 'error';
+  delay: number;
+}
+
+export default function FirstHero() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [currentCommand, setCurrentCommand] = useState(0);
+  const [matrixChars, setMatrixChars] = useState<MatrixChar[]>([]);
+  const [terminalLines, setTerminalLines] = useState<HackerLine[]>([]);
+  const [isTyping, setIsTyping] = useState(true);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const controls = useAnimation();
+  
+  // Hacker terminal commands sequence
+  const hackerCommands: HackerLine[] = [
+    { id: 1, text: "~/portfolio$ whoami", type: 'command', delay: 0 },
+    { id: 2, text: "anusara_esberger", type: 'output', delay: 800 },
+    { id: 3, text: "~/portfolio$ cat /etc/skills", type: 'command', delay: 1600 },
+    { id: 4, text: "✓ Data Science Expert", type: 'success', delay: 2200 },
+    { id: 5, text: "✓ Machine Learning Engineer", type: 'success', delay: 2600 },
+    { id: 6, text: "✓ AI Specialist", type: 'success', delay: 3000 },
+    { id: 7, text: "~/portfolio$ python hack_insights.py", type: 'command', delay: 3800 },
+    { id: 8, text: "[INFO] Connecting to data streams...", type: 'output', delay: 4400 },
+    { id: 9, text: "[SUCCESS] 🚀 Insights extracted!", type: 'success', delay: 5200 },
+    { id: 10, text: "~/portfolio$ sudo ./deploy_awesome", type: 'command', delay: 6000 },
+    { id: 11, text: "Deployment successful! 🎯", type: 'success', delay: 6600 }
+  ];
+
+  // Matrix characters for lightweight background effect
+  const matrixChars_list = "01アカサタナハマヤラワABCDEF";
+
+  // Initialize lightweight matrix effect
+  useEffect(() => {
+    const chars: MatrixChar[] = [];
+    for (let i = 0; i < 30; i++) { // Reduced from 50 to 30 for better performance
+      chars.push({
+        id: i,
+        char: matrixChars_list[Math.floor(Math.random() * matrixChars_list.length)],
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        speed: Math.random() * 0.3 + 0.1, // Slower animation
+        opacity: Math.random() * 0.3 + 0.1 // Lower opacity
+      });
+    }
+    setMatrixChars(chars);
+  }, []);
+
+  // Lightweight matrix animation (reduced frequency)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMatrixChars(prev => prev.map(char => ({
+        ...char,
+        y: char.y > 100 ? -5 : char.y + char.speed,
+        char: Math.random() > 0.98 ? matrixChars_list[Math.floor(Math.random() * matrixChars_list.length)] : char.char,
+        opacity: Math.random() > 0.99 ? Math.random() * 0.3 + 0.1 : char.opacity
+      })));
+    }, 200); // Increased interval for better performance
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Terminal typing sequence
+  useEffect(() => {
+    let timeouts: NodeJS.Timeout[] = [];
+    
+    hackerCommands.forEach((line) => {
+      const timeout = setTimeout(() => {
+        setTerminalLines(prev => [...prev, line]);
+        if (line.id === hackerCommands.length) {
+          setIsTyping(false);
+        }
+      }, line.delay);
+      timeouts.push(timeout);
+    });
+
+    return () => {
+      timeouts.forEach(timeout => clearTimeout(timeout));
+    };
+  }, []);
+
+  // Mouse tracking for subtle glow effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        setMousePosition({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        });
+      }
+    };
+
+    const heroElement = heroRef.current;
+    if (heroElement) {
+      heroElement.addEventListener("mousemove", handleMouseMove);
+    }
+
+    controls.start("visible");
+
+    return () => {
+      if (heroElement) {
+        heroElement.removeEventListener("mousemove", handleMouseMove);
+      }
+    };
+  }, [controls]);
+
+  // Animation variants
+  const titleVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const terminalVariants = {
+    hidden: { opacity: 0, scale: 0.98 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { delay: 0.2, duration: 0.5, ease: "easeOut" },
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { delay: 0.4, duration: 0.4 },
+    },
+  };
+
+  // Handle smooth scrolling to sections
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section 
+      id="first-hero" 
+      ref={heroRef}
+      className="relative w-full h-full flex items-center justify-center overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-transparent pt-24 md:pt-32"
+      style={{ 
+        display: 'flex !important',
+        minHeight: '100vh',
+        width: '100%',
+        fontFamily: "'JetBrains Mono', 'Fira Code', 'Source Code Pro', monospace",
+        paddingTop: '6rem'
+      }}
+    >
+      {/* Lightweight Matrix Rain Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden opacity-15">
+        {matrixChars.map((char) => (
+          <div
+            key={char.id}
+            className="absolute text-purple-400 font-mono text-xs pointer-events-none"
+            style={{
+              left: `${char.x}%`,
+              top: `${char.y}%`,
+              opacity: char.opacity,
+              textShadow: "0 0 3px rgba(0, 255, 65, 0.5)"
+            }}
+          >
+            {char.char}
+          </div>
+        ))}
+      </div>
+
+      {/* Subtle mouse glow effect */}
+      <div
+        className="absolute pointer-events-none rounded-full opacity-20"
+        style={{
+          left: mousePosition.x,
+          top: mousePosition.y,
+          width: 300,
+          height: 300,
+          background: "radial-gradient(circle, rgba(0, 255, 65, 0.1) 0%, transparent 70%)",
+          transform: "translate(-50%, -50%)",
+        }}
+      />
+
+      {/* Lightweight scanlines effect */}
+      <div className="absolute inset-0 z-5 pointer-events-none opacity-5">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 65, 0.1) 2px, rgba(0, 255, 65, 0.1) 4px)",
+          }}
+        />
+      </div>
+
+      <div className="container mx-auto w-full z-10 max-w-6xl">
+        <div className="grid lg:grid-cols-2 gap-8 items-center w-full">
+          {/* Left Side - Main Content */}
+          <div className="text-center lg:text-left w-full space-y-6">
+            {/* Status indicator */}
+            <motion.div 
+              className="flex items-center justify-center lg:justify-start mb-4"
+              initial="hidden"
+              animate={controls}
+              variants={terminalVariants}
+            >
+              <div className="flex items-center bg-gray-900/80 border border-purple-400/30 rounded-full px-3 py-1.5 backdrop-blur-sm">
+                <div className="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></div>
+                <span className="text-purple-400 text-xs font-mono">SYSTEM_ONLINE</span>
+              </div>
+            </motion.div>
+
+            {/* ASCII Art Title */}
+            <motion.div
+              className="font-mono text-purple-400 mb-4"
+              initial="hidden"
+              animate={controls}
+              variants={titleVariants}
+            >
+              <pre className="text-xs sm:text-sm leading-tight opacity-80">
+{`
+
+
+───────────────────────────
+─██████──██████─██████████─
+─██░░██──██░░██─██░░░░░░██─
+─██░░██──██░░██─████░░████─
+─██░░██──██░░██───██░░██───
+─██░░██████░░██───██░░██───
+─██░░░░░░░░░░██───██░░██───
+─██░░██████░░██───██░░██───
+─██░░██──██░░██───██░░██───
+─██░░██──██░░██─████░░████─
+─██░░██──██░░██─██░░░░░░██─
+─██████──██████─██████████─
+───────────────────────────
+`}
+              </pre>
+            </motion.div>
+
+            {/* Main Title */}
+            <motion.h1 
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 font-mono"
+              initial="hidden"
+              animate={controls}
+              variants={titleVariants}
+            >
+              <span className="block text-white">&gt; Anusara Esberger</span>
+              <span className="text-purple-400 text-lg md:text-xl">Data Science Hacker</span>
+            </motion.h1>
+
+            {/* Animated role with lightweight typewriter effect */}
+            <motion.div 
+              className="text-sm md:text-base mb-4 font-mono"
+              initial="hidden"
+              animate={controls}
+              variants={terminalVariants}
+            >
+              <div className="flex items-center justify-center lg:justify-start">
+                <span className="mr-2 text-purple-400">~/specialties$</span>
+                <TypewriterComponent
+                  options={{
+                    strings: [
+                      'ML_Engineering',
+                      'Data_Analysis', 
+                      'AI_Development',
+                      'Deep_Learning'
+                    ],
+                    autoStart: true,
+                    loop: true,
+                    wrapperClassName: "text-blue-400 font-bold",
+                    cursorClassName: "text-purple-400"
+                  }}
+                />
+              </div>
+            </motion.div>
+
+            {/* Description with terminal styling */}
+            <motion.div 
+              className="bg-gray-900/50 border-l-4 border-purple-400 pl-3 py-2 mb-6 max-w-lg mx-auto lg:mx-0"
+              initial="hidden"
+              animate={controls}
+              variants={terminalVariants}
+            >
+              <p className="text-gray-300 font-mono text-xs leading-relaxed">
+                <span className="text-purple-400"># Mission:</span><br/>
+                Extracting intelligence from chaos. Converting raw data<br/>
+                into powerful insights through advanced ML algorithms.
+              </p>
+            </motion.div>
+
+            {/* CTA Buttons with hacker styling */}
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
+              initial="hidden"
+              animate={controls}
+              variants={buttonVariants}
+            >
+              <Button 
+                variant="primary" 
+                size="sm" 
+                onClick={() => scrollToSection('projects')}
+                className="group bg-purple-600 hover:bg-purple-500 border border-purple-400 font-mono text-sm shadow-md shadow-purple-400/20"
+              >
+                ./view_projects.sh
+                <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </Button>
+              <Button 
+                variant="secondary" 
+                size="sm" 
+                onClick={() => scrollToSection('contact')}
+                className="font-mono border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-gray-900 text-sm shadow-md shadow-blue-400/20"
+              >
+                cat contact.info
+              </Button>
+            </motion.div>
+
+            {/* Compact stats */}
+            <motion.div 
+              className="mt-6 grid grid-cols-3 gap-3 text-center font-mono"
+              initial="hidden"
+              animate={controls}
+              variants={buttonVariants}
+            >
+              <div className="bg-gray-900/50 border border-purple-400/20 rounded px-2 py-1.5">
+                <div className="text-purple-400 text-lg font-bold">7+</div>
+                <div className="text-gray-500 text-xs">YRS_EXP</div>
+              </div>
+              <div className="bg-gray-900/50 border border-blue-400/20 rounded px-2 py-1.5">
+                <div className="text-blue-400 text-lg font-bold">50+</div>
+                <div className="text-gray-500 text-xs">PROJECTS</div>
+              </div>
+              <div className="bg-gray-900/50 border border-purple-400/20 rounded px-2 py-1.5">
+                <div className="text-purple-400 text-lg font-bold">15+</div>
+                <div className="text-gray-500 text-xs">TECH_STACK</div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right side - Live terminal */}
+          <motion.div 
+            className="w-full"
+            initial="hidden"
+            animate={controls}
+            variants={terminalVariants}
+          >
+            <div className="bg-gray-900 border border-purple-400/50 rounded-lg p-4 shadow-2xl shadow-purple-400/10 max-h-80 overflow-hidden">
+              <div className="flex items-center mb-3">
+                <div className="flex space-x-1.5">
+                  <div className="w-2.5 h-2.5 bg-red-500 rounded-full"></div>
+                  <div className="w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
+                  <div className="w-2.5 h-2.5 bg-purple-500 rounded-full"></div>
+                </div>
+                <span className="ml-3 text-purple-400 text-xs font-mono">hacker_terminal.sh</span>
+              </div>
+              
+              <div className="space-y-1 text-xs font-mono">
+                {terminalLines.map((line) => (
+                  <motion.div 
+                    key={line.id}
+                    className={`${
+                      line.type === 'command' ? 'text-white' :
+                      line.type === 'success' ? 'text-purple-400' :
+                      line.type === 'error' ? 'text-red-400' :
+                      'text-gray-400'
+                    }`}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {line.type === 'command' && <span className="text-purple-400">$ </span>}
+                    {line.text}
+                  </motion.div>
+                ))}
+                
+                {isTyping && (
+                  <motion.div 
+                    className="flex items-center text-white"
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                  >
+                    <span className="text-purple-400">$ </span>
+                    <span className="ml-1 w-1.5 h-3 bg-purple-400"></span>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

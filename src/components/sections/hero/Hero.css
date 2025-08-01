@@ -81,3 +81,175 @@
   visibility: visible !important;
   display: block !important;
 }
+
+/* Purple Terminal Theme Override */
+#hero {
+  --terminal-primary: #a855f7;
+  --terminal-secondary: #c084fc;
+  --terminal-accent: #e879f9;
+  --terminal-background: #1a0b2e;
+  --terminal-dark: #0f0520;
+  --terminal-light: #f3e8ff;
+  --terminal-glow: rgba(168, 85, 247, 0.5);
+}
+
+/* Override terminal colors with purple theme */
+#hero .text-green-400,
+#hero .border-green-400,
+#hero .bg-green-600,
+#hero .hover\:bg-green-500,
+#hero .shadow-green-400\/25,
+#hero .shadow-green-400\/20 {
+  color: var(--terminal-primary) !important;
+  border-color: var(--terminal-primary) !important;
+  background-color: var(--terminal-primary) !important;
+  box-shadow: 0 0 10px var(--terminal-glow) !important;
+}
+
+#hero .text-green-300 {
+  color: var(--terminal-secondary) !important;
+}
+
+#hero .bg-green-400 {
+  background-color: var(--terminal-primary) !important;
+}
+
+/* Purple matrix background override */
+#hero .absolute.inset-0.z-0.opacity-20 > .absolute.inset-0 {
+  background-image: 
+    linear-gradient(90deg, rgba(168, 85, 247, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(168, 85, 247, 0.1) 1px, transparent 1px) !important;
+}
+
+/* Purple floating shapes */
+#hero .border-green-400 {
+  border-color: var(--terminal-primary) !important;
+}
+
+#hero .border-blue-400 {
+  border-color: var(--terminal-secondary) !important;
+}
+
+/* Terminal window styling with purple theme */
+#hero .bg-gray-800 {
+  background: linear-gradient(135deg, var(--terminal-dark), var(--terminal-background)) !important;
+  border-color: var(--terminal-primary) !important;
+  box-shadow: 0 0 20px var(--terminal-glow) !important;
+}
+
+#hero .bg-gray-900 {
+  background: linear-gradient(135deg, var(--terminal-dark), #1e1b4b) !important;
+  border-color: var(--terminal-primary) !important;
+  box-shadow: 0 0 30px var(--terminal-glow) !important;
+}
+
+/* Purple terminal text styling */
+#hero .font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', monospace !important;
+  text-shadow: 0 0 5px var(--terminal-glow) !important;
+}
+
+/* Purple glow effects */
+#hero .terminal-glow,
+#hero h1,
+#hero .text-4xl,
+#hero .text-5xl,
+#hero .text-6xl {
+  text-shadow: 0 0 10px var(--terminal-glow), 0 0 20px var(--terminal-glow), 0 0 30px var(--terminal-glow) !important;
+}
+
+/* Purple buttons with enhanced glow */
+#hero button {
+  transition: all 0.3s ease !important;
+  border: 2px solid var(--terminal-primary) !important;
+  background: linear-gradient(135deg, var(--terminal-primary), var(--terminal-secondary)) !important;
+  box-shadow: 0 0 15px var(--terminal-glow) !important;
+}
+
+#hero button:hover {
+  box-shadow: 0 0 25px var(--terminal-glow), 0 0 35px var(--terminal-glow) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Purple terminal stats boxes */
+#hero .bg-gray-800\/50 {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(192, 132, 252, 0.1)) !important;
+  border: 1px solid var(--terminal-primary) !important;
+  box-shadow: inset 0 0 10px var(--terminal-glow) !important;
+}
+
+/* Code block purple theme */
+#hero pre {
+  background: linear-gradient(135deg, var(--terminal-dark), #1e1b4b) !important;
+  color: var(--terminal-secondary) !important;
+  text-shadow: 0 0 5px var(--terminal-glow) !important;
+}
+
+/* Purple typewriter effect */
+#hero .Typewriter__wrapper {
+  color: var(--terminal-accent) !important;
+  text-shadow: 0 0 8px var(--terminal-glow) !important;
+}
+
+#hero .Typewriter__cursor {
+  color: var(--terminal-primary) !important;
+  text-shadow: 0 0 5px var(--terminal-glow) !important;
+}
+
+/* Enhanced purple terminal animations */
+@keyframes purple-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 5px var(--terminal-glow),
+      0 0 10px var(--terminal-glow),
+      0 0 15px var(--terminal-glow);
+  }
+  50% {
+    box-shadow: 
+      0 0 10px var(--terminal-glow),
+      0 0 20px var(--terminal-glow),
+      0 0 30px var(--terminal-glow);
+  }
+}
+
+#hero .animate-pulse {
+  animation: purple-pulse 2s ease-in-out infinite !important;
+}
+
+/* Purple scrolling text effects */
+#hero .bg-gradient-to-r {
+  background: linear-gradient(135deg, var(--terminal-primary), var(--terminal-secondary), var(--terminal-accent)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+/* Purple matrix rain effect (if implemented) */
+#hero .matrix-rain {
+  color: var(--terminal-primary) !important;
+  text-shadow: 0 0 5px var(--terminal-glow) !important;
+}
+
+/* Responsive purple adjustments */
+@media (max-width: 768px) {
+  #hero .text-4xl,
+  #hero .text-5xl {
+    text-shadow: 0 0 8px var(--terminal-glow) !important;
+  }
+  
+  #hero button {
+    box-shadow: 0 0 10px var(--terminal-glow) !important;
+  }
+}
+
+/* Purple focus states */
+#hero *:focus {
+  outline: 2px solid var(--terminal-primary) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 10px var(--terminal-glow) !important;
+}
+
+/* Purple selection */
+#hero ::selection {
+  background-color: var(--terminal-glow) !important;
+  color: var(--terminal-light) !important;
+}

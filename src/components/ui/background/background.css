@@ -1,143 +1,104 @@
-/* Matrix background styles */
+/* Enhanced dark background with purple scroll effects */
 .matrix-bg {
-  background-color: #050505;
-  position: relative;
-  overflow: hidden;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9) 0%, #000000 100%);
 }
 
-.matrix-bg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%);
-  animation: matrix-pulse 4s ease-in-out infinite alternate;
-}
-
-@keyframes matrix-pulse {
-  0% { opacity: 0.3; }
-  100% { opacity: 0.7; }
-}
-
-/* Cyber background styles */
 .cyber-bg {
-  background-color: #070724;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #1a0a2e 100%);
 }
 
-.cyber-bg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, transparent 25%),
-    linear-gradient(225deg, rgba(192, 132, 252, 0.12) 0%, transparent 25%);
-  animation: cyber-pulse 6s ease-in-out infinite alternate;
-}
-
-@keyframes cyber-pulse {
-  0% { opacity: 0.2; }
-  100% { opacity: 0.6; }
-}
-
-/* Minimal background */
 .minimal-bg {
-  background-color: #0c0c0c;
-  position: relative;
+  background: #000000;
 }
 
-/* Gradient background */
 .gradient-bg {
-  background: linear-gradient(135deg, #0f0f29 0%, #1e1b4b 50%, #312e81 100%);
-  position: relative;
+  background: radial-gradient(ellipse at top, #000000 0%, #0a0a0a 50%, #1a0b2e 100%);
 }
 
-/* Scan lines effect - enhanced for better performance */
-.scan-lines::after {
+/* Enhanced scan lines with purple tint */
+.scan-lines::before {
   content: '';
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    transparent 50%, 
-    rgba(56, 189, 248, 0.03) 50%
-  );
-  background-size: 100% 4px;
   pointer-events: none;
-  animation: scan 0.1s linear infinite;
-  will-change: transform;
-  z-index: 2;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(139, 92, 246, 0.03) 2px,
+    rgba(139, 92, 246, 0.03) 4px
+  );
+  opacity: 0.6;
+  animation: scanlineMove 0.1s linear infinite;
+  z-index: 1;
 }
 
-@keyframes scan {
-  0% { transform: translateY(0); }
+@keyframes scanlineMove {
+  0% { transform: translateY(0px); }
   100% { transform: translateY(4px); }
 }
 
-/* Interactive glow effects */
-.interactive-glow {
-  pointer-events: none;
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(50px);
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  mix-blend-mode: screen;
-  will-change: transform, left, top;
+/* Enhanced grid pattern */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
-/* Particle effect support */
-.particles-container {
-  z-index: 1;
-  pointer-events: none;
+/* Purple glow animations */
+@keyframes purpleGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.4);
+  }
 }
 
-/* Enhanced custom scrollbar styles */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(139, 92, 246, 0.5) rgba(0, 0, 0, 0.1);
+.animate-purple-glow {
+  animation: purpleGlow 3s ease-in-out infinite;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Darker overlay classes */
+.bg-overlay-dark {
+  background: rgba(0, 0, 0, 0.8);
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+.bg-overlay-darker {
+  background: rgba(0, 0, 0, 0.9);
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(139, 92, 246, 0.6), rgba(124, 58, 237, 0.8));
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.2s ease;
+.bg-overlay-darkest {
+  background: rgba(0, 0, 0, 0.95);
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(139, 92, 246, 0.8), rgba(124, 58, 237, 1));
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+/* Purple scroll reveal effects */
+.purple-reveal-light {
+  background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1));
+}
+
+.purple-reveal-medium {
+  background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.2));
+}
+
+.purple-reveal-strong {
+  background: linear-gradient(45deg, rgba(139, 92, 246, 0.4), rgba(168, 85, 247, 0.4));
+}
+
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
 }
 
 /* Performance optimizations */
-@media (prefers-reduced-motion: reduce) {
-  .scan-lines::after {
-    animation: none;
-  }
-  
-  .matrix-bg::before,
-  .cyber-bg::before {
-    animation: none;
-  }
+.matrix-bg,
+.cyber-bg,
+.minimal-bg,
+.gradient-bg {
+  will-change: background, opacity;
+  backface-visibility: hidden;
 }

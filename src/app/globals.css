@@ -69,9 +69,78 @@ body {
   }
 }
 
+/* Subtle breathing animation */
+@keyframes subtle-breath {
+  0%, 100% {
+    background-opacity: 1;
+    border-opacity: 0.35;
+  }
+  50% {
+    background-opacity: 0.9;
+    border-opacity: 0.45;
+  }
+}
+
+/* Subtle border glow animation */
+@keyframes subtle-border-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Gentle shimmer effect */
+@keyframes gentle-shimmer {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
 /* Global animation classes */
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-subtle-breath {
+  animation: subtle-breath 4s ease-in-out infinite;
+}
+
+.animate-subtle-border-glow {
+  animation: subtle-border-glow 3s ease-in-out infinite;
+}
+
+.animate-gentle-shimmer {
+  animation: gentle-shimmer 8s ease-in-out infinite;
+}
+
+.animate-subtle-glow {
+  animation: subtle-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes subtle-glow {
+  0%, 100% {
+    border-opacity: 0.35;
+    box-shadow: 
+      0 8px 32px 0 rgba(139, 92, 246, 0.08),
+      0 0 0 1px rgba(139, 92, 246, 0.12);
+  }
+  50% {
+    border-opacity: 0.5;
+    box-shadow: 
+      0 12px 40px 0 rgba(139, 92, 246, 0.15),
+      0 0 0 1px rgba(139, 92, 246, 0.2),
+      0 0 15px rgba(139, 92, 246, 0.1);
+  }
 }
 
 /* Performance optimizations */
