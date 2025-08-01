@@ -333,7 +333,7 @@ export default function Skills() {
     <section 
       id="skills" 
       ref={sectionRef}
-      className="py-20 px-4 bg-gray-50 dark:bg-gray-900"
+      className="py-20 px-4 bg-transparent"
     >
       <div className="container mx-auto">
         {/* Section Header */}

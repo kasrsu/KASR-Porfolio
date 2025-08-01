@@ -1,0 +1,143 @@
+/* Matrix background styles */
+.matrix-bg {
+  background-color: #050505;
+  position: relative;
+  overflow: hidden;
+}
+
+.matrix-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%);
+  animation: matrix-pulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes matrix-pulse {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.7; }
+}
+
+/* Cyber background styles */
+.cyber-bg {
+  background-color: #070724;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, transparent 25%),
+    linear-gradient(225deg, rgba(192, 132, 252, 0.12) 0%, transparent 25%);
+  animation: cyber-pulse 6s ease-in-out infinite alternate;
+}
+
+@keyframes cyber-pulse {
+  0% { opacity: 0.2; }
+  100% { opacity: 0.6; }
+}
+
+/* Minimal background */
+.minimal-bg {
+  background-color: #0c0c0c;
+  position: relative;
+}
+
+/* Gradient background */
+.gradient-bg {
+  background: linear-gradient(135deg, #0f0f29 0%, #1e1b4b 50%, #312e81 100%);
+  position: relative;
+}
+
+/* Scan lines effect - enhanced for better performance */
+.scan-lines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 50%, 
+    rgba(56, 189, 248, 0.03) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: scan 0.1s linear infinite;
+  will-change: transform;
+  z-index: 2;
+}
+
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Interactive glow effects */
+.interactive-glow {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  mix-blend-mode: screen;
+  will-change: transform, left, top;
+}
+
+/* Particle effect support */
+.particles-container {
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Enhanced custom scrollbar styles */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 92, 246, 0.5) rgba(0, 0, 0, 0.1);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.6), rgba(124, 58, 237, 0.8));
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.8), rgba(124, 58, 237, 1));
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .scan-lines::after {
+    animation: none;
+  }
+  
+  .matrix-bg::before,
+  .cyber-bg::before {
+    animation: none;
+  }
+}

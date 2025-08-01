@@ -254,7 +254,7 @@ export default function About() {
     <section 
       id="about" 
       ref={sectionRef}
-      className="py-20 px-4 bg-gray-50 dark:bg-gray-900"
+      className="py-20 px-4 bg-transparent"
     >
       <div className="container mx-auto">
         <motion.div
