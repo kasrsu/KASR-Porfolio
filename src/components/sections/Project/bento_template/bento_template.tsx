@@ -144,14 +144,18 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
     }
   };
 
-  // Check if this is a large card (spans both columns and rows)
+  // Check if this is a large, wide, or tall card
   const isLargeCard = colSpan >= 2 && rowSpan >= 2;
   const isWideCard = colSpan >= 2 && rowSpan < 2;
   const isTallCard = rowSpan >= 2 && colSpan < 2;
-
+  
   return (
     <motion.div
       {...motionProps}
+      style={{
+        ...cardStyle,
+        // Remove any explicit height settings to let the container determine height
+      }}
     >
       {/* Glass Background Layers */}
       <div className="bento-glass-bg">
@@ -160,16 +164,13 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
         <div className="glass-layer-3"></div>
       </div>
 
-      {/* Animated Border */}
-      <div className="bento-border-gradient"></div>
-      
-      {/* Holographic Overlay */}
-      <div className="holographic-overlay"></div>
-
       {/* Main Content */}
-      <div className="bento-content">
+      <div className="bento-content" style={{ position: 'relative', height: '100%' }}>
         {/* Image Section */}
-        <div className={`bento-image-container ${isLargeCard ? 'bento-image-large' : ''}`}>
+        <div 
+          className={`bento-image-container ${isLargeCard ? 'bento-large-image' : ''}`}
+          style={{ height: '50%' }}
+        >
           <div className="bento-image-wrapper">
             {/* Loading Spinner */}
             {!isImageLoaded && (
@@ -178,7 +179,7 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
               </div>
             )}
             
-            {/* Project Image */}
+            {/* Project Image with enhanced hover effect for large cards */}
             <Image
               src={project.thumbnail}
               alt={project.title}
@@ -186,31 +187,35 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
               className={cn(
                 "object-cover rounded-lg transition-all duration-300",
                 !isImageLoaded && "opacity-0",
-                isHovered && "scale-110 brightness-110"
+                isHovered && (isLargeCard ? "scale-105 brightness-110" : "scale-110 brightness-110")
               )}
               onLoad={() => setIsImageLoaded(true)}
               onError={() => setIsImageLoaded(true)}
+              priority={isLargeCard} // Prioritize loading for large card images
             />
             
-            {/* Category Badge */}
-            <div className="category-badge">
+            {/* Enhanced Category Badge for large cards */}
+            <div className={cn(
+              "category-badge",
+              isLargeCard && "category-badge-large"
+            )}>
               {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
             </div>
           </div>
         </div>
 
         {/* Text Content */}
-        <div className="bento-text-content">
+        <div className="bento-text-content" style={{ height: 'calc(50% - 0.5rem)' }}>
           <h3 className="bento-title">
             {project.title}
           </h3>
           
-          {/* Summary - Reduced clamp lines */}
-          <p className={`bento-description ${isLargeCard ? 'bento-description-large' : isWideCard || isTallCard ? 'bento-description-medium' : ''}`}>
+          {/* Summary - Use the variables for conditional classes */}
+          <p className={`bento-description ${isLargeCard ? 'bento-description-large' : (isWideCard || isTallCard) ? 'bento-description-medium' : ''}`}>
             {project.summary || project.description}
           </p>
 
-          {/* Project Points - Only show on larger cards, reduced count */}
+          {/* Project Points */}
           {(colSpan > 1 || rowSpan > 1) && project.points && project.points.length > 0 && (
             <div className="bento-points">
               {project.points.slice(0, isLargeCard ? 2 : 1).map((point, pointIndex) => (
@@ -232,7 +237,7 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
             </div>
           )}
 
-          {/* Tech Stack - Reduced count */}
+          {/* Tech Stack - Use the variables for conditional slicing */}
           <div className="tech-pills">
             {project.technologies.slice(0, isLargeCard ? 4 : isWideCard ? 3 : 2).map((tech, techIndex) => (
               <motion.span 
@@ -275,3 +280,4 @@ export function BentoGrid({ projects, onProjectClick }: BentoTemplateProps) {
     />
   );
 }
+
