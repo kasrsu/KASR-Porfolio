@@ -19,12 +19,20 @@ export const projects: Project[] = [
   {
     id: 'proj-1',
     title: 'AI-Powered Educational Guidance System',
-    description: 'Engineered a revolutionary AI chatbot using Ollamal and Neo4j for semantic search, analyzing user prompts to deliver personalized, resource-rich course recommendations for IT students.',
-    summary: 'An AI-driven solution that boosted user engagement by 35% and optimized learning paths for IT students.',
+    description: `Engineered a revolutionary AI chatbot using Ollamal and Neo4j for semantic search, 
+analyzing user prompts to deliver personalized, resource-rich course recommendations for IT students.`,
+    summary: `
+
+🕸 Neo4j Knowledge Graph
+ Every course, module, topic, and skill is structured in a graph.
+ Recommendations are contextual, not clickbait.
+
+`,
     points: [
       'Developed a semantic search engine using Neo4j graph database.',
       'Integrated Ollamal for natural language understanding and response generation.',
-      'Conducted user testing to refine chatbot interactions and improve recommendations.'
+      'Conducted user testing to refine chatbot interactions and improve recommendations.',
+ 
     ],
     thumbnail: '/projects/ai-education-thumb.jpg',
     images: [
@@ -43,8 +51,9 @@ export const projects: Project[] = [
   {
     id: 'proj-2',
     title: 'Interactive COVID-19 Dashboard',
-    description: 'Created a real-time interactive dashboard tracking global COVID-19 statistics. The dashboard includes visualizations of cases, recoveries, and vaccinations with filtering capabilities by country and time period.',
-    summary: 'A data visualization tool that provided critical insights during the pandemic, used by over 10,000 people.',
+    description: `Created a real-time interactive dashboard tracking global COVID-19 statistics. 
+The dashboard includes visualizations of cases, recoveries, and vaccinations with filtering capabilities by country and time period.`,
+    summary: `A data visualization tool that provided critical insights during the pandemic, used by over 10,000 people.`,
     points: [
       'Developed a semantic search engine using Neo4j graph database.',
       'Integrated Ollamal for natural language understanding and response generation.',
@@ -66,8 +75,9 @@ export const projects: Project[] = [
   {
     id: 'proj-3',
     title: 'Sentiment Analysis for Product Reviews',
-    description: 'Implemented an NLP solution to analyze customer reviews for e-commerce products. The system categorizes reviews by sentiment, extracts key topics, and highlights areas for product improvement.',
-    summary: 'An NLP system that helped increase product ratings by identifying and addressing customer pain points.',
+    description: `Implemented an NLP solution to analyze customer reviews for e-commerce products. 
+The system categorizes reviews by sentiment, extracts key topics, and highlights areas for product improvement.`,
+    summary: `An NLP system that helped increase product ratings by identifying and addressing customer pain points.`,
     points: [
       'Developed a semantic search engine using Neo4j graph database.',
       'Integrated Ollamal for natural language understanding and response generation.',
@@ -89,8 +99,9 @@ export const projects: Project[] = [
   {
     id: 'proj-4',
     title: 'Sales Forecasting System',
-    description: 'Developed a time series forecasting model to predict sales for a retail chain. The model accounts for seasonality, trends, and external factors like promotions and holidays.',
-    summary: 'A forecasting tool that improved inventory management and reduced stockouts by 35%.',
+    description: `Developed a time series forecasting model to predict sales for a retail chain. 
+The model accounts for seasonality, trends, and external factors like promotions and holidays.`,
+    summary: `A forecasting tool that improved inventory management and reduced stockouts by 35%.`,
     points: [
       'Developed a semantic search engine using Neo4j graph database.',
       'Integrated Ollamal for natural language understanding and response generation.',
@@ -111,13 +122,14 @@ export const projects: Project[] = [
   {
     id: 'proj-5',
     title: 'Credit Risk Assessment',
-    description: 'Built a machine learning pipeline to assess credit risk for loan applications. The model evaluates applicant data and provides a risk score with explanatory factors.',
+    description: `Built a machine learning pipeline to assess credit risk for loan applications. 
+The model evaluates applicant data and provides a risk score with explanatory factors.`,
     points: [
       'Developed a semantic search engine using Neo4j graph database.',
       'Integrated Ollamal for natural language understanding and response generation.',
       'Conducted user testing to refine chatbot interactions and improve recommendations.'
     ],
-    summary: 'An ML solution that increased approval accuracy by 15% while reducing default rates.',
+    summary: `An ML solution that increased approval accuracy by 15% while reducing default rates.`,
     thumbnail: '/projects/credit-risk-thumb.jpg',
     images: [
       '/projects/credit-risk-1.jpg',
@@ -134,8 +146,9 @@ export const projects: Project[] = [
   {
     id: 'proj-6',
     title: 'Research: Attention Mechanisms in NLP',
-    description: 'Conducted research on novel attention mechanisms for transformer-based language models. Proposed a new approach for more efficient context handling in large documents.',
-    summary: 'A research project that contributed to improving long-document processing in NLP applications.',
+    description: `Conducted research on novel attention mechanisms for transformer-based language models. 
+Proposed a new approach for more efficient context handling in large documents.`,
+    summary: `A research project that contributed to improving long-document processing in NLP applications.`,
     points: [
       'Developed a semantic search engine using Neo4j graph database.',
       'Integrated Ollamal for natural language understanding and response generation.',

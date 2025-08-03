@@ -107,30 +107,51 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
     gridRow: `span ${Math.min(rowSpan, 2)}`,
   };
 
+  // Generate CSS classes based on card size
+  const getCardSizeClass = () => {
+    const classes = ['bento-card'];
+    
+    if (colSpan >= 2) classes.push('bento-card-wide');
+    if (rowSpan >= 2) classes.push('bento-card-tall');
+    if (colSpan >= 2 && rowSpan >= 2) classes.push('bento-card-large');
+    
+    return classes.join(' ');
+  };
+
+  // Clean motion props to avoid DOM warnings
+  const motionProps = {
+    ref: cardRef,
+    className: getCardSizeClass(),
+    style: {
+      ...cardStyle,
+      rotateX: isHovered ? rotateX : 0,
+      rotateY: isHovered ? rotateY : 0,
+      transformStyle: "preserve-3d" as const,
+    },
+    onMouseMove: handleMouseMove,
+    onMouseEnter: () => setIsHovered(true),
+    onMouseLeave: handleMouseLeave,
+    onClick: onClick,
+    whileHover: { scale: 1.02 },
+    whileTap: { scale: 0.98 },
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { 
+      type: "spring" as const, 
+      stiffness: 300, 
+      damping: 20,
+      delay: index * 0.1 
+    }
+  };
+
+  // Check if this is a large card (spans both columns and rows)
+  const isLargeCard = colSpan >= 2 && rowSpan >= 2;
+  const isWideCard = colSpan >= 2 && rowSpan < 2;
+  const isTallCard = rowSpan >= 2 && colSpan < 2;
+
   return (
     <motion.div
-      ref={cardRef}
-      className="bento-card"
-      style={{
-        ...cardStyle,
-        rotateX: isHovered ? rotateX : 0,
-        rotateY: isHovered ? rotateY : 0,
-        transformStyle: "preserve-3d",
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 20,
-        delay: index * 0.1 
-      }}
+      {...motionProps}
     >
       {/* Glass Background Layers */}
       <div className="bento-glass-bg">
@@ -148,7 +169,7 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
       {/* Main Content */}
       <div className="bento-content">
         {/* Image Section */}
-        <div className="bento-image-container">
+        <div className={`bento-image-container ${isLargeCard ? 'bento-image-large' : ''}`}>
           <div className="bento-image-wrapper">
             {/* Loading Spinner */}
             {!isImageLoaded && (
@@ -184,45 +205,60 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
             {project.title}
           </h3>
           
-          {/* Always show summary */}
-          <p className="bento-description">
+          {/* Summary - Reduced clamp lines */}
+          <p className={`bento-description ${isLargeCard ? 'bento-description-large' : isWideCard || isTallCard ? 'bento-description-medium' : ''}`}>
             {project.summary || project.description}
           </p>
 
-          {/* Project Points - Only for larger cards, with adjusted spacing */}
+          {/* Project Points - Only show on larger cards, reduced count */}
           {(colSpan > 1 || rowSpan > 1) && project.points && project.points.length > 0 && (
             <div className="bento-points">
-              {project.points.slice(0, 3).map((point, pointIndex) => (
+              {project.points.slice(0, isLargeCard ? 2 : 1).map((point, pointIndex) => (
                 <div 
                   key={`point-${pointIndex}`}
                   className="bento-point-item"
                 >
                   <div className="bento-point-bullet"></div>
-                  <span className="bento-point-text">{point}</span>
+                  <span className="bento-point-text">
+                    {point}
+                  </span>
                 </div>
               ))}
-              {project.points.length > 3 && (
+              {project.points.length > (isLargeCard ? 2 : 1) && (
                 <div className="bento-point-more">
-                  +{project.points.length - 3} more insights
+                  +{project.points.length - (isLargeCard ? 2 : 1)} more
                 </div>
               )}
             </div>
           )}
 
-          {/* Tech Stack */}
+          {/* Tech Stack - Reduced count */}
           <div className="tech-pills">
-            {project.technologies.slice(0, 3).map((tech, techIndex) => (
-              <span 
+            {project.technologies.slice(0, isLargeCard ? 4 : isWideCard ? 3 : 2).map((tech, techIndex) => (
+              <motion.span 
                 key={`${tech}-${techIndex}`}
                 className="tech-pill"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ 
+                  delay: 0.1 + techIndex * 0.05,
+                  type: "spring",
+                  stiffness: 200
+                }}
+                whileHover={{ scale: 1.05 }}
               >
+                <span className="tech-pill-icon">⚡</span>
                 {tech}
-              </span>
+              </motion.span>
             ))}
-            {project.technologies.length > 3 && (
-              <span className="tech-pill-more">
-                +{project.technologies.length - 3}
-              </span>
+            {project.technologies.length > (isLargeCard ? 4 : isWideCard ? 3 : 2) && (
+              <motion.span 
+                className="tech-pill-more"
+                whileHover={{ scale: 1.05 }}
+              >
+                <span className="tech-pill-icon">+</span>
+                {project.technologies.length - (isLargeCard ? 4 : isWideCard ? 3 : 2)}
+              </motion.span>
             )}
           </div>
         </div>
@@ -239,4 +275,3 @@ export function BentoGrid({ projects, onProjectClick }: BentoTemplateProps) {
     />
   );
 }
-      
