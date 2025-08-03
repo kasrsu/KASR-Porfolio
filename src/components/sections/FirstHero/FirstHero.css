@@ -142,3 +142,89 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Terminal loading styles */
+.terminal-text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.terminal-text .cursor {
+  display: inline-block;
+  background-color: var(--hacker-green);
+  color: var(--hacker-green);
+  margin-left: 2px;
+  width: 8px;
+  height: 1em;
+  text-shadow: 0 0 5px var(--hacker-green);
+}
+
+/* Enhanced terminal window for loading */
+.terminal-window {
+  background: rgba(10, 10, 10, 0.95) !important;
+  border: 1px solid var(--terminal-border);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 65, 0.2),
+    inset 0 1px 0 rgba(0, 255, 65, 0.1);
+  backdrop-filter: blur(15px);
+}
+
+/* Loading screen specific animations */
+.terminal-window .matrix-char {
+  animation: matrix-flicker 2s infinite ease-in-out;
+}
+
+/* Glitch effect for loading completion */
+@keyframes glitch {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+}
+
+.system-ready {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Loading spinner animation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Enhanced scanline for loading */
+.loading-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--hacker-green), transparent);
+  animation: scan-loading 2s linear infinite;
+}
+
+@keyframes scan-loading {
+  0% { top: 0%; opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Main content fade-in after loading */
+#first-hero.loaded {
+  animation: fadeInContent 1s ease-out;
+}
+
+@keyframes fadeInContent {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

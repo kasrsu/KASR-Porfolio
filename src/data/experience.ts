@@ -32,22 +32,22 @@ export interface Education {
 export const statistics: Statistic[] = [
   {
     icon: 'project-diagram',
-    value: 50,
+    value: 10,
     label: 'Projects Completed'
   },
   {
     icon: 'users',
-    value: 25,
+    value: 7,
     label: 'Happy Clients'
   },
   {
     icon: 'laptop-code',
-    value: 7,
+    value: 3,
     label: 'Years Experience'
   },
   {
     icon: 'award',
-    value: 12,
+    value: 5,
     label: 'Awards & Certifications'
   }
 ];
@@ -55,55 +55,72 @@ export const statistics: Statistic[] = [
 export const workExperiences: WorkExperience[] = [
   {
     id: 'exp1',
-    title: 'Lead Data Scientist',
-    company: 'TechCorp Analytics',
-    location: 'Vienna, Austria',
-    startDate: 'Jan 2022',
-    endDate: 'Present',
-    description: 'Leading a team of data scientists to develop machine learning solutions for enterprise clients.',
+    title: 'Primary Education',
+    company: 'Prince of Wales College',
+    location: 'Moratuwa, Colombo',
+    startDate: '2000',
+    endDate: '2006',
+    description: 'Excelled in primary education, demonstrating strong academic abilities from an early age.',
     responsibilities: [
-      'Managed a team of 5 data scientists, setting technical direction and ensuring delivery quality',
-      'Designed and implemented machine learning pipelines for predictive maintenance, reducing equipment downtime by 35%',
-      'Created NLP models to analyze customer feedback, improving product recommendations by 28%',
-      'Presented technical findings to C-level executives and translated business requirements into data science solutions'
+      'Served as Grade 5 Class Prefect, developing leadership skills',
+      'Passed the competitive Grade 5 Scholarship Examination',
+      'Achieved excellent results in primary education examinations',
+      'Recognized for outstanding performance in mathematics and science'
     ],
-    skills: ['Team Leadership', 'Machine Learning', 'NLP', 'Python', 'AWS', 'Project Management'],
-    logo: '/images/companies/techcorp.png'
+    skills: ['Academic Excellence', 'Leadership', 'Mathematics', 'Science'],
+    logo: '/images/companies/pow-college.png'
   },
   {
     id: 'exp2',
-    title: 'Senior Data Scientist',
-    company: 'FinTech Innovations',
-    location: 'Berlin, Germany',
-    startDate: 'Mar 2019',
-    endDate: 'Dec 2021',
-    description: 'Developed machine learning models for fraud detection and credit risk assessment.',
+    title: 'GCE O/levels',
+    company: 'Prince of Wales College',
+    location: 'Moratuwa, Colombo',
+    startDate: '2006',
+    endDate: '2018',
+    description: 'Introvert student who excelled in mathematics and science subjects.',
     responsibilities: [
-      'Built and deployed fraud detection system using ensemble methods, reducing fraud losses by 42%',
-      'Created credit scoring models using gradient boosting, improving approval accuracy by 15%',
-      'Implemented data pipelines using Apache Airflow and AWS services',
-      'Collaborated with product teams to integrate ML solutions into customer-facing applications'
+      'Successfully passed GCE O/Level examinations with strong results',
+      'Participated in mathematics competitions and science exhibitions'
     ],
-    skills: ['Fraud Detection', 'Risk Modeling', 'Python', 'SQL', 'AWS', 'Gradient Boosting'],
-    logo: '/images/companies/fintech.png'
+    skills: ['Mathematics', 'Science', 'Critical Thinking', 'Problem Solving'],
+    logo: '/images/companies/pow-college.png'
   },
   {
     id: 'exp3',
-    title: 'Data Scientist',
-    company: 'Global Retail Analytics',
-    location: 'Prague, Czech Republic',
-    startDate: 'Jun 2017',
-    endDate: 'Feb 2019',
-    description: 'Analyzed customer behavior data to optimize marketing campaigns and improve customer retention.',
+    title: 'GCE A/levels',
+    company: 'Prince of Wales College',
+    location: 'Moratuwa, Colombo',
+    startDate: '2018',
+    endDate: '2020',
+    description: 'Completed advanced studies in Mathematics stream with IT specialization.',
     responsibilities: [
-      'Developed customer segmentation models using clustering algorithms',
-      'Built recommendation systems that increased cross-sell revenue by 22%',
-      'Created interactive dashboards using Tableau for business stakeholders',
-      'Conducted A/B tests to optimize marketing campaigns'
+      'Successfully passed GCE A/Level examinations with a Z-score of 0.35',
+      'Specialized in Mathematics and IT subjects',
+      'Developed strong analytical and problem-solving skills',
+      'Participated in programming competitions and IT projects'
     ],
-    skills: ['Customer Analytics', 'Recommendation Systems', 'A/B Testing', 'R', 'Python', 'Tableau'],
-    logo: '/images/companies/retail.png'
-  }
+    skills: ['Advanced Mathematics', 'IT', 'Programming', 'Analytical Thinking', 'Problem Solving'],
+    logo: '/images/companies/pow-college.png'
+  },
+  {
+    id: 'exp4',
+    title: 'BSc (Hons) in Data Science',
+    company: 'NSBM Green University / Plymouth University',
+    location: 'Homagama, Sri Lanka',
+    startDate: '2021',
+    endDate: 'Present',
+    description: 'Pursuing honors degree in Data Science offered in collaboration with Plymouth University (UK).',
+    responsibilities: [
+      'Maintaining strong academic performance across core data science subjects',
+      'Completing coursework in statistics, machine learning, and data visualization',
+      'Participating in data analysis projects and research initiatives',
+      'Developing practical skills in Python, R, and SQL programming',
+      'Collaborating with peers on team-based data science challenges'
+    ],
+    skills: ['Data Science', 'Machine Learning', 'Statistical Analysis', 'Python', 'R', 'SQL', 'Data Visualization'],
+    logo: '/images/companies/nsbm-plymouth.png'
+  },
+
 ];
 
 export const education: Education[] = [

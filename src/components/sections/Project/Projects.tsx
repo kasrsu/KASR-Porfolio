@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Modal } from '@/components/ui/Modal';
 import { Loading } from '@/components/ui/Loading';
 import { projects, projectCategories, Project } from '@/data/projects';
+import { BentoGrid } from './bento_template/bento_template';
 import { cn } from '@/lib/utils';
 
 export default function Projects() {
@@ -18,6 +19,7 @@ export default function Projects() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'bento'>('grid');
   
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: false, margin: "-100px" });
@@ -156,30 +158,70 @@ export default function Projects() {
             ))}
           </motion.div>
           
-          {/* Search Input */}
-          <motion.div 
-            className="relative w-full md:w-64"
-            initial={{ opacity: 0, y: 10 }}
-            animate={controls}
-            variants={{
-              visible: { opacity: 1, y: 0, transition: { delay: 0.3 } }
-            }}
-          >
-            <input
-              type="text"
-              placeholder="Search projects..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 rounded-full border-2 border-gray-200 dark:border-gray-700 
-                focus:outline-none focus:border-purple-500 bg-white dark:bg-gray-800 
-                text-gray-700 dark:text-gray-300 pr-10"
-            />
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-          </motion.div>
+          {/* View Toggle and Search */}
+          <div className="flex gap-4 items-center">
+            {/* View Mode Toggle */}
+            <motion.div 
+              className="flex bg-gray-100 dark:bg-gray-800 rounded-full p-1"
+              initial={{ opacity: 0, y: 10 }}
+              animate={controls}
+              variants={{
+                visible: { opacity: 1, y: 0, transition: { delay: 0.25 } }
+              }}
+            >
+              <button
+                onClick={() => setViewMode('grid')}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-sm font-medium transition-all",
+                  viewMode === 'grid' 
+                    ? "bg-white dark:bg-gray-700 text-purple-600 shadow-sm" 
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                )}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                </svg>
+              </button>
+              <button
+                onClick={() => setViewMode('bento')}
+                className={cn(
+                  "px-3 py-1.5 rounded-full text-sm font-medium transition-all",
+                  viewMode === 'bento' 
+                    ? "bg-white dark:bg-gray-700 text-purple-600 shadow-sm" 
+                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+                )}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </button>
+            </motion.div>
+            
+            {/* Search Input */}
+            <motion.div 
+              className="relative w-full md:w-64"
+              initial={{ opacity: 0, y: 10 }}
+              animate={controls}
+              variants={{
+                visible: { opacity: 1, y: 0, transition: { delay: 0.3 } }
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 rounded-full border-2 border-gray-200 dark:border-gray-700 
+                  focus:outline-none focus:border-purple-500 bg-white dark:bg-gray-800 
+                  text-gray-700 dark:text-gray-300 pr-10"
+              />
+              <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+            </motion.div>
+          </div>
         </div>
         
         {/* Loading State */}
@@ -210,31 +252,51 @@ export default function Projects() {
           </motion.div>
         )}
         
-        {/* Projects Grid with Masonry Layout */}
+        {/* Projects Display - Grid or Bento Layout */}
         {!isLoading && filteredProjects.length > 0 && (
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            animate={controls}
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project) => (
-                <motion.div 
-                  key={project.id}
-                  variants={itemVariants}
-                  layout
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  className="h-full"
-                >
-                  <ProjectCard 
-                    project={project} 
-                    onClick={() => openProjectModal(project)} 
-                  />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          <AnimatePresence mode="wait">
+            {viewMode === 'grid' ? (
+              <motion.div 
+                key="grid-view"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                variants={containerVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <AnimatePresence mode="popLayout">
+                  {filteredProjects.map((project) => (
+                    <motion.div 
+                      key={project.id}
+                      variants={itemVariants}
+                      layout
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      className="h-full"
+                    >
+                      <ProjectCard 
+                        project={project} 
+                        onClick={() => openProjectModal(project)} 
+                      />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="bento-view"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <BentoGrid 
+                  projects={filteredProjects}
+                  onProjectClick={openProjectModal}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         )}
         
         {/* Project Detail Modal */}
@@ -338,7 +400,7 @@ export default function Projects() {
                     <Button 
                       as="a" 
                       href={selectedProject.demoUrl} 
-
+                      target="_blank"
                       rel="noopener noreferrer"
                       variant="primary"
                       className="flex-1"
@@ -356,7 +418,7 @@ export default function Projects() {
                     <Button 
                       as="a" 
                       href={selectedProject.codeUrl} 
-
+                      target="_blank"
                       rel="noopener noreferrer"
                       variant="secondary"
                       className="flex-1"
@@ -394,7 +456,7 @@ function ProjectCard({ project, onClick }: ProjectCardProps) {
       whileHover={{ y: -5 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className="overflow-hidden h-full cursor-pointer" onClick={onClick}>
+      <Card className="overflow-hidden h-full cursor-pointer group" onClick={onClick}>
         <CardContent className="p-0 flex flex-col h-full">
           {/* Project Thumbnail with Overlay */}
           <div className="relative aspect-video overflow-hidden">
@@ -426,7 +488,7 @@ function ProjectCard({ project, onClick }: ProjectCardProps) {
               
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent 
-                opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-start p-4">
+                opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-start p-4">
                 <div className="text-white">
                   <h3 className="font-bold text-lg">{project.title}</h3>
                   <p className="text-sm text-gray-200">{project.summary}</p>

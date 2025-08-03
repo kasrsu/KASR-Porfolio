@@ -113,16 +113,7 @@ export default function About() {
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center">
-                    {exp.logo && (
-                      <div className="w-10 h-10 mr-3 relative">
-                        <Image
-                          src={exp.logo}
-                          alt={exp.company}
-                          fill
-                          className="object-contain rounded-md"
-                        />
-                      </div>
-                    )}
+                
                     <div>
                       <h3 className="font-bold text-lg text-gray-900 dark:text-white">{exp.title}</h3>
                       <p className="text-purple-600 dark:text-purple-400">{exp.company}</p>
@@ -203,47 +194,7 @@ export default function About() {
               transition: { duration: 0.3 }
             }}
           >
-            <Card className="h-full overflow-hidden">
-              <CardContent className="p-0">
-                <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-4 text-white">
-                  <h3 className="font-bold text-lg">{edu.degree}</h3>
-                  <p>{edu.field}</p>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center mb-3">
-                    {edu.logo && (
-                      <div className="w-10 h-10 mr-3 relative">
-                        <Image
-                          src={edu.logo}
-                          alt={edu.institution}
-                          fill
-                          className="object-contain rounded-md"
-                        />
-                      </div>
-                    )}
-                    <div>
-                      <h4 className="font-semibold text-gray-900 dark:text-white">{edu.institution}</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{edu.location}</p>
-                    </div>
-                  </div>
-                  
-                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
-                    {edu.startDate} - {edu.endDate}
-                  </p>
-                  
-                  {edu.achievements && edu.achievements.length > 0 && (
-                    <div className="mt-3">
-                      <h5 className="text-sm font-medium text-purple-700 dark:text-purple-400 mb-1">Achievements:</h5>
-                      <ul className="list-disc pl-5">
-                        {edu.achievements.slice(0, 2).map((item, i) => (
-                          <li key={i} className="text-xs text-gray-700 dark:text-gray-300">{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            
           </motion.div>
         ))}
       </div>
@@ -270,7 +221,7 @@ export default function About() {
           </h2>
           <div className="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
           <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-            Data scientist and machine learning engineer with a passion for turning complex data 
+            Data scientist AI Engineer with a passion for turning complex data 
             into actionable insights and building intelligent systems.
           </p>
         </motion.div>
@@ -286,98 +237,39 @@ export default function About() {
               }}
             >
               <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
-                Anusara <span className="text-purple-600">Esberger</span>
+                Anusara <span className="text-purple-600">Sugeeshwara</span>
               </h3>
               
-              <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                I'm a data scientist with over 7 years of experience in developing machine learning solutions 
-                that solve real business problems. With a Ph.D. in Computer Science specializing in 
-                machine learning, I've worked across various industries including finance, healthcare, 
-                and e-commerce.
-              </p>
               
               <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                My expertise lies in predictive modeling, natural language processing, and data 
-                visualization. I'm passionate about transforming raw data into meaningful insights 
-                and creating AI systems that make a positive impact.
+                Seeking internship opportunities in data science to apply expertise in artificial intelligence, machine learning, and
+natural language processing. Skilled in developing predictive models, AI-driven applications, and graph-based
+solutions using Python, Neo4j, and React Native. Proven ability to deliver innovative data-driven insights,
+enhancing IT education and operational efficiency for real-world challenges
               </p>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white mb-2">Location</h4>
-                  <p className="text-gray-700 dark:text-gray-400">Vienna, Austria</p>
+                  <p className="text-gray-700 dark:text-gray-400">Moratuwa, Sri Lanka</p>
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white mb-2">Email</h4>
-                  <p className="text-gray-700 dark:text-gray-400">anusara@example.com</p>
+                  <p className="text-gray-700 dark:text-gray-400">kasrsugeeshwara@gmail.com</p>
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white mb-2">Languages</h4>
-                  <p className="text-gray-700 dark:text-gray-400">English, German, Czech</p>
+                  <p className="text-gray-700 dark:text-gray-400">English, Sinhala</p>
                 </div>
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white mb-2">Availability</h4>
-                  <p className="text-purple-600 font-medium">Available for freelance</p>
+                  <p className="text-purple-600 font-medium">For Data Driven Solutions</p>
                 </div>
               </div>
             </motion.div>
           </div>
           
-          {/* Profile Image with Animation */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <motion.div 
-              className="relative"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={controls}
-              variants={{
-                visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
-              }}
-              whileHover={{ 
-                scale: 1.05,
-                transition: { duration: 0.3 } 
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg blur-xl opacity-20 animate-pulse"></div>
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-lg overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl">
-                <Image
-                  src="/profile-image.jpg" // Replace with actual image path
-                  alt="Anusara Esberger"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                
-                {/* Border animation on hover */}
-                <div className="absolute inset-0 border-4 border-purple-500 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              
-              {/* Floating decoration elements */}
-              <motion.div
-                className="absolute -bottom-4 -right-4 w-20 h-20 bg-purple-600 rounded-full opacity-80"
-                animate={{
-                  scale: [1, 1.1, 1],
-                  rotate: [0, 5, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              />
-              <motion.div
-                className="absolute -top-4 -left-4 w-12 h-12 bg-indigo-600 rounded-full opacity-80"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 3.5,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              />
-            </motion.div>
-          </div>
+
         </div>
 
         {/* Statistics with Counter Animation */}
@@ -420,9 +312,7 @@ export default function About() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
         >
-          <h3 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
-            <span className="text-purple-600">Education</span> & Qualifications
-          </h3>
+          
           <EducationCards />
         </motion.div>
       </div>
