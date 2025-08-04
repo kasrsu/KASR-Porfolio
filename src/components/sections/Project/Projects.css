@@ -5,23 +5,20 @@
   height: 100%;
   border-radius: 16px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(17, 24, 39, 0.8);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(75, 85, 99, 0.4);
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-}
-
-.dark .project-card {
-  background: rgba(31, 41, 55, 0.8);
-  border: 1px solid rgba(75, 85, 99, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
 }
 
 .project-thumbnail {
@@ -105,27 +102,19 @@
 .project-title {
   font-weight: bold;
   font-size: 1.125rem;
-  color: #1f2937;
+  color: #e2e8f0;
   margin-bottom: 0.5rem;
-}
-
-.dark .project-title {
-  color: white;
 }
 
 .project-summary {
   font-size: 0.875rem;
-  color: #374151;
+  color: #94a3b8;
   margin-bottom: 1rem;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.dark .project-summary {
-  color: #d1d5db;
 }
 
 .project-tech-tags {
@@ -136,8 +125,8 @@
 }
 
 .project-tech-tag {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.1));
-  color: #7c3aed;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.15));
+  color: #c4b5fd;
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
   font-size: 0.75rem;
@@ -146,23 +135,14 @@
 }
 
 .project-tech-tag:hover {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.2));
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(99, 102, 241, 0.25));
   transform: translateY(-2px);
-}
-
-.dark .project-tech-tag {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.2));
-  color: #c4b5fd;
 }
 
 .project-tech-more {
   font-size: 0.75rem;
-  color: #6b7280;
-  padding: 0.25rem 0.5rem;
-}
-
-.dark .project-tech-more {
   color: #9ca3af;
+  padding: 0.25rem 0.5rem;
 }
 
 /* Spinner animation for loading state */
@@ -344,6 +324,21 @@
   justify-content: center;
   align-items: center;
   padding: 5rem 0;
+}
+
+.projects-no-results {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.projects-no-results-title {
+  font-size: 1.25rem;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.dark .projects-no-results-title {
+  color: #9ca3af;
 }
 
 .projects-no-results {

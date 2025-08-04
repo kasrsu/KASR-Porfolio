@@ -26,7 +26,7 @@ export default function FirstHero() {
   // Wrap hackerCommands in useMemo to prevent it from being recreated on every render
   const hackerCommands = useMemo(() => [
     { id: 1, text: "~/portfolio$ whoami", type: 'command' as const, delay: 0 },
-    { id: 2, text: "anusara_esberger", type: 'output' as const, delay: 800 },
+    { id: 2, text: "anusara_Sugeeshwara", type: 'output' as const, delay: 800 },
     { id: 3, text: "~/portfolio$ cat /etc/skills", type: 'command' as const, delay: 1600 },
     { id: 4, text: "✓ Data Science Expert", type: 'success' as const, delay: 2200 },
     { id: 5, text: "✓ Machine Learning Engineer", type: 'success' as const, delay: 2600 },
@@ -217,13 +217,13 @@ export default function FirstHero() {
               <div className="block text-white mb-2">
                 {textLoadingStep >= 2 ? (
                   <TextLoader 
-                    text="> Anusara Esberger"
+                    text="> Anusara Sugeeshwara"
                     typingSpeed={20}
                     className="text-white"
                     onComplete={() => handleTextStepComplete(2)}
                   />
                 ) : (
-                  <span className="opacity-0">&gt; Anusara Esberger</span>
+                  <span className="opacity-0">&gt; Anusara Sugeeshwara</span>
                 )}
               </div>
               <div className="text-purple-400 text-lg md:text-xl">

@@ -1,42 +1,28 @@
 /* CONTACT SECTION STYLES */
 
-/* Glass card effects */
+/* Glass card effects - optimized for dark mode */
 .glass-card {
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(71, 85, 105, 0.5);
   box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.15),
-    0 4px 16px 0 rgba(31, 38, 135, 0.1),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    0 8px 32px 0 rgba(0, 0, 0, 0.25),
+    0 4px 16px 0 rgba(0, 0, 0, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  color: #e2e8f0;
 }
 
 .glass-card:hover {
   transform: translateY(-4px);
   box-shadow: 
-    0 20px 60px 0 rgba(31, 38, 135, 0.25),
-    0 10px 30px 0 rgba(31, 38, 135, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-}
-
-.dark .glass-card {
-  background: rgba(31, 41, 55, 0.8);
-  border: 1px solid rgba(75, 85, 99, 0.3);
-  box-shadow: 
-    0 8px 32px 0 rgba(0, 0, 0, 0.3),
-    0 4px 16px 0 rgba(0, 0, 0, 0.2),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
-.dark .glass-card:hover {
-  box-shadow: 
-    0 20px 60px 0 rgba(0, 0, 0, 0.4),
-    0 10px 30px 0 rgba(0, 0, 0, 0.3),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    0 20px 60px 0 rgba(0, 0, 0, 0.3),
+    0 10px 30px 0 rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+  border-color: rgba(139, 92, 246, 0.5);
 }
 
 /* Contact layout */
@@ -89,4 +75,29 @@
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+/* Form element styling for dark mode */
+input, textarea {
+  background-color: rgba(30, 41, 59, 0.7) !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+  color: #e2e8f0 !important;
+}
+
+input:focus, textarea:focus {
+  border-color: rgba(139, 92, 246, 0.6) !important;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.25) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(148, 163, 184, 0.8) !important;
+}
+
+/* Ensure text is visible */
+h3, h4, label {
+  color: #e2e8f0 !important;
+}
+
+p {
+  color: #94a3b8 !important;
 }

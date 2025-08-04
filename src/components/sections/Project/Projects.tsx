@@ -291,7 +291,7 @@ export default function Projects() {
   );
 }
 
-// Project Card Component
+// Project Card Component - Updated for dark mode
 function ProjectCard({ project, onClick }: ProjectCardProps) {
   return (
     <div className="project-card" onClick={() => onClick(project)}>
