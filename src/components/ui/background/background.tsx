@@ -21,7 +21,7 @@ export const Background: React.FC<BackgroundProps> = ({
   children,
   variant = 'matrix',
   color = 'purple',
-  intensity = 'medium',
+  intensity = 'high',
   hasGrid = true,
   hasScanLines = true,
   hasParticles = false,

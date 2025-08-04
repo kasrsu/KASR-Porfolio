@@ -1,18 +1,52 @@
 /* Enhanced dark background with purple scroll effects */
 .matrix-bg {
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9) 0%, #000000 100%);
+  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
+  transition: background 0.5s ease-out;
 }
 
 .cyber-bg {
-  background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #1a0a2e 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(10, 10, 10, 0.9) 50%, rgba(26, 10, 46, 0.7) 100%);
+  transition: background 0.5s ease-out;
 }
 
 .minimal-bg {
-  background: #000000;
+  background: rgba(0, 0, 0, 0.9);
+  transition: background 0.5s ease-out;
 }
 
 .gradient-bg {
-  background: radial-gradient(ellipse at top, #000000 0%, #0a0a0a 50%, #1a0b2e 100%);
+  background: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.85) 0%, rgba(10, 10, 10, 0.9) 50%, rgba(29, 0, 66, 0.7) 100%);
+  transition: background 0.5s ease-out;
+}
+
+/* Scroll-based lightening effect classes */
+.scroll-10 .matrix-bg {
+  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.65) 0%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+.scroll-30 .matrix-bg {
+  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.6) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.scroll-50 .matrix-bg {
+  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.55) 0%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+.scroll-70 .matrix-bg {
+  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.scroll-90 .matrix-bg {
+  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.45) 0%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+/* Similar scroll effects for other background types */
+.scroll-50 .cyber-bg {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(10, 10, 10, 0.8) 50%, rgba(26, 10, 46, 0.6) 100%);
+}
+
+.scroll-50 .gradient-bg {
+  background: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.75) 0%, rgba(10, 10, 10, 0.8) 50%, rgba(29, 0, 66, 0.6) 100%);
 }
 
 /* Enhanced scan lines with purple tint */
@@ -28,25 +62,24 @@
     0deg,
     transparent,
     transparent 2px,
-    rgba(139, 92, 246, 0.03) 2px,
-    rgba(139, 92, 246, 0.03) 4px
+    rgba(139, 92, 246, 0.02) 2px,
+    rgba(139, 92, 246, 0.02) 4px
   );
-  opacity: 0.6;
+  opacity: 0.5;
   animation: scanlineMove 0.1s linear infinite;
   z-index: 1;
 }
 
-@keyframes scanlineMove {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(4px); }
-}
-
-/* Enhanced grid pattern */
-.bg-grid-pattern {
-  background-image: 
-    linear-gradient(rgba(139, 92, 246, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
-  background-size: 20px 20px;
+/* Lighter scan lines on scroll */
+.scroll-50 .scan-lines::before {
+  opacity: 0.4;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(139, 92, 246, 0.015) 2px,
+    rgba(139, 92, 246, 0.015) 4px
+  );
 }
 
 /* Purple glow animations */
@@ -76,22 +109,38 @@
   background: rgba(0, 0, 0, 0.95);
 }
 
-/* Purple scroll reveal effects */
+/* Purple scroll reveal effects - Made lighter */
 .purple-reveal-light {
-  background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1));
+  background: linear-gradient(45deg, rgba(139, 92, 246, 0.05), rgba(168, 85, 247, 0.05));
 }
 
 .purple-reveal-medium {
-  background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.2));
+  background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1));
 }
 
 .purple-reveal-strong {
-  background: linear-gradient(45deg, rgba(139, 92, 246, 0.4), rgba(168, 85, 247, 0.4));
+  background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.2));
 }
 
-/* Radial gradient utility */
-.bg-gradient-radial {
-  background: radial-gradient(circle, var(--tw-gradient-stops));
+/* Additional classes for scroll-based effects */
+.scroll-bg-lighten {
+  transition: opacity 0.5s ease;
+}
+
+.scroll-25 .scroll-bg-lighten {
+  opacity: 0.9;
+}
+
+.scroll-50 .scroll-bg-lighten {
+  opacity: 0.8;
+}
+
+.scroll-75 .scroll-bg-lighten {
+  opacity: 0.7;
+}
+
+.scroll-100 .scroll-bg-lighten {
+  opacity: 0.6;
 }
 
 /* Performance optimizations */

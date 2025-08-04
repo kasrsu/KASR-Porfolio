@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { skills, skillCategories, getSkillsByCategory } from '@/data/skills';
 import { statistics, education, workExperiences } from '@/data/experience';
 import { cn } from '@/lib/utils';
-
+import Background from "@/components/ui/background/background";
 export default function About() {
   const [selectedSkillCategory, setSelectedSkillCategory] = useState(skillCategories[0].id);
   const [visibleExperience, setVisibleExperience] = useState<string | null>(null);
@@ -206,7 +206,8 @@ export default function About() {
       id="about" 
       ref={sectionRef}
       className="py-20 px-4 bg-transparent"
-    >
+    > 
+    <Background />
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

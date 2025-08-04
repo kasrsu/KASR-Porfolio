@@ -144,19 +144,8 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
     }
   };
 
-  // Check if this is a large, wide, or tall card
-  const isLargeCard = colSpan >= 2 && rowSpan >= 2;
-  const isWideCard = colSpan >= 2 && rowSpan < 2;
-  const isTallCard = rowSpan >= 2 && colSpan < 2;
-  
   return (
-    <motion.div
-      {...motionProps}
-      style={{
-        ...cardStyle,
-        // Remove any explicit height settings to let the container determine height
-      }}
-    >
+    <motion.div {...motionProps}>
       {/* Glass Background Layers */}
       <div className="bento-glass-bg">
         <div className="glass-layer-1"></div>
@@ -164,13 +153,16 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
         <div className="glass-layer-3"></div>
       </div>
 
+      {/* Animated Border */}
+      <div className="bento-border-gradient"></div>
+      
+      {/* Holographic Overlay */}
+      <div className="holographic-overlay"></div>
+
       {/* Main Content */}
-      <div className="bento-content" style={{ position: 'relative', height: '100%' }}>
+      <div className="bento-content">
         {/* Image Section */}
-        <div 
-          className={`bento-image-container ${isLargeCard ? 'bento-large-image' : ''}`}
-          style={{ height: '50%' }}
-        >
+        <div className="bento-image-container">
           <div className="bento-image-wrapper">
             {/* Loading Spinner */}
             {!isImageLoaded && (
@@ -179,7 +171,7 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
               </div>
             )}
             
-            {/* Project Image with enhanced hover effect for large cards */}
+            {/* Project Image */}
             <Image
               src={project.thumbnail}
               alt={project.title}
@@ -187,59 +179,53 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
               className={cn(
                 "object-cover rounded-lg transition-all duration-300",
                 !isImageLoaded && "opacity-0",
-                isHovered && (isLargeCard ? "scale-105 brightness-110" : "scale-110 brightness-110")
+                isHovered && "scale-110 brightness-110"
               )}
               onLoad={() => setIsImageLoaded(true)}
               onError={() => setIsImageLoaded(true)}
-              priority={isLargeCard} // Prioritize loading for large card images
             />
             
-            {/* Enhanced Category Badge for large cards */}
-            <div className={cn(
-              "category-badge",
-              isLargeCard && "category-badge-large"
-            )}>
+            {/* Category Badge */}
+            <div className="category-badge">
               {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
             </div>
           </div>
         </div>
 
         {/* Text Content */}
-        <div className="bento-text-content" style={{ height: 'calc(50% - 0.5rem)' }}>
+        <div className="bento-text-content">
           <h3 className="bento-title">
             {project.title}
           </h3>
           
-          {/* Summary - Use the variables for conditional classes */}
-          <p className={`bento-description ${isLargeCard ? 'bento-description-large' : (isWideCard || isTallCard) ? 'bento-description-medium' : ''}`}>
-            {project.summary || project.description}
+          {/* Summary - Always visible and prominent */}
+          <p className="bento-description">
+            {project.summary || project.description || 'No description available'}
           </p>
 
-          {/* Project Points */}
+          {/* Project Points - Only for larger cards, after summary */}
           {(colSpan > 1 || rowSpan > 1) && project.points && project.points.length > 0 && (
             <div className="bento-points">
-              {project.points.slice(0, isLargeCard ? 2 : 1).map((point, pointIndex) => (
+              {project.points.slice(0, 2).map((point, pointIndex) => (
                 <div 
                   key={`point-${pointIndex}`}
                   className="bento-point-item"
                 >
                   <div className="bento-point-bullet"></div>
-                  <span className="bento-point-text">
-                    {point}
-                  </span>
+                  <span className="bento-point-text">{point}</span>
                 </div>
               ))}
-              {project.points.length > (isLargeCard ? 2 : 1) && (
+              {project.points.length > 2 && (
                 <div className="bento-point-more">
-                  +{project.points.length - (isLargeCard ? 2 : 1)} more
+                  +{project.points.length - 2} more details
                 </div>
               )}
             </div>
           )}
 
-          {/* Tech Stack - Use the variables for conditional slicing */}
+          {/* Tech Stack */}
           <div className="tech-pills">
-            {project.technologies.slice(0, isLargeCard ? 4 : isWideCard ? 3 : 2).map((tech, techIndex) => (
+            {project.technologies.slice(0, 3).map((tech, techIndex) => (
               <motion.span 
                 key={`${tech}-${techIndex}`}
                 className="tech-pill"
@@ -256,13 +242,13 @@ function BentoCard({ project, index, onClick, colSpan, rowSpan }: BentoCardProps
                 {tech}
               </motion.span>
             ))}
-            {project.technologies.length > (isLargeCard ? 4 : isWideCard ? 3 : 2) && (
+            {project.technologies.length > 3 && (
               <motion.span 
                 className="tech-pill-more"
                 whileHover={{ scale: 1.05 }}
               >
                 <span className="tech-pill-icon">+</span>
-                {project.technologies.length - (isLargeCard ? 4 : isWideCard ? 3 : 2)}
+                {project.technologies.length - 3} more
               </motion.span>
             )}
           </div>
@@ -280,4 +266,3 @@ export function BentoGrid({ projects, onProjectClick }: BentoTemplateProps) {
     />
   );
 }
-

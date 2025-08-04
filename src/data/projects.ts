@@ -2,17 +2,17 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  summary: string;
-  points: string[];
+  summary?: string;
   thumbnail: string;
   images?: string[];
+  category: string;
   technologies: string[];
-  category: 'machine learning' | 'data analysis' | 'visualization' | 'nlp' | 'research' | 'other';
-  demoUrl?: string;
-  codeUrl?: string;
-  featured: boolean;
   date: string;
   duration?: string;
+  featured?: boolean;
+  points?: string[];
+  demoUrl?: string;
+  codeUrl?: string;
 }
 
 export const projects: Project[] = [
