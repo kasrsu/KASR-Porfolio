@@ -6,7 +6,6 @@ interface GlassCardProps extends Omit<HTMLMotionProps<"div">, "ref"> {
   children: React.ReactNode;
   intensity?: 'low' | 'medium' | 'high';
   color?: 'default' | 'purple' | 'blue' | 'green';
-  blurIntensity?: 'low' | 'medium' | 'high';
   bgOpacity?: 'low' | 'medium' | 'high';
   borderGlow?: boolean;
   hoverEffect?: boolean;
@@ -63,7 +62,6 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
         className={cn(
           "glass-card rounded-3xl relative overflow-hidden animate-subtle-breath",
           bgOpacity[intensity],
-          blurIntensity[intensity],
           borderStyles[color],
           shadowStyles[color],
           hoverStyles,

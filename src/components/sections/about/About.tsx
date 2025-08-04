@@ -207,7 +207,7 @@ export default function About() {
       ref={sectionRef}
       className="py-20 px-4 bg-transparent"
     > 
-    <Background />
+
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

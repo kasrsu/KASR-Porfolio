@@ -36,7 +36,7 @@
 /* Terminal typing cursor */
 .typing-cursor {
   background-color: var(--hacker-green);
-  animation: cursor-blink 1s infinite;
+  animation: cursor-blink 0.1s infinite;
 }
 
 @keyframes cursor-blink {
@@ -205,7 +205,7 @@
   right: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--hacker-green), transparent);
-  animation: scan-loading 2s linear infinite;
+  animation: scan-loading 1s linear infinite;
 }
 
 @keyframes scan-loading {

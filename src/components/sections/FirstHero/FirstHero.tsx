@@ -47,23 +47,7 @@ export default function FirstHero() {
   ];
 
   // Matrix characters for lightweight background effect
-  const matrixChars_list = "01アカサタナハマヤラワABCDEF";
 
-  // Initialize lightweight matrix effect
-  useEffect(() => {
-    const chars: MatrixChar[] = [];
-    for (let i = 0; i < 30; i++) { // Reduced from 50 to 30 for better performance
-      chars.push({
-        id: i,
-        char: matrixChars_list[Math.floor(Math.random() * matrixChars_list.length)],
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        speed: Math.random() * 0.3 + 0.1, // Slower animation
-        opacity: Math.random() * 0.3 + 0.1 // Lower opacity
-      });
-    }
-    setMatrixChars(chars);
-  }, []);
 
   // Lightweight matrix animation (reduced frequency)
   useEffect(() => {
@@ -118,7 +102,7 @@ export default function FirstHero() {
     // Start animations immediately
     controls.start("visible");
     // Start text loading sequence immediately
-    setTimeout(() => setTextLoadingStep(1), 500);
+    setTimeout(() => setTextLoadingStep(1), 100);
 
     return () => {
       if (heroElement) {
@@ -196,23 +180,6 @@ export default function FirstHero() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      {/* Lightweight Matrix Rain Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden opacity-15">
-        {matrixChars.map((char) => (
-          <div
-            key={char.id}
-            className="absolute text-purple-400 font-mono text-xs pointer-events-none"
-            style={{
-              left: `${char.x}%`,
-              top: `${char.y}%`,
-              opacity: char.opacity,
-              textShadow: "0 0 3px rgba(0, 255, 65, 0.5)"
-            }}
-          >
-            {char.char}
-          </div>
-        ))}
-      </div>
 
       {/* Subtle mouse glow effect */}
       <div
@@ -302,7 +269,7 @@ export default function FirstHero() {
                 {textLoadingStep >= 2 ? (
                   <TextLoader 
                     text="> Anusara Esberger"
-                    typingSpeed={80}
+                    typingSpeed={20}
                     className="text-white"
                     onComplete={() => handleTextStepComplete(2)}
                   />
@@ -314,7 +281,7 @@ export default function FirstHero() {
                 {textLoadingStep >= 3 ? (
                   <TextLoader 
                     text="Data Science Enthusiast"
-                    typingSpeed={60}
+                    typingSpeed={12}
                     className="text-purple-400"
                     onComplete={() => handleTextStepComplete(3)}
                   />
@@ -336,7 +303,7 @@ export default function FirstHero() {
                   <>
                     <TextLoader 
                       text="~/specialties$"
-                      typingSpeed={40}
+                      typingSpeed={10}
                       className="text-purple-400 mr-2"
                       onComplete={() => handleTextStepComplete(4)}
                     />
@@ -379,7 +346,7 @@ export default function FirstHero() {
                     <span className="text-purple-400"># Mission:</span><br/>
                     <TextLoader 
                       text="Extracting intelligence from chaos. Converting raw data into powerful insights through advanced ML algorithms."
-                      typingSpeed={25}
+                      typingSpeed={12}
                       className="text-gray-300"
                       onComplete={() => handleTextStepComplete(5)}
                     />
@@ -432,7 +399,7 @@ export default function FirstHero() {
                   {textLoadingStep >= 6 && showButtons ? (
                     <TextLoader 
                       text="7+"
-                      typingSpeed={100}
+                      typingSpeed={17}
                       className="text-purple-400"
                     />
                   ) : (
@@ -446,7 +413,7 @@ export default function FirstHero() {
                   {textLoadingStep >= 6 && showButtons ? (
                     <TextLoader 
                       text="50+"
-                      typingSpeed={100}
+                      typingSpeed={10}
                       className="text-blue-400"
                     />
                   ) : (
@@ -506,7 +473,7 @@ export default function FirstHero() {
                     {line.type === 'command' && <span className="text-purple-400">$ </span>}
                     <TextLoader 
                       text={line.text}
-                      typingSpeed={30}
+                      typingSpeed={10}
                       className={
                         line.type === 'command' ? 'text-white' :
                         line.type === 'success' ? 'text-purple-400' :

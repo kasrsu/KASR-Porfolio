@@ -21,11 +21,11 @@
 
 /* Scroll-based lightening effect classes */
 .scroll-10 .matrix-bg {
-  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.65) 0%, rgba(0, 0, 0, 0.85) 100%);
+  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.65) 0%, rgba(39, 5, 94, 0.85) 100%);
 }
 
 .scroll-30 .matrix-bg {
-  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.6) 0%, rgba(0, 0, 0, 0.8) 100%);
+  background: radial-gradient(ellipse at center, rgba(14, 0, 41, 0.6) 0%, rgba(60, 13, 112, 0.8) 100%);
 }
 
 .scroll-50 .matrix-bg {
@@ -42,7 +42,7 @@
 
 /* Similar scroll effects for other background types */
 .scroll-50 .cyber-bg {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(10, 10, 10, 0.8) 50%, rgba(26, 10, 46, 0.6) 100%);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(255, 52, 52, 0.8) 50%, rgba(26, 10, 46, 0.6) 100%);
 }
 
 .scroll-50 .gradient-bg {

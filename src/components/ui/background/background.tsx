@@ -34,8 +34,14 @@ export const Background: React.FC<BackgroundProps> = ({
 
   // Scroll-based purple intensity
   const { scrollYProgress } = useScroll();
-  const purpleIntensity = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0.1, 0.3, 0.6, 0.9]);
-  const backgroundDarkness = useTransform(scrollYProgress, [0, 1], [0.9, 0.4]);
+  const purpleIntensity = useTransform(scrollYProgress, [0, 0.3, 0.6, 1], [0.05, 0.15, 0.25, 0.35]);
+  const backgroundDarkness = useTransform(scrollYProgress, [0, 1], [0.95, 0.6]);
+  
+  // Scroll-based class for background lightening
+  const scrollClass = useTransform(scrollYProgress, 
+    [0, 0.25, 0.5, 0.75, 1], 
+    ['scroll-0', 'scroll-25', 'scroll-50', 'scroll-75', 'scroll-100']
+  );
 
   // Set up interactive effects and track dimensions
   useEffect(() => {
@@ -69,19 +75,19 @@ export const Background: React.FC<BackgroundProps> = ({
     };
   }, [interactive]);
 
-  // Get much darker gradient colors
+  // Get lighter gradient colors
   const getGradientColors = () => {
     switch (color) {
       case 'purple':
-        return 'from-black via-gray-900 to-purple-950/30';
+        return 'from-black/90 via-gray-900/80 to-purple-950/30';
       case 'blue':
-        return 'from-black via-gray-900 to-blue-950/30';
+        return 'from-black/90 via-gray-900/80 to-blue-950/30';
       case 'green':
-        return 'from-black via-gray-900 to-emerald-950/30';
+        return 'from-black/90 via-gray-900/80 to-emerald-950/30';
       case 'pink':
-        return 'from-black via-gray-900 to-rose-950/30';
+        return 'from-black/90 via-gray-900/80 to-rose-950/30';
       default:
-        return 'from-black via-gray-900 to-purple-950/30';
+        return 'from-black/90 via-gray-900/80 to-purple-950/30';
     }
   };
 
@@ -99,10 +105,10 @@ export const Background: React.FC<BackgroundProps> = ({
   // Get intensity values
   const getIntensityValue = () => {
     switch (intensity) {
-      case 'low': return { opacity: 0.05, blur: 'backdrop-blur-sm' };
-      case 'medium': return { opacity: 0.1, blur: 'backdrop-blur-md' };
-      case 'high': return { opacity: 0.15, blur: 'backdrop-blur-lg' };
-      default: return { opacity: 0.1, blur: 'backdrop-blur-md' };
+      case 'low': return { opacity: 0.03, blur: 'backdrop-blur-sm' };
+      case 'medium': return { opacity: 0.07, blur: 'backdrop-blur-md' };
+      case 'high': return { opacity: 0.12, blur: 'backdrop-blur-lg' };
+      default: return { opacity: 0.07, blur: 'backdrop-blur-md' };
     }
   };
 
@@ -137,6 +143,8 @@ export const Background: React.FC<BackgroundProps> = ({
           borderRadius: '50%',
           background: `radial-gradient(circle, rgba(139, 92, 246, ${purpleIntensity}) 0%, transparent 70%)`,
           transform: 'translate(-50%, -50%)',
+          filter: 'blur(8px)',
+          mixBlendMode: 'screen',
         }}
         transition={{ type: 'spring', damping: 20 }}
       />
@@ -144,49 +152,52 @@ export const Background: React.FC<BackgroundProps> = ({
   };
 
   const intensityValue = getIntensityValue();
+  const currentScrollClass = scrollClass.get();
 
   return (
     <div className={cn(
       "relative min-h-screen overflow-hidden",
       getVariantClasses(),
       hasScanLines && "scan-lines",
+      currentScrollClass,
+      "scroll-bg-lighten",
       className
     )}>
-      {/* Much darker base background with scroll-based purple overlay */}
+      {/* Lighter base background with scroll-based purple overlay */}
       <div className="fixed inset-0 w-full h-full z-0">
-        {/* Very dark base layer */}
+        {/* Dark base layer */}
         <motion.div 
           className="absolute inset-0 bg-black"
           style={{ opacity: backgroundDarkness }}
         />
         
-        {/* Dark gradient overlay */}
+        {/* Lighter gradient overlay */}
         <div className={cn(
-          "absolute inset-0 bg-gradient-to-br opacity-80",
+          "absolute inset-0 bg-gradient-to-br opacity-70",
           getGradientColors()
         )} />
         
         {/* Scroll-based purple overlay that gets stronger with scrolling */}
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-purple-800/30 to-purple-600/40"
+          className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-purple-800/15 to-purple-600/20"
           style={{ opacity: purpleIntensity }}
         />
         
         {/* Additional purple glow layer that appears on scroll */}
         <motion.div 
-          className="absolute inset-0 bg-gradient-radial from-purple-500/10 via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-radial"
           style={{ 
-            opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.3, 0.7]),
-            background: `radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, transparent 50%)`
+            opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.2, 0.4]),
+            background: `radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 50%)`
           }}
         />
         
-        {/* Grid pattern with enhanced purple */}
+        {/* Grid pattern with enhanced purple - more subtle */}
         {hasGrid && (
           <motion.div 
-            className="absolute inset-0 opacity-[0.08] overflow-hidden"
+            className="absolute inset-0 opacity-[0.05] overflow-hidden"
             style={{ 
-              opacity: useTransform(scrollYProgress, [0, 1], [0.08, 0.2])
+              opacity: useTransform(scrollYProgress, [0, 1], [0.05, 0.12])
             }}
           >
             <svg className="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -196,9 +207,9 @@ export const Background: React.FC<BackgroundProps> = ({
                     d="M 10 0 L 0 0 0 10" 
                     fill="none" 
                     stroke={getGridColor()} 
-                    strokeWidth="0.3" 
+                    strokeWidth="0.2" 
                     style={{ 
-                      opacity: useTransform(scrollYProgress, [0, 1], [0.3, 0.8])
+                      opacity: useTransform(scrollYProgress, [0, 1], [0.2, 0.5])
                     }}
                   />
                 </pattern>
@@ -210,17 +221,6 @@ export const Background: React.FC<BackgroundProps> = ({
         
         {/* Enhanced interactive mouse effect with scroll-based intensity */}
         {renderInteractiveEffect()}
-        
-        {/* Scan lines with purple tint on scroll */}
-        {hasScanLines && (
-          <motion.div 
-            className="absolute inset-0 pointer-events-none opacity-10"
-            style={{
-              backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139, 92, 246, 0.1) 2px, rgba(139, 92, 246, 0.1) 4px)",
-              opacity: useTransform(scrollYProgress, [0, 1], [0.05, 0.15])
-            }}
-          />
-        )}
         
         {/* Particles effect placeholder */}
         {hasParticles && (
