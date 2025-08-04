@@ -12,7 +12,7 @@ interface ScrollAnimationOptions {
  */
 export const useScrollAnimation = <T extends HTMLElement = HTMLDivElement>(
   options: ScrollAnimationOptions = {}
-): [RefObject<T>, boolean] => {
+): [RefObject<T | null>, boolean] => {
   const { 
     threshold = 0.1,
     rootMargin = '0px',
@@ -51,5 +51,5 @@ export const useScrollAnimation = <T extends HTMLElement = HTMLDivElement>(
     };
   }, [threshold, rootMargin, triggerOnce]);
 
-  return [ref, isInView];
+return [ref, isInView];
 };

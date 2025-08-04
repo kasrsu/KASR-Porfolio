@@ -60,28 +60,6 @@ export const Navigation = () => {
     }
   };
 
-  // Animation variants for mobile menu
-  const mobileMenuVariants = {
-    hidden: { opacity: 0, x: '100%' },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { 
-        type: 'spring',
-        stiffness: 300,
-        damping: 30
-      }
-    },
-    exit: { 
-      opacity: 0, 
-      x: '100%',
-      transition: { 
-        ease: 'easeInOut',
-        duration: 0.3
-      }
-    }
-  };
-
   // Hamburger menu button animation variants
   const hamburgerVariants = {
     closed: { rotate: 0 },

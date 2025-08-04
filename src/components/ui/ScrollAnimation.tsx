@@ -57,13 +57,11 @@ export function ScrollAnimation({
   delay = 0,
   triggerOnce = true,
   disableAnimation = false,
-  rootMargin = '0px'
 }: ScrollAnimationProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { 
     once: triggerOnce,
     amount: threshold,
-    margin: rootMargin
   });
 
   // If animations are disabled, just render the children
@@ -192,7 +190,7 @@ export function useActiveSection(sectionRefs: React.RefObject<HTMLElement>[], th
       sectionRefs.forEach((ref, index) => {
         if (!ref.current) return;
         
-        const { offsetTop, offsetHeight } = ref.current;
+        const { offsetTop} = ref.current;
         const sectionTop = offsetTop - viewportHeight * (1 - threshold);
         
         if (scrollPosition >= sectionTop) {

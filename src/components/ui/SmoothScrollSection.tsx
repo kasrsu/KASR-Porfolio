@@ -20,8 +20,6 @@ export const SmoothScrollSection: React.FC<SmoothScrollSectionProps> = ({
   className,
   id,
   threshold = 0.2,
-  delay = 0.5,
-  duration = 1,
   once = true,
   animation = 'fade',
 }) => {
@@ -45,66 +43,7 @@ export const SmoothScrollSection: React.FC<SmoothScrollSectionProps> = ({
     }
   }, [controls, inView, once, prefersReducedMotion]);
   
-  // Animation variants based on the animation type
-  const getVariants = () => {
-    if (prefersReducedMotion) {
-      return {
-        hidden: { opacity: 1 },
-        visible: { opacity: 1 }
-      };
-    }
-    
-    switch (animation) {
-      case 'fade':
-        return {
-          hidden: { opacity: 0 },
-          visible: { 
-            opacity: 1,
-            transition: { 
-              duration,
-              delay,
-              ease: "easeOut"
-            }
-          }
-        };
-      case 'slideUp':
-        return {
-          hidden: { opacity: 0, y: 50 },
-          visible: { 
-            opacity: 1, 
-            y: 0,
-            transition: { 
-              duration,
-              delay,
-              ease: "easeOut"
-            }
-          }
-        };
-      case 'scale':
-        return {
-          hidden: { opacity: 0, scale: 0.9 },
-          visible: { 
-            opacity: 1, 
-            scale: 1,
-            transition: { 
-              duration,
-              delay,
-              ease: "easeOut"
-            }
-          }
-        };
-      case 'none':
-        return {
-          hidden: {},
-          visible: {}
-        };
-      default:
-        return {
-          hidden: { opacity: 0 },
-          visible: { opacity: 1 }
-        };
-    }
-  };
+  
   
   return (
     <motion.div
@@ -113,7 +52,6 @@ export const SmoothScrollSection: React.FC<SmoothScrollSectionProps> = ({
       className={cn(className)}
       initial="hidden"
       animate={controls}
-      variants={getVariants()}
       // Using willChange to optimize for animations
       style={{ 
         willChange: animation !== 'none' ? 'opacity, transform' : 'auto',

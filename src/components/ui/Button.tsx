@@ -3,7 +3,7 @@ import { motion, HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export interface ButtonProps 
-  extends Omit<HTMLMotionProps<"button">, "onClick" | "children"> {
+  extends Omit<HTMLMotionProps<"button">, "children"> {
   disabled?: boolean;
   variant?: 'primary' | 'secondary' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
@@ -15,6 +15,8 @@ export interface ButtonProps
   as?: React.ElementType;
   href?: string;
 }
+
+
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', isLoading, leftIcon, rightIcon, children, disabled, as: Component = 'button', href, ...props }, ref) => {
@@ -41,8 +43,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     
     // If component is an anchor tag (a), we render it with motion.a
     if (Component === 'a') {
-      // Extract motion props that work with anchor elements
-      const { onClick, ...anchorProps } = props as any;
       
       return (
         <motion.a
@@ -56,7 +56,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           href={href}
           whileHover={{ scale: disabled ? 1 : 1.02 }}
           whileTap={{ scale: disabled ? 1 : 0.98 }}
-          {...anchorProps}
+
         >
           {leftIcon && <span className="mr-2">{leftIcon}</span>}
           {children}

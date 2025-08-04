@@ -23,18 +23,7 @@ const Loading = React.forwardRef<HTMLDivElement, LoadingProps>(
       purple: 'text-purple-600 dark:text-purple-400',
     };
 
-    // Pulse animation variant
-    const pulseVariants = {
-      animate: {
-        scale: [1, 1.2, 1],
-        opacity: [0.6, 1, 0.6],
-        transition: {
-          duration: 1.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }
-      }
-    };
+
 
     // Dots animation variants
     const dotsVariants = {
@@ -95,7 +84,6 @@ const Loading = React.forwardRef<HTMLDivElement, LoadingProps>(
               colorMap[color],
               "bg-current"
             )}
-            variants={pulseVariants}
             animate="animate"
           />
         )}

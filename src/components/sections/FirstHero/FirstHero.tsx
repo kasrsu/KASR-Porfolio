@@ -1,17 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import TypewriterComponent from 'typewriter-effect';
 import TextLoader from '@/components/ui/text_loader/text_loader';
 
-interface MatrixChar {
-  id: number;
-  char: string;
-  x: number;
-  y: number;
-  speed: number;
-  opacity: number;
-}
+
 
 interface HackerLine {
   id: number;
@@ -22,8 +15,7 @@ interface HackerLine {
 
 export default function FirstHero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [currentCommand, setCurrentCommand] = useState(0);
-  const [matrixChars, setMatrixChars] = useState<MatrixChar[]>([]);
+  // Remove the unused state or use it properly if needed
   const [terminalLines, setTerminalLines] = useState<HackerLine[]>([]);
   const [isTyping, setIsTyping] = useState(true);
   const [textLoadingStep, setTextLoadingStep] = useState(0);
@@ -31,41 +23,24 @@ export default function FirstHero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const controls = useAnimation();
 
-  // Hacker terminal commands sequence
-  const hackerCommands: HackerLine[] = [
-    { id: 1, text: "~/portfolio$ whoami", type: 'command', delay: 0 },
-    { id: 2, text: "anusara_esberger", type: 'output', delay: 800 },
-    { id: 3, text: "~/portfolio$ cat /etc/skills", type: 'command', delay: 1600 },
-    { id: 4, text: "✓ Data Science Expert", type: 'success', delay: 2200 },
-    { id: 5, text: "✓ Machine Learning Engineer", type: 'success', delay: 2600 },
-    { id: 6, text: "✓ AI Specialist", type: 'success', delay: 3000 },
-    { id: 7, text: "~/portfolio$ python hack_insights.py", type: 'command', delay: 3800 },
-    { id: 8, text: "[INFO] Connecting to data streams...", type: 'output', delay: 4400 },
-    { id: 9, text: "[SUCCESS] 🚀 Insights extracted!", type: 'success', delay: 5200 },
-    { id: 10, text: "~/portfolio$ sudo ./deploy_awesome", type: 'command', delay: 6000 },
-    { id: 11, text: "Deployment successful! 🎯", type: 'success', delay: 6600 }
-  ];
-
-  // Matrix characters for lightweight background effect
-
-
-  // Lightweight matrix animation (reduced frequency)
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMatrixChars(prev => prev.map(char => ({
-        ...char,
-        y: char.y > 100 ? -5 : char.y + char.speed,
-        char: Math.random() > 0.98 ? matrixChars_list[Math.floor(Math.random() * matrixChars_list.length)] : char.char,
-        opacity: Math.random() > 0.99 ? Math.random() * 0.3 + 0.1 : char.opacity
-      })));
-    }, 200); // Increased interval for better performance
-
-    return () => clearInterval(interval);
-  }, []);
+  // Wrap hackerCommands in useMemo to prevent it from being recreated on every render
+  const hackerCommands = useMemo(() => [
+    { id: 1, text: "~/portfolio$ whoami", type: 'command' as const, delay: 0 },
+    { id: 2, text: "anusara_esberger", type: 'output' as const, delay: 800 },
+    { id: 3, text: "~/portfolio$ cat /etc/skills", type: 'command' as const, delay: 1600 },
+    { id: 4, text: "✓ Data Science Expert", type: 'success' as const, delay: 2200 },
+    { id: 5, text: "✓ Machine Learning Engineer", type: 'success' as const, delay: 2600 },
+    { id: 6, text: "✓ AI Specialist", type: 'success' as const, delay: 3000 },
+    { id: 7, text: "~/portfolio$ python hack_insights.py", type: 'command' as const, delay: 3800 },
+    { id: 8, text: "[INFO] Connecting to data streams...", type: 'output' as const, delay: 4400 },
+    { id: 9, text: "[SUCCESS] 🚀 Insights extracted!", type: 'success' as const, delay: 5200 },
+    { id: 10, text: "~/portfolio$ sudo ./deploy_awesome", type: 'command' as const, delay: 6000 },
+    { id: 11, text: "Deployment successful! 🎯", type: 'success' as const, delay: 6600 }
+  ], []);
 
   // Terminal typing sequence - start immediately
   useEffect(() => {
-    let timeouts: NodeJS.Timeout[] = [];
+    const timeouts: NodeJS.Timeout[] = [];
     
     hackerCommands.forEach((line) => {
       const timeout = setTimeout(() => {
@@ -80,7 +55,7 @@ export default function FirstHero() {
     return () => {
       timeouts.forEach(timeout => clearTimeout(timeout));
     };
-  }, []); // Remove showMainContent dependency
+  }, [hackerCommands]); // Add hackerCommands as a dependency
 
   // Mouse tracking and animation controls
   useEffect(() => {
@@ -122,30 +97,7 @@ export default function FirstHero() {
     }, 200);
   };
 
-  // Handle loading completion for each step
-  const handleLoadingStepComplete = () => {
-    // Optional: Add any additional logic when each loading step completes
-  };
-
-  // Animation variants
-  const titleVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  const terminalVariants = {
-    hidden: { opacity: 0, scale: 0.98 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { delay: 0.2, duration: 0.5, ease: "easeOut" },
-    },
-  };
-
+  
   const buttonVariants = {
     hidden: { opacity: 0, y: 15 },
     visible: {
@@ -213,7 +165,6 @@ export default function FirstHero() {
               className="flex items-center justify-center lg:justify-start mb-4"
               initial="hidden"
               animate={controls}
-              variants={terminalVariants}
             >
               <div className="flex items-center bg-gray-900/80 border border-purple-400/30 rounded-full px-3 py-1.5 backdrop-blur-sm">
                 <div className="w-2 h-2 bg-purple-400 rounded-full mr-2 animate-pulse"></div>
@@ -235,7 +186,6 @@ export default function FirstHero() {
               className="font-mono text-purple-400 mb-4"
               initial="hidden"
               animate={controls}
-              variants={titleVariants}
             >
               <pre className="text-xs sm:text-sm leading-tight opacity-80">
 {`
@@ -263,7 +213,6 @@ export default function FirstHero() {
               className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 font-mono"
               initial="hidden"
               animate={controls}
-              variants={titleVariants}
             >
               <div className="block text-white mb-2">
                 {textLoadingStep >= 2 ? (
@@ -296,7 +245,6 @@ export default function FirstHero() {
               className="text-sm md:text-base mb-4 font-mono"
               initial="hidden"
               animate={controls}
-              variants={terminalVariants}
             >
               <div className="flex items-center justify-center lg:justify-start">
                 {textLoadingStep >= 4 ? (
@@ -338,7 +286,7 @@ export default function FirstHero() {
               className="bg-gray-900/50 border-l-4 border-purple-400 pl-3 py-2 mb-6 max-w-lg mx-auto lg:mx-0"
               initial="hidden"
               animate={controls}
-              variants={terminalVariants}
+
             >
               <div className="text-gray-300 font-mono text-xs leading-relaxed">
                 {textLoadingStep >= 5 ? (
@@ -444,7 +392,7 @@ export default function FirstHero() {
             className="w-full"
             initial="hidden"
             animate={controls}
-            variants={terminalVariants}
+
           >
             <div className="bg-gray-900 border border-purple-400/50 rounded-lg p-4 shadow-2xl shadow-purple-400/10 max-h-100 overflow-hidden">
               <div className="flex items-center mb-3">

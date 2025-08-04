@@ -8,7 +8,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = 'default', isInteractive = true, children, ...props }, ref) => {
+  ({ className, variant = 'default', isInteractive = true, children }, ref) => {
     // Base card styles
     const baseStyles = "rounded-lg overflow-hidden";
     
@@ -30,7 +30,6 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         initial={isInteractive ? { y: 0 } : undefined}
         whileHover={isInteractive ? { y: -5 } : undefined}
-        {...props as any}
       >
         {children}
       </motion.div>

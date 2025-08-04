@@ -37,13 +37,7 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
       green: borderGlow ? "border border-emerald-300/35 dark:border-emerald-500/25 animate-subtle-glow" : "border border-emerald-300/15 dark:border-emerald-500/12"
     };
     
-    // Backdrop blur intensity
-    const blurIntensity = {
-      low: "backdrop-blur-sm",
-      medium: "backdrop-blur-md",
-      high: "backdrop-blur-lg"
-    };
-    
+
     // Enhanced shadow styles - removed pulsing animations
     const shadowStyles = {
       default: "shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.18)]",

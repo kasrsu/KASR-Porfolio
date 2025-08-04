@@ -1,22 +1,17 @@
 import { Variants } from "framer-motion";
 import { animationConfig } from "./constants";
 
-// Base transition settings
-const baseTransition = {
-  duration: animationConfig.defaultDuration,
-  ease: animationConfig.defaultEase
-};
 
 // Fade animations
 export const fadeVariants: Variants = {
   hidden: { opacity: 0 },
   visible: { 
     opacity: 1,
-    transition: baseTransition
+
   },
   exit: {
     opacity: 0,
-    transition: baseTransition
+
   }
 };
 
@@ -26,12 +21,12 @@ export const slideUpVariants: Variants = {
   visible: { 
     y: 0, 
     opacity: 1,
-    transition: baseTransition
+
   },
   exit: {
     y: animationConfig.slideDistance,
     opacity: 0,
-    transition: baseTransition
+
   }
 };
 
@@ -40,12 +35,12 @@ export const slideDownVariants: Variants = {
   visible: { 
     y: 0, 
     opacity: 1,
-    transition: baseTransition
+
   },
   exit: {
     y: -animationConfig.slideDistance,
     opacity: 0,
-    transition: baseTransition
+
   }
 };
 
@@ -54,12 +49,12 @@ export const slideLeftVariants: Variants = {
   visible: { 
     x: 0, 
     opacity: 1,
-    transition: baseTransition
+
   },
   exit: {
     x: animationConfig.slideDistance,
     opacity: 0,
-    transition: baseTransition
+
   }
 };
 
@@ -68,12 +63,12 @@ export const slideRightVariants: Variants = {
   visible: { 
     x: 0, 
     opacity: 1,
-    transition: baseTransition
+
   },
   exit: {
     x: -animationConfig.slideDistance,
     opacity: 0,
-    transition: baseTransition
+
   }
 };
 
@@ -83,12 +78,12 @@ export const scaleVariants: Variants = {
   visible: { 
     scale: 1, 
     opacity: 1,
-    transition: baseTransition
+
   },
   exit: {
     scale: 0.8,
     opacity: 0,
-    transition: baseTransition
+
   }
 };
 

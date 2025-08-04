@@ -2,15 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
-import Image from 'next/image';
-import { Card, CardContent } from '@/components/ui/Card';
-import { skills, skillCategories, getSkillsByCategory } from '@/data/skills';
 import { statistics, education, workExperiences } from '@/data/experience';
 import { cn } from '@/lib/utils';
-import Background from "@/components/ui/background/background";
 export default function About() {
-  const [selectedSkillCategory, setSelectedSkillCategory] = useState(skillCategories[0].id);
-  const [visibleExperience, setVisibleExperience] = useState<string | null>(null);
+   const [visibleExperience, setVisibleExperience] = useState<string | null>(null);
   
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: false, margin: "-100px" });
@@ -23,28 +18,7 @@ export default function About() {
     }
   }, [isInView, controls]);
 
-  // Staggered animation variants for skills
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
 
-  const skillVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { 
-        type: "spring", 
-        stiffness: 100 
-      }
-    }
-  };
 
   // For counter animation
   const CounterAnimation = ({ value }: { value: number }) => {
@@ -227,7 +201,7 @@ export default function About() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
+        <div className=" gap-10 items-center mb-20">
           {/* Personal Info & Photo */}
           <div className="order-2 lg:order-1">
             <motion.div
@@ -237,9 +211,7 @@ export default function About() {
                 visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
               }}
             >
-              <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
-                Anusara <span className="text-purple-600">Sugeeshwara</span>
-              </h3>
+
               
               
               <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">

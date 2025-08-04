@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from '@/data/projects';
-import { Button } from '@/components/ui/Button';
+import Image from 'next/image';
 import './popup_card.css';
 
 interface ProjectPopupProps {
@@ -84,11 +84,16 @@ export default function ProjectPopup({ project, isOpen, onClose }: ProjectPopupP
             <div className="project-popup-content">
               {/* Image Carousel */}
               <div className="project-image-carousel">
-                <img
-                  src={images[currentImageIndex]}
-                  alt={`${project.title} - Image ${currentImageIndex + 1}`}
-                  className="carousel-image"
-                />
+                <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                  <Image
+                    src={images[currentImageIndex]}
+                    alt={`${project.title} - Image ${currentImageIndex + 1}`}
+                    className="carousel-image"
+                    layout="fill"
+                    objectFit="cover"
+                    priority
+                  />
+                </div>
                 
                 {images.length > 1 && (
                   <>

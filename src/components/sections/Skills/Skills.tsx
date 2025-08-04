@@ -5,7 +5,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
-import { skills, skillCategories, getSkillsByCategory, Skill } from '@/data/skills';
+import { skillCategories, getSkillsByCategory, Skill } from '@/data/skills';
 import { cn } from '@/lib/utils';
 import './Skills.css';
 
@@ -17,6 +17,14 @@ interface Certificate {
   image: string;
   link?: string;
   skills: string[];
+}
+
+// Define TechItem interface
+interface TechItem {
+  name: string;
+  icon: string;
+  experience: string;
+  description: string;
 }
 
 // Example certificates data
@@ -122,17 +130,7 @@ export default function Skills() {
     }
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        type: "spring", 
-        stiffness: 100 
-      }
-    }
-  };
+
 
   const pulseAnimation = {
     scale: [1, 1.05, 1],
@@ -143,15 +141,7 @@ export default function Skills() {
     }
   };
 
-  const floatAnimation = {
-    y: [0, -10, 0],
-    transition: { 
-      duration: 3, 
-      repeat: Infinity, 
-      repeatType: "reverse" as const,
-      ease: [0.42, 0, 0.58, 1] // Using a cubic bezier easing function
-    }
-  };
+
 
   // Skill Circle Progress Component
   const SkillCircle = ({ skill }: { skill: Skill }) => {
@@ -231,7 +221,7 @@ export default function Skills() {
   };
 
   // Tech Stack Item Component
-  const TechStackItem = ({ item, index }: { item: any; index: number }) => {
+  const TechStackItem = ({ item }: { item: TechItem }) => {
     return (
       <motion.div
         className="flex items-center gap-3 p-3 rounded-lg bg-white/70 dark:bg-gray-800/70 backdrop-blur-md border border-white/30 dark:border-gray-700/30 shadow-sm hover:shadow-md transition-all cursor-pointer group"
@@ -265,11 +255,10 @@ export default function Skills() {
   };
 
   // Certificate Card Component
-  const CertificateCard = ({ certificate, index }: { certificate: Certificate; index: number }) => {
+  const CertificateCard = ({ certificate }: { certificate: Certificate }) => {
     return (
       <motion.div
         className="relative group"
-        variants={itemVariants}
         whileHover={{ 
           y: -5,
           transition: { duration: 0.2 }
@@ -468,8 +457,8 @@ export default function Skills() {
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
               >
-                {tech.items.map((item, index) => (
-                  <TechStackItem key={item.name} item={item} index={index} />
+                {tech.items.map((item) => (
+                  <TechStackItem key={item.name} item={item} />
                 ))}
               </motion.div>
             )
@@ -484,7 +473,6 @@ export default function Skills() {
                 <motion.div
                   key={icon}
                   className="relative"
-                  animate={floatAnimation}
                   transition={{ 
                     delay: index * 0.2,
                     duration: 3 + index * 0.5, 
@@ -517,11 +505,10 @@ export default function Skills() {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            {certificates.map((certificate, index) => (
+            {certificates.map((certificate) => (
               <CertificateCard 
                 key={certificate.id} 
-                certificate={certificate} 
-                index={index} 
+                certificate={certificate}
               />
             ))}
           </motion.div>
@@ -575,7 +562,7 @@ export default function Skills() {
             {/* Example description */}
             <p className="text-gray-700 dark:text-gray-300 mb-6">
               {selectedSkill.name} is a{selectedSkill.name.toLowerCase().includes('python') ? ' programming language' : ' technology'} 
-              that I've used extensively in my data science projects. With a proficiency level of {selectedSkill.proficiency}%, 
+              that I&apos;ve used extensively in my data science projects. With a proficiency level of {selectedSkill.proficiency}%, 
               I am {selectedSkill.proficiency > 90 ? 'an expert' : selectedSkill.proficiency > 80 ? 'highly proficient' : 'comfortable'} 
               using it for various tasks.
             </p>

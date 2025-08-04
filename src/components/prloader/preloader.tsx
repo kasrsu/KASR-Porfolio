@@ -19,6 +19,23 @@ const Preloader: React.FC<PreloaderProps> = ({ onLoadComplete, minLoadTime = 300
   const [progress, setProgress] = useState(0);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Use fixed values instead of Math.random() to prevent hydration issues
+  const matrixColumns = Array.from({ length: 20 }, (_, i) => ({
+    left: i * 5,
+    delay: (i * 0.1) % 2,
+    duration: 2 + ((i * 0.2) % 3),
+    chars: Array.from({ length: 10 }, (_, j) => 
+      String.fromCharCode(0x30A0 + ((i * j * 7) % 96))
+    )
+  }));
+
+  const particles = Array.from({ length: 15 }, (_, i) => ({
+    left: (i * 6.67) % 100,
+    delay: (i * 0.2) % 3,
+    duration: 3 + ((i * 0.133) % 2)
+  }));
 
   const terminalLines: TerminalLine[] = [
     { id: 1, text: "Initializing portfolio systems...", type: 'loading', delay: 300 },
@@ -26,12 +43,14 @@ const Preloader: React.FC<PreloaderProps> = ({ onLoadComplete, minLoadTime = 300
     { id: 3, text: "Compiling TypeScript modules... ✓", type: 'success', delay: 900 },
     { id: 4, text: "Establishing neural networks... ✓", type: 'success', delay: 1200 },
     { id: 5, text: "Optimizing performance algorithms... ✓", type: 'success', delay: 1500 },
-    { id: 6, text: "Loading AI components... ✓", type: 'success', delay: 1800 },
+    { id: 6, text: "Loading components... ✓", type: 'success', delay: 1800 },
     { id: 7, text: "Fetching data science modules... ✓", type: 'success', delay: 2100 },
     { id: 8, text: "Portfolio ready! Launching interface... 🚀", type: 'info', delay: 2400 }
   ];
 
   useEffect(() => {
+    setIsMounted(true);
+
     // Progress animation
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
@@ -62,23 +81,48 @@ const Preloader: React.FC<PreloaderProps> = ({ onLoadComplete, minLoadTime = 300
     };
   }, [onLoadComplete, minLoadTime, terminalLines.length]);
 
+  // Don't render until mounted to prevent hydration mismatch
+  if (!isMounted) {
+    return (
+      <div className="preloader">
+        <div className="terminal-window">
+          <div className="terminal-header">
+            <div className="terminal-controls">
+              <div className="control-dot red"></div>
+              <div className="control-dot yellow"></div>
+              <div className="control-dot green"></div>
+            </div>
+            <div className="terminal-title">portfolio@system:~$</div>
+          </div>
+          <div className="terminal-body">
+            <div className="terminal-line loading">
+              <span className="prompt">$</span>
+              <span className="command">Initializing...</span>
+              <span className="cursor">|</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`preloader ${isComplete ? 'fade-out' : ''}`}>
       {/* Matrix rain effect */}
       <div className="matrix-rain">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {matrixColumns.map((col, i) => (
           <div
             key={i}
             className="matrix-column"
             style={{
-              left: `${i * 5}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              left: `${col.left}%`,
+              animationDelay: `${col.delay}s`,
+              animationDuration: `${col.duration}s`
             }}
           >
-            {Array.from({ length: 10 }).map((_, j) => (
+            {col.chars.map((char, j) => (
               <span key={j} className="matrix-char">
-                {String.fromCharCode(0x30A0 + Math.random() * 96)}
+                {char}
               </span>
             ))}
           </div>
@@ -123,14 +167,14 @@ const Preloader: React.FC<PreloaderProps> = ({ onLoadComplete, minLoadTime = 300
 
       {/* Floating particles */}
       <div className="particles-container">
-        {Array.from({ length: 15 }).map((_, i) => (
+        {particles.map((particle, i) => (
           <div
             key={i}
             className="particle"
             style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`
+              left: `${particle.left}%`,
+              animationDelay: `${particle.delay}s`,
+              animationDuration: `${particle.duration}s`
             }}
           />
         ))}

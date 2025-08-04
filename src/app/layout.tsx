@@ -1,6 +1,5 @@
 import React from "react";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { SmoothScrollProvider } from "@/components/SmoothScroll";
 import { ScrollProgressBar } from "@/components/ui/ScrollProgressBar";
 import "./globals.css";
@@ -23,12 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SmoothScrollProvider offset={80}>
             <ScrollProgressBar />
             {children}
           </SmoothScrollProvider>
-        </ThemeProvider>
       </body>
     </html>
   );

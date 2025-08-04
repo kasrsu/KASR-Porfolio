@@ -1,6 +1,5 @@
 import { ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { Variants } from 'framer-motion';
 
 /**
  * Combines multiple class names and resolves Tailwind CSS conflicts

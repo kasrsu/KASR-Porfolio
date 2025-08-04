@@ -17,11 +17,19 @@ interface BackgroundProps {
   interactive?: boolean;
 }
 
+interface Dimensions {
+  width: number;
+  height: number;
+}
+
+// Define variant classes outside component to avoid conditional hooks
+const getVariantClasses = () => {
+  return 'matrix-bg';
+};
+
 export const Background: React.FC<BackgroundProps> = ({
   children,
-  variant = 'matrix',
   color = 'purple',
-  intensity = 'high',
   hasGrid = true,
   hasScanLines = true,
   hasParticles = false,
@@ -29,7 +37,7 @@ export const Background: React.FC<BackgroundProps> = ({
   interactive = false,
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [,setDimensions] = useState<Dimensions>({ width: 0, height: 0 });
   const [isMounted, setIsMounted] = useState(false);
 
   // Scroll-based purple intensity
@@ -42,6 +50,11 @@ export const Background: React.FC<BackgroundProps> = ({
     [0, 0.25, 0.5, 0.75, 1], 
     ['scroll-0', 'scroll-25', 'scroll-50', 'scroll-75', 'scroll-100']
   );
+  
+  // Pre-compute transform values for grid opacity to avoid conditional hooks
+  const gridOpacity = useTransform(scrollYProgress, [0, 1], [0.05, 0.12]);
+  const pathOpacity = useTransform(scrollYProgress, [0, 1], [0.2, 0.5]);
+  const glowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.2, 0.4]);
 
   // Set up interactive effects and track dimensions
   useEffect(() => {
@@ -73,7 +86,7 @@ export const Background: React.FC<BackgroundProps> = ({
       window.removeEventListener('resize', updateDimensions);
       setIsMounted(false);
     };
-  }, [interactive]);
+  }, [interactive, setDimensions]);
 
   // Get lighter gradient colors
   const getGradientColors = () => {
@@ -102,32 +115,6 @@ export const Background: React.FC<BackgroundProps> = ({
     }
   };
 
-  // Get intensity values
-  const getIntensityValue = () => {
-    switch (intensity) {
-      case 'low': return { opacity: 0.03, blur: 'backdrop-blur-sm' };
-      case 'medium': return { opacity: 0.07, blur: 'backdrop-blur-md' };
-      case 'high': return { opacity: 0.12, blur: 'backdrop-blur-lg' };
-      default: return { opacity: 0.07, blur: 'backdrop-blur-md' };
-    }
-  };
-
-  // Variant-specific class names
-  const getVariantClasses = () => {
-    switch (variant) {
-      case 'matrix':
-        return 'matrix-bg';
-      case 'cyber':
-        return 'cyber-bg';
-      case 'minimal':
-        return 'minimal-bg';
-      case 'gradient':
-        return 'gradient-bg';
-      default:
-        return 'matrix-bg';
-    }
-  };
-
   // Enhanced interactive effect with scroll-based purple intensity
   const renderInteractiveEffect = () => {
     if (!interactive || !isMounted) return null;
@@ -151,7 +138,6 @@ export const Background: React.FC<BackgroundProps> = ({
     );
   };
 
-  const intensityValue = getIntensityValue();
   const currentScrollClass = scrollClass.get();
 
   return (
@@ -187,7 +173,7 @@ export const Background: React.FC<BackgroundProps> = ({
         <motion.div 
           className="absolute inset-0 bg-gradient-radial"
           style={{ 
-            opacity: useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.2, 0.4]),
+            opacity: glowOpacity,
             background: `radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 50%)`
           }}
         />
@@ -196,9 +182,7 @@ export const Background: React.FC<BackgroundProps> = ({
         {hasGrid && (
           <motion.div 
             className="absolute inset-0 opacity-[0.05] overflow-hidden"
-            style={{ 
-              opacity: useTransform(scrollYProgress, [0, 1], [0.05, 0.12])
-            }}
+            style={{ opacity: gridOpacity }}
           >
             <svg className="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
               <defs>
@@ -208,9 +192,7 @@ export const Background: React.FC<BackgroundProps> = ({
                     fill="none" 
                     stroke={getGridColor()} 
                     strokeWidth="0.2" 
-                    style={{ 
-                      opacity: useTransform(scrollYProgress, [0, 1], [0.2, 0.5])
-                    }}
+                    style={{ opacity: pathOpacity }}
                   />
                 </pattern>
               </defs>

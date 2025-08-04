@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+
 import Preloader from './preloader';
 
 interface TransparentPreloaderProps {
@@ -10,7 +10,6 @@ interface TransparentPreloaderProps {
 const TransparentPreloader: React.FC<TransparentPreloaderProps> = ({
   onLoadComplete,
   minLoadTime = 3000,
-  maxLoadTime = 6000,
 }) => {
   return (
     <div className="fixed inset-0 z-50 bg-transparent backdrop-blur-sm flex items-center justify-center">
@@ -18,7 +17,7 @@ const TransparentPreloader: React.FC<TransparentPreloaderProps> = ({
         <Preloader 
           onLoadComplete={onLoadComplete}
           minLoadTime={minLoadTime}
-          maxLoadTime={maxLoadTime}
+
         />
       </div>
     </div>

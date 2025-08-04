@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import PageTransition from "@/components/PageTransition";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/ui/Navbar";
 import Hero from "@/components/sections/hero/Hero";
 import About from "@/components/sections/about/About";
@@ -11,10 +10,7 @@ import Skills from "@/components/sections/Skills/Skills";
 import Contact from "@/components/sections/Contact/Contact";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { ScrollProgressCircle } from "@/components/ui/ScrollProgressBar";
-import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
 import { 
-  ScrollAnimation, 
-  SectionAnimation, 
   useActiveSection 
 } from "@/components/ui/ScrollAnimation";
 import { SectionErrorBoundary } from "@/components/ui/ErrorBoundary";
@@ -39,181 +35,8 @@ export default function Home() {
   
   // Use our custom hook to track the active section
   const currentSection = useActiveSection(sectionRefs, 0.4);
-  
-  // Scroll animation setup
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-  
-  // Smoother scroll progress for animations
-  const smoothProgress = useSpring(scrollYProgress, { 
-    stiffness: 30,
-    damping: 15,
-    restDelta: 0.001,
-    mass: 0.5
-  });
-  
-  // Background parallax effects
-  const backgroundY = useTransform(
-    smoothProgress, 
-    [0, 1], 
-    ['0%', '20%']
-  );
-  
-  // Updated section variants to include FirstHero
-  const sectionVariants = {
-    firstHero: {
-      initial: {
-        opacity: 0,
-        y: 20,
-        scale: 0.98
-      },
-      animate: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: {
-          duration: 0.5,
-          ease: [0.25, 0.46, 0.45, 0.94]
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: -15,
-        scale: 1.01,
-        transition: {
-          duration: 0.3,
-          ease: [0.55, 0.06, 0.68, 0.19]
-        }
-      }
-    },
-    hero: {
-      initial: {
-        opacity: 0,
-        y: 30,
-        scale: 0.95
-      },
-      animate: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: {
-          duration: 0.6,
-          ease: [0.25, 0.46, 0.45, 0.94]
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: -20,
-        scale: 1.02,
-        transition: {
-          duration: 0.4,
-          ease: [0.55, 0.06, 0.68, 0.19]
-        }
-      }
-    },
-    about: {
-      initial: {
-        opacity: 0,
-        x: -40,
-        scale: 0.98
-      },
-      animate: {
-        opacity: 1,
-        x: 0,
-        scale: 1,
-        transition: {
-          duration: 0.5,
-          ease: [0.25, 0.46, 0.45, 0.94]
-        }
-      },
-      exit: {
-        opacity: 0,
-        x: -30,
-        scale: 1.01,
-        transition: {
-          duration: 0.3,
-          ease: [0.55, 0.06, 0.68, 0.19]
-        }
-      }
-    },
-    skills: {
-      initial: {
-        opacity: 0,
-        y: 40,
-        scale: 0.96
-      },
-      animate: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: {
-          duration: 0.5,
-          ease: [0.19, 1, 0.22, 1]
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: -30,
-        scale: 1.02,
-        transition: {
-          duration: 0.3,
-          ease: [0.7, 0, 0.84, 0]
-        }
-      }
-    },
-    projects: {
-      initial: {
-        opacity: 0,
-        x: 40,
-        scale: 0.97
-      },
-      animate: {
-        opacity: 1,
-        x: 0,
-        scale: 1,
-        transition: {
-          duration: 0.5,
-          ease: [0.16, 1, 0.3, 1]
-        }
-      },
-      exit: {
-        opacity: 0,
-        x: 30,
-        scale: 1.01,
-        transition: {
-          duration: 0.3,
-          ease: [0.6, 0.04, 0.98, 0.34]
-        }
-      }
-    },
-    contact: {
-      initial: {
-        opacity: 0,
-        y: 35,
-        scale: 0.94
-      },
-      animate: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: {
-          duration: 0.6,
-          ease: [0.34, 1.26, 0.64, 1]
-        }
-      },
-      exit: {
-        opacity: 0,
-        y: 25,
-        scale: 0.98,
-        transition: {
-          duration: 0.4,
-          ease: [0.45, 0, 0.55, 1]
-        }
-      }
-    }
-  };
+
+
 
   return (
     <div className="bg-transparent">
@@ -260,7 +83,6 @@ export default function Home() {
                   intensity="low"
                   color="purple"
                   borderGlow={true}
-                  blurIntensity="high"
                 >
                   <div className="relative w-full h-full z-20 will-change-transform">
                     <AnimatePresence mode="wait" initial={false}>
@@ -269,7 +91,6 @@ export default function Home() {
                         <motion.div 
                           key="first-hero-section"
                           className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                          variants={sectionVariants.firstHero}
                           initial="initial"
                           animate="animate"
                           exit="exit"
@@ -279,11 +100,7 @@ export default function Home() {
                           }}
                         >
                           <div className="p-12 md:p-16 lg:p-20 xl:p-24">
-                            <div className="w-full max-w-6xl mx-auto [&_section]:!bg-transparent [&_section]:!py-8 [&_section]:!px-0 [&_section]:!min-h-0">
-                              <SectionErrorBoundary sectionName="FirstHero">
-                                <FirstHero />
-                              </SectionErrorBoundary>
-                            </div>
+
                           </div>
                         </motion.div>
                       )}
@@ -293,7 +110,6 @@ export default function Home() {
                         <motion.div 
                           key="hero-section"
                           className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar hero-section"
-                          variants={sectionVariants.hero}
                           initial="initial"
                           animate="animate"
                           exit="exit"
@@ -344,7 +160,6 @@ export default function Home() {
                         <motion.div 
                           key="about-section"
                           className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                          variants={sectionVariants.about}
                           initial="initial"
                           animate="animate"
                           exit="exit"
@@ -368,7 +183,6 @@ export default function Home() {
                         <motion.div 
                           key="skills-section"
                           className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                          variants={sectionVariants.skills}
                           initial="initial"
                           animate="animate"
                           exit="exit"
@@ -392,7 +206,6 @@ export default function Home() {
                         <motion.div 
                           key="projects-section"
                           className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                          variants={sectionVariants.projects}
                           initial="initial"
                           animate="animate"
                           exit="exit"
@@ -416,7 +229,6 @@ export default function Home() {
                         <motion.div 
                           key="contact-section"
                           className="w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
-                          variants={sectionVariants.contact}
                           initial="initial"
                           animate="animate"
                           exit="exit"

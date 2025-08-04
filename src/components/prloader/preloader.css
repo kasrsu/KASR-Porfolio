@@ -6,7 +6,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0a0a0a 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #251b3b 50%, #351450 75%, #590281 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,7 +118,7 @@
 
 .terminal-line.loading { color: #2c00a7; }
 .terminal-line.success { color: #9d57f8; }
-.terminal-line.error { color: #f85149; }
+.terminal-line.error { color: #5f0f8d; }
 .terminal-line.info { color: #a5a5a5; }
 
 @keyframes terminalTypewriter {
@@ -215,10 +215,10 @@
   position: absolute;
   width: 2px;
   height: 2px;
-  background: #00ff41;
+  background: #4400ff;
   border-radius: 50%;
   animation: particleFloat linear infinite;
-  box-shadow: 0 0 6px rgba(0, 255, 65, 0.8);
+  box-shadow: 0 0 6px rgba(174, 0, 255, 0.8);
 }
 
 @keyframes particleFloat {

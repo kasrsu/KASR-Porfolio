@@ -7,6 +7,7 @@ import { projects, projectCategories, Project } from '@/data/projects';
 import { BentoGrid } from './bento_template/bento_template';
 import ProjectPopup from './popup_card/popup_card';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import './bento_template/bento_template.css';
 import './Projects.css';
 
@@ -296,10 +297,15 @@ function ProjectCard({ project, onClick }: ProjectCardProps) {
     <div className="project-card" onClick={() => onClick(project)}>
       {/* Thumbnail */}
       <div className="project-thumbnail">
-        <img
+        <Image
           src={project.thumbnail}
           alt={project.title}
           className="project-image"
+          width={400}
+          height={225}
+          layout="responsive"
+          objectFit="cover"
+          priority={false}
         />
         <div className="project-category-badge">
           {projectCategories.find(cat => cat.id === project.category)?.name || project.category}
