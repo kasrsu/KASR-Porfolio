@@ -50,120 +50,164 @@ analyzing user prompts to deliver personalized, resource-rich course recommendat
   },
   {
     id: 'proj-2',
-    title: 'Interactive COVID-19 Dashboard',
-    description: `Created a real-time interactive dashboard tracking global COVID-19 statistics. 
-The dashboard includes visualizations of cases, recoveries, and vaccinations with filtering capabilities by country and time period.`,
-    summary: `A data visualization tool that provided critical insights during the pandemic, used by over 10,000 people.`,
+    title: 'Business Process Mining - University Student Enrollment',
+    description: `Applied Alpha Miner and Heuristic Miner algorithms to construct process models and identify inefficiencies. 
+Performed data cleaning, preprocessing, and analysis using R programming to extract insights from event logs. 
+Developed visualizations and dashboards to effectively communicate findings to stakeholders. 
+Aimed to optimize productivity, reduce risks, and enhance operational efficiency through process mining techniques.`,
+    summary: `A process mining project aimed at improving operational efficiency in university enrollment systems.`,
     points: [
-      'Developed a semantic search engine using Neo4j graph database.',
-      'Integrated Ollamal for natural language understanding and response generation.',
-      'Conducted user testing to refine chatbot interactions and improve recommendations.'
+      'Applied Alpha Miner and Heuristic Miner algorithms to analyze event logs.',
+      'Performed data preprocessing and cleaning using R programming.',
+      'Developed dashboards to visualize inefficiencies and communicate findings effectively.',
+      'Proposed actionable insights to optimize enrollment processes and reduce risks.'
     ],
-    thumbnail: '/projects/covid-dashboard-thumb.jpg',
+    thumbnail: '/projects/process-mining-thumb.jpg',
     images: [
-      '/projects/covid-dashboard-1.jpg',
-      '/projects/covid-dashboard-2.jpg'
+      '/projects/process-mining-1.jpg',
+      '/projects/process-mining-2.jpg'
     ],
-    technologies: ['D3.js', 'React', 'TypeScript', 'Node.js', 'MongoDB'],
-    category: 'visualization',
-    demoUrl: 'https://example.com/covid-dashboard',
-    codeUrl: 'https://github.com/username/covid-dashboard',
-    featured: true,
-    date: '2021-03',
-    duration: '2 months'
-  },
-  {
-    id: 'proj-3',
-    title: 'Sentiment Analysis for Product Reviews',
-    description: `Implemented an NLP solution to analyze customer reviews for e-commerce products. 
-The system categorizes reviews by sentiment, extracts key topics, and highlights areas for product improvement.`,
-    summary: `An NLP system that helped increase product ratings by identifying and addressing customer pain points.`,
-    points: [
-      'Developed a semantic search engine using Neo4j graph database.',
-      'Integrated Ollamal for natural language understanding and response generation.',
-      'Conducted user testing to refine chatbot interactions and improve recommendations.'
-    ],
-    thumbnail: '/projects/sentiment-analysis-thumb.jpg',
-    images: [
-      '/projects/sentiment-analysis-1.jpg',
-      '/projects/sentiment-analysis-2.jpg'
-    ],
-    technologies: ['Python', 'NLTK', 'SpaCy', 'BERT', 'TensorFlow', 'Flask'],
-    category: 'nlp',
-    demoUrl: 'https://example.com/sentiment-demo',
-    codeUrl: 'https://github.com/username/review-sentiment-analysis',
-    featured: false,
-    date: '2022-08',
-    duration: '4 months'
-  },
-  {
-    id: 'proj-4',
-    title: 'Sales Forecasting System',
-    description: `Developed a time series forecasting model to predict sales for a retail chain. 
-The model accounts for seasonality, trends, and external factors like promotions and holidays.`,
-    summary: `A forecasting tool that improved inventory management and reduced stockouts by 35%.`,
-    points: [
-      'Developed a semantic search engine using Neo4j graph database.',
-      'Integrated Ollamal for natural language understanding and response generation.',
-      'Conducted user testing to refine chatbot interactions and improve recommendations.'
-    ],
-    thumbnail: '/projects/sales-forecast-thumb.jpg',
-    images: [
-      '/projects/sales-forecast-1.jpg',
-      '/projects/sales-forecast-2.jpg'
-    ],
-    technologies: ['Python', 'Prophet', 'ARIMA', 'LSTM', 'Pandas', 'Plotly'],
+    technologies: ['R', 'Process Mining', 'Alpha Miner', 'Heuristic Miner', 'Data Visualization'],
     category: 'data analysis',
-    codeUrl: 'https://github.com/username/sales-forecasting',
-    featured: true,
-    date: '2021-11',
+    demoUrl: 'https://example.com/process-mining-demo',
+    codeUrl: 'https://github.com/username/process-mining-enrollment',
+    featured: false,
+    date: '2023-06',
     duration: '3 months'
   },
   {
-    id: 'proj-5',
-    title: 'Credit Risk Assessment',
-    description: `Built a machine learning pipeline to assess credit risk for loan applications. 
-The model evaluates applicant data and provides a risk score with explanatory factors.`,
+    id: 'proj-3',
+    title: 'End-to-End NLP System for Text Classification and Humanization',
+    description: `Developed an AI Text Humanizer to refine AI-generated text and a Human vs. AI Classifier using BERT models. 
+Created a custom dataset by scraping pre-2019 articles and rewriting them with Ollama Mistral AI to generate AI-text pairs.`,
+    summary: `An NLP system delivering insights into sentiment trends, linguistic patterns, and AI-human text differences.`,
     points: [
-      'Developed a semantic search engine using Neo4j graph database.',
-      'Integrated Ollamal for natural language understanding and response generation.',
-      'Conducted user testing to refine chatbot interactions and improve recommendations.'
+      'Built an AI Text Humanizer and Human vs. AI Classifier using BERT models.',
+      'Created a custom dataset by scraping and rewriting articles with AI.',
+      'Processed text data with preprocessing, POS tagging, NER, and dependency parsing.',
+      'Applied LDA for topic modeling and Word2Vec/Doc2Vec for clustering.',
+      'Developed Transformer-based models for AI-to-human text conversion.',
+      'Visualized results with Matplotlib and Seaborn for actionable insights.'
     ],
-    summary: `An ML solution that increased approval accuracy by 15% while reducing default rates.`,
-    thumbnail: '/projects/credit-risk-thumb.jpg',
+    thumbnail: '/projects/nlp-system-thumb.jpg',
     images: [
-      '/projects/credit-risk-1.jpg',
-      '/projects/credit-risk-2.jpg'
+      '/projects/nlp-system-1.jpg',
+      '/projects/nlp-system-2.jpg'
     ],
-    technologies: ['Python', 'Scikit-learn', 'LightGBM', 'SHAP', 'Pandas', 'Docker'],
+    technologies: ['Python', 'NLTK', 'spaCy', 'TensorFlow', 'PyTorch', 'Hugging Face'],
+    category: 'nlp',
+    demoUrl: 'https://example.com/nlp-system-demo',
+    codeUrl: 'https://github.com/username/nlp-system',
+    featured: true,
+    date: '2024-05',
+    duration: '6 months'
+  },
+  {
+    id: 'proj-4',
+    title: 'User Authentication via Acceleration Data – MATLAB Coursework',
+    description: `Developed a user authentication system using Feedforward Multi-Layer Perceptron (MLP) neural networks 
+based on acceleration data from digital devices. Analyzed intra-user and inter-user variance across six datasets per user.`,
+    summary: `A MATLAB-based user authentication system achieving 96% accuracy and 97% recall.`,
+    points: [
+      'Applied feature selection techniques such as ANOVA, PCA, Reliability Ratio, and Mutual Information.',
+      'Trained and fine-tuned the neural network to optimize performance.',
+      'Implemented data preprocessing, training, and classification in MATLAB.',
+      'Achieved high accuracy and recall through rigorous model evaluation.'
+    ],
+    thumbnail: '/projects/user-auth-thumb.jpg',
+    images: [
+      '/projects/user-auth-1.jpg',
+      '/projects/user-auth-2.jpg'
+    ],
+    technologies: ['MATLAB', 'MLP Neural Networks', 'PCA', 'ANOVA', 'Feature Selection'],
     category: 'machine learning',
-    demoUrl: 'https://example.com/credit-risk-demo',
-    codeUrl: 'https://github.com/username/credit-risk-assessment',
+    demoUrl: 'https://example.com/user-auth-demo',
+    codeUrl: 'https://github.com/username/user-authentication',
     featured: false,
-    date: '2022-01',
-    duration: '5 months'
+    date: '2022-10',
+    duration: '2 months'
+  },
+  {
+    id: 'proj-5',
+    title: 'AI Tour Guide LLM Integration with LangChain',
+    description: `Developed a smart tour guide system using LangChain and AI, offering travel recommendations based on user prompts. 
+Integrated data sources to provide up-to-date suggestions and itineraries. 
+Improved the chatbot experience by enhancing response relevance and speed.`,
+    summary: `A smart AI-powered tour guide system delivering personalized travel recommendations.`,
+    points: [
+      'Built a travel recommendation system using LangChain and AI.',
+      'Integrated multiple data sources for real-time travel suggestions.',
+      'Enhanced chatbot response relevance and speed for better user experience.'
+    ],
+    thumbnail: '/projects/ai-tour-guide-thumb.jpg',
+    images: [
+      '/projects/ai-tour-guide-1.jpg',
+      '/projects/ai-tour-guide-2.jpg'
+    ],
+    technologies: ['LangChain', 'Python', 'AI', 'Chatbot Development'],
+    category: 'machine learning',
+    demoUrl: 'https://example.com/ai-tour-guide-demo',
+    codeUrl: 'https://github.com/username/ai-tour-guide',
+    featured: false,
+    date: '2023-12',
+    duration: '3 months'
   },
   {
     id: 'proj-6',
-    title: 'Research: Attention Mechanisms in NLP',
-    description: `Conducted research on novel attention mechanisms for transformer-based language models. 
-Proposed a new approach for more efficient context handling in large documents.`,
-    summary: `A research project that contributed to improving long-document processing in NLP applications.`,
+    title: 'Weather Forecast App',
+    description: `Developed an AI-based weather forecasting application with a machine learning model that provides 
+accurate predictions using historical data. Data preprocessing, EDA, time series decomposition, model selection 
+(ARIMA, SARIMA, Prophet), model evaluation (accuracy, mean absolute error), and deployment.`,
+    summary: `An AI-powered weather forecasting app delivering accurate predictions and alerts for different regions.`,
     points: [
-      'Developed a semantic search engine using Neo4j graph database.',
-      'Integrated Ollamal for natural language understanding and response generation.',
-      'Conducted user testing to refine chatbot interactions and improve recommendations.'
+      'Performed data preprocessing, exploratory data analysis, and time series decomposition.',
+      'Implemented and compared models such as ARIMA, SARIMA, and Prophet for forecasting.',
+      'Evaluated models using metrics like accuracy and mean absolute error.',
+      'Deployed the application with a responsive UI using Streamlit.',
+      'Generated forecasts and alerts for different regions through data analytics.'
     ],
-    thumbnail: '/projects/attention-research-thumb.jpg',
+    thumbnail: '/projects/weather-forecast-thumb.jpg',
     images: [
-      '/projects/attention-research-1.jpg'
+      '/projects/weather-forecast-1.jpg',
+      '/projects/weather-forecast-2.jpg'
     ],
-    technologies: ['Python', 'PyTorch', 'Transformers', 'BERT', 'Attention Mechanisms'],
-    category: 'research',
-    codeUrl: 'https://github.com/username/attention-mechanisms-research',
+    technologies: ['Python', 'Streamlit', 'ARIMA', 'SARIMA', 'Prophet', 'Time Series Analysis'],
+    category: 'data analysis',
+    demoUrl: 'https://example.com/weather-forecast-demo',
+    codeUrl: 'https://github.com/username/weather-forecast-app',
     featured: false,
-    date: '2021-09',
-    duration: '6 months'
+    date: '2023-08',
+    duration: '4 months'
+  },
+  {
+    id: 'proj-7',
+    title: 'Loan Repayment Prediction System',
+    description: `Built a machine learning model to predict loan repayment probability based on financial and behavioral data. 
+Implemented logistic regression for missing value imputation, outlier detection and removal (z-scores, IQR), EDA, 
+feature engineering, model selection (logistic regression, decision trees, random forests, gradient boosting), 
+model evaluation (accuracy, precision, recall, F1 score, ROC-AUC), deployment, and monitoring.`,
+    summary: `A machine learning system for predicting loan repayment probability with high accuracy and reliability.`,
+    points: [
+      'Performed extensive exploratory data analysis to uncover patterns and trends in financial data.',
+      'Implemented outlier detection and removal techniques such as z-scores and IQR.',
+      'Engineered features to improve model performance and interpretability.',
+      'Trained and compared models including logistic regression, decision trees, random forests, and gradient boosting.',
+      'Evaluated models using metrics like accuracy, precision, recall, F1 score, and ROC-AUC.',
+      'Deployed the model with a user-friendly interface for real-time predictions.',
+      'Set up monitoring and alerting systems to ensure model performance over time.'
+    ],
+    thumbnail: '/projects/loan-repayment-thumb.jpg',
+    images: [
+      '/projects/loan-repayment-1.jpg',
+      '/projects/loan-repayment-2.jpg'
+    ],
+    technologies: ['Python', 'Scikit-learn', 'Pandas', 'Matplotlib', 'Gradient Boosting', 'Logistic Regression'],
+    category: 'data analysis',
+    demoUrl: 'https://example.com/loan-repayment-demo',
+    codeUrl: 'https://github.com/username/loan-repayment-prediction',
+    featured: false,
+    date: '2024-02',
+    duration: '5 months'
   }
 ];
 
