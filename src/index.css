@@ -1,0 +1,7 @@
+/* Your existing imports */
+/* ...existing code... */
+
+/* Import responsive utilities */
+@import './styles/responsive.css';
+
+/* ...existing code... */

@@ -332,28 +332,28 @@ export default function Skills() {
           variants={{
             visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
           }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
             Skills & <span className="text-purple-600">Technologies</span>
           </h2>
           <div className="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
             My technical expertise and tools I use to build intelligent data solutions
           </p>
         </motion.div>
 
         {/* Skill Category Tabs and Search in Same Row */}
-        <div className="mb-12">
+        <div className="mb-8 md:mb-12">
           {/* Filter and Search Row */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-10">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 md:mb-10">
             {/* Category Tabs */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 md:gap-3">
               {skillCategories.map((category) => (
                 <motion.button
                   key={category.id}
                   className={cn(
-                    "px-6 py-2 rounded-full text-sm font-medium transition-all",
+                    "px-3 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all",
                     selectedCategory === category.id 
                       ? "bg-purple-600 text-white shadow-md" 
                       : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900/30 shadow-sm"
@@ -371,7 +371,7 @@ export default function Skills() {
             </div>
 
             {/* Search Input */}
-            <div className="relative lg:w-64">
+            <div className="relative w-full lg:w-64">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <i className="fas fa-search text-gray-400"></i>
               </div>
@@ -387,7 +387,7 @@ export default function Skills() {
 
           {/* Skill Circles Grid */}
           <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-8 justify-items-center"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-8 justify-items-center"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -404,23 +404,23 @@ export default function Skills() {
 
         {/* Tech Stack Section */}
         <motion.div
-          className="mb-16"
+          className="mb-10 md:mb-16"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
         >
-          <h3 className="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white">
+          <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 text-center text-gray-900 dark:text-white">
             My <span className="text-purple-600">Tech Stack</span>
           </h3>
           
           {/* Tech Categories and Search Row */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6 md:mb-8">
             {/* Tech Categories */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-3">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 md:gap-3">
               {techStack.map((tech) => (
                 <motion.button
                   key={tech.category}
                   className={cn(
-                    "px-4 py-2 rounded-md text-sm font-medium transition-all",
+                    "px-3 md:px-4 py-1.5 md:py-2 rounded-md text-xs md:text-sm font-medium transition-all",
                     activeTechCategory === tech.category
                       ? "bg-purple-600 text-white" 
                       : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300"
@@ -435,7 +435,7 @@ export default function Skills() {
             </div>
 
             {/* Tech Stack Search */}
-            <div className="relative lg:w-64">
+            <div className="relative w-full lg:w-64">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <i className="fas fa-search text-gray-400"></i>
               </div>
@@ -452,7 +452,7 @@ export default function Skills() {
             tech.category === activeTechCategory && (
               <motion.div
                 key={tech.category}
-                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4"
                 variants={containerVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
@@ -465,8 +465,8 @@ export default function Skills() {
           ))}
         </motion.div>
 
-        {/* Floating Tech Icons with Glow */}
-        <motion.div className="relative h-32 mb-16 overflow-hidden">
+        {/* Floating Tech Icons with Glow - make responsive */}
+        <motion.div className="relative h-24 md:h-32 mb-10 md:mb-16 overflow-hidden">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full flex justify-around">
               {['python', 'r-project', 'aws', 'docker', 'database', 'js', 'react'].map((icon, index) => (
@@ -481,8 +481,8 @@ export default function Skills() {
                   }}
                 >
                   <div className="absolute inset-0 bg-purple-500 rounded-full opacity-20 blur-md"></div>
-                  <div className="relative z-10 w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
-                    <i className={`fab fa-${icon} text-3xl text-purple-600 dark:text-purple-400`}></i>
+                  <div className="relative z-10 w-10 h-10 md:w-16 md:h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg">
+                    <i className={`fab fa-${icon} text-xl md:text-3xl text-purple-600 dark:text-purple-400`}></i>
                   </div>
                 </motion.div>
               ))}
@@ -495,12 +495,12 @@ export default function Skills() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
         >
-          <h3 className="text-2xl font-bold mb-8 text-center text-gray-900 dark:text-white">
+          <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 text-center text-gray-900 dark:text-white">
             <span className="text-purple-600">Certifications</span> & Credentials
           </h3>
           
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}

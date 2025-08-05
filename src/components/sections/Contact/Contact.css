@@ -46,6 +46,56 @@
   flex: 1;
 }
 
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .contact-grid {
+    gap: 1.5rem;
+  }
+  
+  .glass-card {
+    padding: 1rem;
+  }
+  
+  .glass-card .p-6 {
+    padding: 1rem !important;
+  }
+  
+  /* Form adjustments */
+  .glass-card form .grid {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .glass-card form .grid .gap-4 {
+    gap: 0.75rem;
+  }
+  
+  .glass-card form .space-y-4 {
+    margin-top: 0.75rem;
+  }
+  
+  /* Social icons sizing */
+  .contact-info-wrapper .w-10.h-10 {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .contact-info-wrapper .h-5.w-5 {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .contact-info-wrapper .space-y-6 {
+    margin-top: 0.5rem;
+  }
+  
+  .contact-info-wrapper h3,
+  .contact-form-wrapper h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+}
+
 /* Animation classes for contact section */
 .contact-form-animate {
   animation: slideInLeft 0.6s ease-out;
@@ -100,4 +150,16 @@ h3, h4, label {
 
 p {
   color: #94a3b8 !important;
+}
+
+/* Fix white background issues in dark mode */
+.dark .bg-white,
+.dark .bg-white\/80 {
+  background-color: rgba(31, 41, 55, 0.8) !important;
+}
+
+.dark .text-gray-900, 
+.dark .text-gray-800,
+.dark .text-gray-700 {
+  color: #e5e7eb !important;
 }

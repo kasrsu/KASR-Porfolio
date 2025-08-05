@@ -1,0 +1,129 @@
+/* ABOUT SECTION SPECIFIC STYLES */
+
+/* Timeline styles */
+.timeline-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #e5e7eb;
+}
+
+.dark .timeline-line {
+  background-color: #4b5563;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -2px;
+  top: 24px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #8b5cf6;
+  transform: translateX(-50%);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .timeline-item {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .timeline-content {
+    padding: 1rem;
+  }
+  
+  .timeline-content h3 {
+    font-size: 1rem;
+  }
+  
+  .timeline-content p {
+    font-size: 0.875rem;
+  }
+  
+  .statistics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .statistic-card {
+    padding: 0.75rem;
+  }
+  
+  .statistic-card .text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  .statistic-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .education-card {
+    padding: 1rem;
+  }
+  
+  .education-card h3 {
+    font-size: 1rem;
+  }
+  
+  .education-card p {
+    font-size: 0.875rem;
+  }
+}
+
+/* Education card styles */
+.education-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.dark .education-card {
+  background: rgba(31, 41, 55, 0.8);
+  border-color: rgba(75, 85, 99, 0.5);
+}
+
+.education-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.2);
+}
+
+/* Fix white background issues in dark mode */
+.dark .bg-white,
+.dark .bg-white\/80 {
+  background-color: rgba(31, 41, 55, 0.8) !important;
+}
+
+.dark .text-gray-900, 
+.dark .text-gray-800,
+.dark .text-gray-700 {
+  color: #e5e7eb !important;
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500 {
+  color: #d1d5db !important;
+}
+
+.dark .border-gray-300,
+.dark .border-gray-200 {
+  border-color: rgba(75, 85, 99, 0.5) !important;
+}
+
+/* Responsive timeline adjustments for mobile */
+@media (max-width: 768px) {
+  .timeline-dot {
+    left: 0;
+  }
+  
+  .timeline-line {
+    left: 0;
+  }
+}

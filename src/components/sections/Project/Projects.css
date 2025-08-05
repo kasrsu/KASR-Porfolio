@@ -145,19 +145,72 @@
   padding: 0.25rem 0.5rem;
 }
 
-/* Spinner animation for loading state */
-.spinner {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 3px solid rgba(139, 92, 246, 0.1);
-  border-top-color: rgba(139, 92, 246, 0.8);
-  animation: spin 1s linear infinite;
+/* Mobile responsiveness for projects */
+@media (max-width: 768px) {
+  .project-card {
+    max-width: 100%;
+  }
+  
+  .project-overlay-title {
+    font-size: 1rem;
+  }
+  
+  .project-overlay-summary {
+    font-size: 0.75rem;
+  }
+  
+  .project-title {
+    font-size: 1rem;
+  }
+  
+  .project-summary {
+    font-size: 0.8125rem;
+    -webkit-line-clamp: 2;
+    margin-bottom: 0.75rem;
+  }
+  
+  .project-tech-tag {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.6875rem;
+  }
+  
+  .project-filters button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+  
+  .project-category-filters {
+    gap: 0.375rem;
+  }
+  
+  .project-search-input {
+    height: 2.5rem;
+    margin-top: 0.75rem;
+  }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+/* Modal adjustments for mobile */
+@media (max-width: 768px) {
+  .project-modal-carousel {
+    height: 250px;
+  }
+  
+  .project-modal-title {
+    font-size: 1.25rem;
+  }
+  
+  .project-modal-content p {
+    font-size: 0.875rem;
+  }
+  
+  .project-modal-metadata {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .project-modal-actions {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 }
 
@@ -354,4 +407,20 @@
 
 .dark .projects-no-results-title {
   color: #9ca3af;
+}
+
+/* Fix white background cards in dark mode */
+.dark .bg-white,
+.dark .bg-white\/80 {
+  background-color: rgba(31, 41, 55, 0.8) !important;
+}
+
+.dark .text-gray-900, 
+.dark .text-gray-800,
+.dark .text-gray-700 {
+  color: #e5e7eb !important;
+}
+
+.dark .border-gray-300 {
+  border-color: rgba(75, 85, 99, 0.5) !important;
 }
