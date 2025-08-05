@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import { statistics, education, workExperiences } from '@/data/experience';
 import { cn } from '@/lib/utils';
+
 export default function About() {
    const [visibleExperience, setVisibleExperience] = useState<string | null>(null);
   
@@ -89,7 +90,7 @@ export default function About() {
                   <div className="flex items-center">
                 
                     <div>
-                      <h3 className="font-bold text-lg text-gray-900 dark:text-white">{exp.title}</h3>
+                      <h3 className="font-bold text-lg text-purple-900 dark:text-white">{exp.title}</h3>
                       <p className="text-purple-600 dark:text-purple-400">{exp.company}</p>
                     </div>
                   </div>
@@ -179,9 +180,8 @@ export default function About() {
     <section 
       id="about" 
       ref={sectionRef}
-      className="py-20 px-4 bg-transparent"
+      className="about-section py-20 px-4 bg-transparent"
     > 
-
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -191,18 +191,17 @@ export default function About() {
           }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white tech-font">
             About <span className="text-purple-600">Me</span>
           </h2>
           <div className="w-20 h-1 bg-purple-600 mx-auto mb-6"></div>
-          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto tech-font">
             Data scientist AI Engineer with a passion for turning complex data 
             into actionable insights and building intelligent systems.
           </p>
         </motion.div>
 
-        <div className=" gap-10 items-center mb-20">
-          {/* Personal Info & Photo */}
+        <div className="gap-10 items-center mb-20">
           <div className="order-2 lg:order-1">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -211,38 +210,49 @@ export default function About() {
                 visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
               }}
             >
-
-              
-              
-              <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed tech-font">
                 Seeking internship opportunities in data science to apply expertise in artificial intelligence, machine learning, and
-natural language processing. Skilled in developing predictive models, AI-driven applications, and graph-based
-solutions using Python, Neo4j, and React Native. Proven ability to deliver innovative data-driven insights,
-enhancing IT education and operational efficiency for real-world challenges
+                natural language processing. Skilled in developing predictive models, AI-driven applications, and graph-based
+                solutions using Python, Neo4j, and React Native. Proven ability to deliver innovative data-driven insights,
+                enhancing IT education and operational efficiency for real-world challenges.
               </p>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Location</h4>
-                  <p className="text-gray-700 dark:text-gray-400">Moratuwa, Sri Lanka</p>
+                  <h4 className="font-medium text-purple-900 dark:text-purple-400 mb-2 tech-font">
+                    <span className='text-purple-500'> Location </span>
+                  </h4>
+                  <p className="text-purple-700 dark:text-purple-300 tech-font">
+                    Moratuwa, Sri Lanka
+                  </p>
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Email</h4>
-                  <p className="text-gray-700 dark:text-gray-400">kasrsugeeshwara@gmail.com</p>
+                  <h4 className="font-medium text-purple-900 dark:text-purple-400 mb-2 tech-font">
+                    <span className='text-purple-500'> Email </span>
+                  </h4>
+                  <p className="text-purple-700 dark:text-purple-300 tech-font">
+                    kasrsugeeshwara@gmail.com
+                  </p>
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Languages</h4>
-                  <p className="text-gray-700 dark:text-gray-400">English, Sinhala</p>
+                  <h4 className="font-medium text-purple-900 dark:text-purple-400 mb-2 tech-font">
+                    <span className='text-purple-500'> Languages </span>
+                  </h4>
+                  <p className="text-purple-700 dark:text-purple-300 tech-font">
+                    English, Sinhala
+                  </p>
                 </div>
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Availability</h4>
-                  <p className="text-purple-600 font-medium">For Data Driven Solutions</p>
+                  <h4 className="font-medium text-purple-900 dark:text-purple-400 mb-2 tech-font">
+                    <span className='text-purple-500'> Availability </span>
+                  </h4>
+                  <p className="text-purple-600 font-medium tech-font">
+                    For Data Driven Solutions
+                  </p>
                 </div>
               </div>
             </motion.div>
           </div>
-          
-
         </div>
 
         {/* Statistics with Counter Animation */}
@@ -250,7 +260,7 @@ enhancing IT education and operational efficiency for real-world challenges
           {statistics.map((stat, index) => (
             <motion.div
               key={index}
-              className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center shadow-md"
+              className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center shadow-md tech-font"
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.1 }}
@@ -261,10 +271,10 @@ enhancing IT education and operational efficiency for real-world challenges
                   <i className={`fas fa-${stat.icon} text-2xl`}></i>
                 </div>
               </div>
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 tech-font">
                 <CounterAnimation value={stat.value} />+
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">{stat.label}</p>
+              <p className="text-gray-600 dark:text-gray-400 tech-font">{stat.label}</p>
             </motion.div>
           ))}
         </div>
@@ -275,8 +285,8 @@ enhancing IT education and operational efficiency for real-world challenges
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
         >
-          <h3 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
-            Work <span className="text-purple-600">Experience</span>
+          <h3 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white tech-font">
+            Education <span className="text-purple-600">Background</span>
           </h3>
           <Timeline />
         </motion.div>
@@ -292,3 +302,4 @@ enhancing IT education and operational efficiency for real-world challenges
     </section>
   );
 }
+          

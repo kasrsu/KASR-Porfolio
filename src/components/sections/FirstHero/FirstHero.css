@@ -1,4 +1,19 @@
 /* Hacker Hero Section Styles */
+
+/* Tech font family for hacker hero section */
+#first-hero,
+#first-hero h1,
+#first-hero h2,
+#first-hero h3,
+#first-hero h4,
+#first-hero p,
+#first-hero button,
+#first-hero pre,
+#first-hero code,
+#first-hero .terminal-text {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
 #first-hero {
   --hacker-green: #00ff41;
   --hacker-blue: #00bfff;

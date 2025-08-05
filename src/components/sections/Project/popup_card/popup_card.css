@@ -1,4 +1,24 @@
 /* Anusara/My NEW Journey/My new portfolio/Portfolio-SCSS-MLDS-main/My_new_Porfolio/ds-portfolio/ds-portfolio/src/components/sections/Project/popup_card/popup_card.css */
+
+/* Tech font family for project popup */
+.project-popup-container,
+.project-popup-container h1,
+.project-popup-container h2,
+.project-popup-container h3,
+.project-popup-container h4,
+.project-popup-container .project-title,
+.project-popup-container .tech-tag {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
+.project-popup-container .project-title {
+  letter-spacing: -0.03em;
+}
+
+.project-popup-container .tech-tag {
+  letter-spacing: -0.01em;
+}
+
 .project-popup-overlay {
   position: fixed;
   inset: 0;

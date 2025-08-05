@@ -5,7 +5,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
-import { skillCategories, getSkillsByCategory, Skill } from '@/data/skills';
+import { skillCategories, getSkillsByCategory, Skill ,} from '@/data/skills';
 import { cn } from '@/lib/utils';
 import './Skills.css';
 
@@ -14,8 +14,8 @@ interface Certificate {
   name: string;
   issuer: string;
   date: string;
-  image: string;
-  link?: string;
+  logo: string;
+  url?: string;
   skills: string[];
 }
 
@@ -27,44 +27,72 @@ interface TechItem {
   description: string;
 }
 
-// Example certificates data
+// Cer
 const certificates: Certificate[] = [
-  {
-    id: 'cert1',
-    name: 'AWS Certified Machine Learning - Specialty',
-    issuer: 'Amazon Web Services',
-    date: 'July 2023',
-    image: '/images/certificates/aws-ml.png',
-    link: 'https://aws.amazon.com/certification/certified-machine-learning-specialty/',
-    skills: ['Machine Learning', 'AWS', 'Cloud Computing']
+  { 
+    id: 'cert-1',
+    name: 'Neo4j Certified Professional',
+    issuer: 'Neo4j Graph Academy',
+    date: '2022',
+    url: 'https://aws.amazon.com/certification/certified-machine-learning-specialty/',
+    logo: '/logos/aws-cert.png',
+    skills: ['Graph Databases', 'Neo4j', 'Cypher Query Language']
   },
   {
-    id: 'cert2',
-    name: 'TensorFlow Developer Certificate',
-    issuer: 'Google',
-    date: 'March 2023',
-    image: '/images/certificates/tensorflow.png',
-    link: 'https://www.tensorflow.org/certificate',
-    skills: ['Deep Learning', 'TensorFlow', 'Neural Networks']
+      id: 'cert-2',
+    name: 'Design Team Lead',
+    issuer: 'MANTHRA Hackathon, NSBM IEEE Student Branch',
+    date: '2023',
+    url: 'https://www.tensorflow.org/certificate',
+    logo: '/logos/tensorflow-cert.png',
+    skills: ['Team Leadership' , 'ui/ux design', 'Project Management']
   },
   {
-    id: 'cert3',
-    name: 'Professional Data Scientist',
-    issuer: 'DataCamp',
-    date: 'November 2022',
-    image: '/images/certificates/datacamp.png',
-    link: 'https://www.datacamp.com/certification',
-    skills: ['Data Science', 'Python', 'Statistical Analysis']
+    id: 'cert-3',
+    name: 'Committee Member',
+    issuer: 'Duothan 2.0 Buildathon, NSBM IEEE Student Branch',
+    date: '2023',
+    url: 'https://www.datacamp.com/certificate/DS0016471462883',
+    logo: '/logos/datacamp-cert.png',
+    skills: ['Data Analysis', 'Team Collaboration', 'Problem Solving']
   },
   {
-    id: 'cert4',
-    name: 'Microsoft Certified: Azure Data Scientist Associate',
-    issuer: 'Microsoft',
-    date: 'August 2022',
-    image: '/images/certificates/azure-data-scientist.png',
-    link: 'https://learn.microsoft.com/en-us/credentials/certifications/azure-data-scientist/',
-    skills: ['Azure ML', 'Cloud Computing', 'Data Science']
+    id: 'cert-4',
+    name: 'IEEE Xtreme 19: University Rank 2nd, Island Rank 36th',
+    issuer: 'IEEE',
+    date: '2024',
+    url: 'https://www.coursera.org/specializations/deep-learning',
+    logo: '/logos/coursera-cert.png',
+    skills: ['Competitive Programming', 'Problem Solving', 'Team Collaboration']
+  },
+  {
+    id: 'cert-5',
+    name: 'Vestoria TechTrek Coding Challenge: 4th Place',
+    issuer: 'Vestoria',
+    date: '2024',
+    url: 'https://www.coursera.org/specializations/deep-learning',
+    logo: '/logos/coursera-cert.png',
+        skills: ['Competitive Programming', 'Problem Solving', 'Team Collaboration']
+  },
+  {
+    id: 'cert-6',
+    name: 'Solafune - Machine Learning competition top 5%',
+    issuer: 'Solafune',
+    date: '2025',
+    url: 'https://www.coursera.org/specializations/deep-learning',
+    logo: '/logos/coursera-cert.png',
+    skills: ['open cv', 'Machine Learning', 'Computer Vision']
+  },
+  {
+    id: 'cert-7',
+    name: 'IEEE Xtreme 18: University Rank 1st, Island Rank 76th',
+    issuer: 'IEEE',
+    date: '2023',
+    url: 'https://www.coursera.org/specializations/deep-learning',
+    logo: '/logos/coursera-cert.png',
+    skills: ['Competitive Programming', 'Problem Solving', 'Team Collaboration']
   }
+
 ];
 
 // Tech stack with categories and items
@@ -300,10 +328,10 @@ export default function Skills() {
               ))}
             </div>
             
-            {certificate.link && (
+            {certificate.url && (
               <div className="absolute bottom-3 right-3">
                 <a 
-                  href={certificate.link} 
+                  href={certificate.url} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-purple-600 dark:text-purple-400 text-sm hover:underline"
@@ -496,7 +524,7 @@ export default function Skills() {
           animate={isInView ? { opacity: 1 } : {}}
         >
           <h3 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 text-center text-gray-900 dark:text-white">
-            <span className="text-purple-600">Certifications</span> & Credentials
+            <span className="text-purple-600">Certifications</span> & Achievements and Awards
           </h3>
           
           <motion.div

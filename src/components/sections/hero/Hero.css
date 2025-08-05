@@ -1,5 +1,24 @@
 /* HERO SECTION SPECIFIC STYLES */
 
+/* Tech font family for hero section */
+#hero,
+#hero h1,
+#hero h2,
+#hero h3,
+#hero h4,
+#hero p,
+#hero button,
+#hero .hero-content {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
+#hero h1,
+#hero .text-4xl,
+#hero .text-5xl,
+#hero .text-6xl {
+  letter-spacing: -0.03em;
+}
+
 /* Hero section visibility fixes */
 .glass-card .hero-content,
 .glass-card .hero-section,

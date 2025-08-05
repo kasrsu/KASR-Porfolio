@@ -1,5 +1,24 @@
 /* SKILLS SECTION SPECIFIC STYLES */
 
+/* Tech font family for skills section */
+#skills, 
+#skills h1, 
+#skills h2, 
+#skills h3, 
+#skills h4, 
+#skills .section-title,
+#skills .section-subtitle {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
+#skills .tech-stack-item h3,
+#skills .skill-name,
+#skills .certificate-title,
+#skills .tech-stack-item .font-medium {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+  letter-spacing: -0.02em;
+}
+
 /* Skill circles */
 .skill-circle-container {
   position: relative;

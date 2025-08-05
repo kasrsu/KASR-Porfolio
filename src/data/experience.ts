@@ -168,36 +168,60 @@ export const education: Education[] = [
     logo: '/images/education/czech-tech.png'
   }
 ];
-  export const certifications = [
+  export const Certifications = [
     {
       id: 'cert-1',
-      name: 'AWS Certified Machine Learning - Specialty',
-      issuer: 'Amazon Web Services',
+      name: 'Neo4j Certified Professional',
+      issuer: 'Neo4j Graph Academy',
       date: '2022',
       url: 'https://aws.amazon.com/certification/certified-machine-learning-specialty/',
       logo: '/logos/aws-cert.png'
     },
     {
       id: 'cert-2',
-      name: 'TensorFlow Developer Certificate',
-      issuer: 'Google',
-      date: '2021',
+      name: 'Design Team Lead',
+      issuer: 'MANTHRA Hackathon, NSBM IEEE Student Branch',
+      date: '2023',
       url: 'https://www.tensorflow.org/certificate',
       logo: '/logos/tensorflow-cert.png'
     },
     {
       id: 'cert-3',
-      name: 'Professional Data Scientist',
-      issuer: 'DataCamp',
-      date: '2020',
+      name: 'Committee Member',
+      issuer: 'Duothan 2.0 Buildathon, NSBM IEEE Student Branch',
+      date: '2023',
       url: 'https://www.datacamp.com/certificate/DS0016471462883',
       logo: '/logos/datacamp-cert.png'
     },
     {
       id: 'cert-4',
-      name: 'Deep Learning Specialization',
-      issuer: 'Coursera (deeplearning.ai)',
-      date: '2019',
+      name: 'IEEE Xtreme 19: University Rank 2nd, Island Rank 36th',
+      issuer: 'IEEE',
+      date: '2024',
+      url: 'https://www.coursera.org/specializations/deep-learning',
+      logo: '/logos/coursera-cert.png'
+    },
+    {
+      id: 'cert-5',
+      name: 'Vestoria TechTrek Coding Challenge: 4th Place',
+      issuer: 'Vestoria',
+      date: '2024',
+      url: 'https://www.coursera.org/specializations/deep-learning',
+      logo: '/logos/coursera-cert.png'
+    },
+    {
+      id: 'cert-6',
+      name: 'Solafune - Machine Learning competition top 5%',
+      issuer: 'Solafune',
+      date: '2025',
+      url: 'https://www.coursera.org/specializations/deep-learning',
+      logo: '/logos/coursera-cert.png'
+    },
+    {
+      id: 'cert-7',
+      name: 'IEEE Xtreme 18: University Rank 1st, Island Rank 76th',
+      issuer: 'IEEE',
+      date: '2023',
       url: 'https://www.coursera.org/specializations/deep-learning',
       logo: '/logos/coursera-cert.png'
     }

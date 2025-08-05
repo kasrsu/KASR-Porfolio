@@ -1,5 +1,24 @@
 /* PROJECTS SECTION SPECIFIC STYLES */
 
+/* Tech font family for projects section */
+#projects,
+#projects h1,
+#projects h2, 
+#projects h3, 
+#projects h4,
+#projects .section-title,
+#projects .section-subtitle {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
+#projects .project-title,
+#projects .project-category-badge,
+#projects .project-tech-tag,
+#projects .project-filters button {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+  letter-spacing: -0.02em;
+}
+
 /* Project cards */
 .project-card {
   height: 100%;

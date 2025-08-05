@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ThemeSwitcher } from "./ThemeSwitcher";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -13,7 +12,6 @@ const navItems = [
   { label: "About", path: "/#about" },
   { label: "Skills", path: "/#skills" },
   { label: "Contact", path: "/#contact" },
-  { label: "UI Components", path: "/components" },
 ];
 
 export function Navbar() {
@@ -51,7 +49,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold text-purple-600">
-          Anusara Esberger
+          Anusara Sugeeshwara
         </Link>
         
         {/* Desktop Navigation */}
@@ -70,14 +68,11 @@ export function Navbar() {
               {item.label}
             </Link>
           ))}
-          
-          <ThemeSwitcher />
         </nav>
         
         {/* Mobile Menu Button */}
         <div className="flex items-center md:hidden">
-          <ThemeSwitcher />
-          
+
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="ml-2 p-2 rounded-md text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"

@@ -1,5 +1,24 @@
 /* ABOUT SECTION SPECIFIC STYLES */
 
+/* Tech font family for about section */
+#about,
+#about h1,
+#about h2, 
+#about h3, 
+#about h4,
+.timeline-content h3,
+.education-card h3,
+.statistic-card .text-3xl,
+.statistic-card .text-sm {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
+#about h3,
+.timeline-content h3,
+.education-card h3 {
+  letter-spacing: -0.02em;
+}
+
 /* Timeline styles */
 .timeline-line {
   position: absolute;
@@ -104,7 +123,7 @@
 .dark .text-gray-900, 
 .dark .text-gray-800,
 .dark .text-gray-700 {
-  color: #e5e7eb !important;
+  color: #9900ff !important;
 }
 
 .dark .text-gray-600,
@@ -126,4 +145,21 @@
   .timeline-line {
     left: 0;
   }
+}
+
+/* Scoped styles for the About section */
+.about-section h4 {
+  color: #6b21a8; /* Purple for light mode */
+}
+
+.about-section h4.dark\:text-purple-400 {
+  color: #d8b4fe; /* Purple for dark mode */
+}
+
+.about-section p {
+  color: #6b21a8; /* Purple for light mode */
+}
+
+.about-section p.dark\:text-purple-300 {
+  color: #c084fc; /* Purple for dark mode */
 }

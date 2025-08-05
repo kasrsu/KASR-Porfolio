@@ -1,5 +1,27 @@
 /* CONTACT SECTION STYLES */
 
+/* Tech font family for contact section */
+#contact,
+#contact h1,
+#contact h2, 
+#contact h3, 
+#contact h4,
+#contact label,
+#contact button,
+.contact-form-wrapper,
+.contact-info-wrapper {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
+#contact input,
+#contact textarea {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
+#contact h3 {
+  letter-spacing: -0.02em;
+}
+
 /* Glass card effects - optimized for dark mode */
 .glass-card {
   position: relative;

@@ -1,5 +1,23 @@
 /* BENTO TEMPLATE - LIQUID GLASS DESIGN */
 
+/* Tech font family for bento cards */
+.bento-container,
+.bento-title,
+.bento-description,
+.bento-point-text,
+.bento-point-more,
+.tech-pill {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', 'Courier New', monospace;
+}
+
+.bento-title {
+  letter-spacing: -0.02em;
+}
+
+.tech-pill {
+  letter-spacing: -0.01em;
+}
+
 .bento-container {
   position: relative;
   width: 100%;
@@ -526,64 +544,6 @@
     opacity: 1;
   }
 }
- 
-.tech-pill-more:hover::before {
-  left: 100%;
-}
-
-.tech-pill-more:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.2);
-  border-color: rgba(107, 114, 128, 0.4);
-}
-
-.dark .tech-pill-more {
-  background: linear-gradient(135deg, rgba(107, 114, 128, 0.2) 0%, rgba(75, 85, 99, 0.15) 100%);
-  color: #9ca3af;
-  border-color: rgba(107, 114, 128, 0.3);
-  box-shadow: 0 2px 4px rgba(107, 114, 128, 0.2);
-}
-
-.dark .tech-pill-more:hover {
-  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
-  border-color: rgba(107, 114, 128, 0.5);
-}
-
-/* Large cards get enhanced tech pills */
-.bento-card[style*="span 2"] .tech-pill {
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  border-radius: 14px;
-}
-
-.bento-card[style*="span 2"] .tech-pill-icon {
-  font-size: 0.85rem;
-}
-
-.bento-card[style*="span 2"] .tech-pill-more {
-  padding: 0.5rem 1rem;
-  font-size: 0.75rem;
-  border-radius: 14px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .tech-pills {
-    gap: 0.375rem;
-  }
-  
-  .tech-pill {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.7rem;
-  }
-  
-  .tech-pill-more {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.65rem;
-  }
-}
-
-/* Animations */
 @keyframes shimmer {
   0%, 100% { 
     transform: translateX(-100%) rotate(45deg); 
@@ -683,6 +643,46 @@
     background-position: 100% 50%; 
   }
 }
+
+@keyframes holographicShift {
+  0%, 100% { 
+    transform: translateX(-100%) rotate(45deg); 
+    opacity: 0;
+  }
+  50% { 
+    transform: translateX(100%) rotate(45deg); 
+    opacity: 1;
+  }
+}
+@keyframes shimmer {
+  0%, 100% { 
+    transform: translateX(-100%) rotate(45deg); 
+  }
+  50% { 
+    transform: translateX(100%) rotate(45deg); 
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
+}
+
+@keyframes holographicShift {
+  0%, 100% { 
+    transform: translateX(-100%) rotate(45deg); 
+    opacity: 0;
+  }
+  50% { 
+    transform: translateX(100%) rotate(45deg); 
+    opacity: 1;
+  }
+}
+
 
 @keyframes holographicShift {
   0%, 100% { 
