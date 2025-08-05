@@ -19,9 +19,32 @@ export const projects: Project[] = [
   {
     id: 'proj-1',
     title: 'AI-Powered Educational Guidance System',
-    description: `Engineered a revolutionary AI chatbot using Ollamal and Neo4j for semantic search, 
-analyzing user prompts to deliver personalized, resource-rich course recommendations for IT students.`,
-    summary: `
+    description: `
+    ⚙️ Core Features
+🧠 Smart Course Recommendations
+
+    Uses your inputs and goals to recommend degree programs, modules, and topics that actually match your future.
+
+🔍 Real-Time Module Guidance
+
+    Asks the right questions to help students understand what’s inside each course — before they waste time enrolling blindly.
+
+🕸️ Graph-Powered Logic
+
+    Built with Neo4j, it understands how modules, skills, and careers connect — so every answer is part of a bigger map.
+
+📚 Adaptive Learning Paths
+
+    Learns from the student’s progress and interests over time — then tailors the experience.
+
+🔄 Always Updating
+
+    Integrates with live tech news APIs to suggest trending tools, skills, and projects based on student’s current modules.
+    
+    `,
+   
+
+summary: `
 
 🕸 Neo4j Knowledge Graph
  Every course, module, topic, and skill is structured in a graph.
@@ -32,13 +55,15 @@ analyzing user prompts to deliver personalized, resource-rich course recommendat
       'Developed a semantic search engine using Neo4j graph database.',
       'Integrated Ollamal for natural language understanding and response generation.',
       'Conducted user testing to refine chatbot interactions and improve recommendations.',
- 
+      'Tracks latest trends from Dev.to, Daily.dev, Google News',
+      'Matches news with student’s current modules',
+      'Ranks relevance using vector embeddings + cosine similarity',
     ],
-    thumbnail: '/projects/ai-education-thumb.jpg',
+    thumbnail: '/projects/proj-1/2.png',
     images: [
-      '/projects/ai-education-1.jpg',
-      '/projects/ai-education-2.jpg',
-      '/projects/ai-education-3.jpg'
+      '/projects/proj-1/2.png',
+      '/projects/proj-1/3.png',
+      '/projects/proj-1/4.png'
     ],
     technologies: ['React Native', 'Expo', 'Neo4j', 'LangChain', 'Ollamal', 'TypeScript'],
     category: 'machine learning',
@@ -62,10 +87,12 @@ Aimed to optimize productivity, reduce risks, and enhance operational efficiency
       'Developed dashboards to visualize inefficiencies and communicate findings effectively.',
       'Proposed actionable insights to optimize enrollment processes and reduce risks.'
     ],
-    thumbnail: '/projects/process-mining-thumb.jpg',
+    thumbnail: '/projects/proj-2/1.png',
     images: [
-      '/projects/process-mining-1.jpg',
-      '/projects/process-mining-2.jpg'
+      '/projects/proj-2/1.png',
+      '/projects/proj-2/2.png',
+      '/projects/proj-2/3.png',
+
     ],
     technologies: ['R', 'Process Mining', 'Alpha Miner', 'Heuristic Miner', 'Data Visualization'],
     category: 'data analysis',
@@ -77,6 +104,32 @@ Aimed to optimize productivity, reduce risks, and enhance operational efficiency
   },
   {
     id: 'proj-3',
+    title: 'User Authentication via Acceleration Data – MATLAB Coursework',
+    description: `Developed a user authentication system using Feedforward Multi-Layer Perceptron (MLP) neural networks 
+  based on acceleration data from digital devices. Analyzed intra-user and inter-user variance across six datasets per user.`,
+    summary: `A MATLAB-based user authentication system achieving 96% accuracy and 97% recall.`,
+    points: [
+      'Applied feature selection techniques such as ANOVA, PCA, Reliability Ratio, and Mutual Information.',
+      'Trained and fine-tuned the neural network to optimize performance.',
+      'Implemented data preprocessing, training, and classification in MATLAB.',
+      'Achieved high accuracy and recall through rigorous model evaluation.'
+    ],
+    thumbnail: '/projects/proj-3/1.png',
+    images: [
+      '/projects/proj-3/1.png',
+      '/projects/proj-3/2.png',
+      '/projects/proj-3/3.png'
+    ],
+    technologies: ['MATLAB', 'MLP Neural Networks', 'PCA', 'ANOVA', 'Feature Selection'],
+    category: 'machine learning',
+    demoUrl: 'https://example.com/user-auth-demo',
+    codeUrl: 'https://github.com/username/user-authentication',
+    featured: false,
+    date: '2022-10',
+    duration: '2 months'
+  },
+  {
+    id: 'proj-4',
     title: 'End-to-End NLP System for Text Classification and Humanization',
     description: `Developed an AI Text Humanizer to refine AI-generated text and a Human vs. AI Classifier using BERT models. 
 Created a custom dataset by scraping pre-2019 articles and rewriting them with Ollama Mistral AI to generate AI-text pairs.`,
@@ -89,10 +142,10 @@ Created a custom dataset by scraping pre-2019 articles and rewriting them with O
       'Developed Transformer-based models for AI-to-human text conversion.',
       'Visualized results with Matplotlib and Seaborn for actionable insights.'
     ],
-    thumbnail: '/projects/nlp-system-thumb.jpg',
+    thumbnail: '/projects/proj-4/1.png',
     images: [
-      '/projects/nlp-system-1.jpg',
-      '/projects/nlp-system-2.jpg'
+      '/projects/proj-4/1.png',
+      '/projects/proj-4/2.png'
     ],
     technologies: ['Python', 'NLTK', 'spaCy', 'TensorFlow', 'PyTorch', 'Hugging Face'],
     category: 'nlp',
@@ -101,31 +154,6 @@ Created a custom dataset by scraping pre-2019 articles and rewriting them with O
     featured: true,
     date: '2024-05',
     duration: '6 months'
-  },
-  {
-    id: 'proj-4',
-    title: 'User Authentication via Acceleration Data – MATLAB Coursework',
-    description: `Developed a user authentication system using Feedforward Multi-Layer Perceptron (MLP) neural networks 
-based on acceleration data from digital devices. Analyzed intra-user and inter-user variance across six datasets per user.`,
-    summary: `A MATLAB-based user authentication system achieving 96% accuracy and 97% recall.`,
-    points: [
-      'Applied feature selection techniques such as ANOVA, PCA, Reliability Ratio, and Mutual Information.',
-      'Trained and fine-tuned the neural network to optimize performance.',
-      'Implemented data preprocessing, training, and classification in MATLAB.',
-      'Achieved high accuracy and recall through rigorous model evaluation.'
-    ],
-    thumbnail: '/projects/user-auth-thumb.jpg',
-    images: [
-      '/projects/user-auth-1.jpg',
-      '/projects/user-auth-2.jpg'
-    ],
-    technologies: ['MATLAB', 'MLP Neural Networks', 'PCA', 'ANOVA', 'Feature Selection'],
-    category: 'machine learning',
-    demoUrl: 'https://example.com/user-auth-demo',
-    codeUrl: 'https://github.com/username/user-authentication',
-    featured: false,
-    date: '2022-10',
-    duration: '2 months'
   },
   {
     id: 'proj-5',
@@ -139,10 +167,10 @@ Improved the chatbot experience by enhancing response relevance and speed.`,
       'Integrated multiple data sources for real-time travel suggestions.',
       'Enhanced chatbot response relevance and speed for better user experience.'
     ],
-    thumbnail: '/projects/ai-tour-guide-thumb.jpg',
+    thumbnail: '/projects/proj-5/1.png',
     images: [
-      '/projects/ai-tour-guide-1.jpg',
-      '/projects/ai-tour-guide-2.jpg'
+      '/projects/proj-5/1.png',
+      '/projects/proj-5/2.png'
     ],
     technologies: ['LangChain', 'Python', 'AI', 'Chatbot Development'],
     category: 'machine learning',
@@ -166,10 +194,10 @@ accurate predictions using historical data. Data preprocessing, EDA, time series
       'Deployed the application with a responsive UI using Streamlit.',
       'Generated forecasts and alerts for different regions through data analytics.'
     ],
-    thumbnail: '/projects/weather-forecast-thumb.jpg',
+    thumbnail: '/projects/proj-6/1.png',
     images: [
-      '/projects/weather-forecast-1.jpg',
-      '/projects/weather-forecast-2.jpg'
+      '/projects/proj-6/1.png',
+      '/projects/proj-6/2.png'
     ],
     technologies: ['Python', 'Streamlit', 'ARIMA', 'SARIMA', 'Prophet', 'Time Series Analysis'],
     category: 'data analysis',
@@ -196,10 +224,10 @@ model evaluation (accuracy, precision, recall, F1 score, ROC-AUC), deployment, a
       'Deployed the model with a user-friendly interface for real-time predictions.',
       'Set up monitoring and alerting systems to ensure model performance over time.'
     ],
-    thumbnail: '/projects/loan-repayment-thumb.jpg',
+    thumbnail: '/projects/proj-7/1.png',
     images: [
-      '/projects/loan-repayment-1.jpg',
-      '/projects/loan-repayment-2.jpg'
+      '/projects/proj-7/1.png',
+      '/projects/proj-7/2.png'
     ],
     technologies: ['Python', 'Scikit-learn', 'Pandas', 'Matplotlib', 'Gradient Boosting', 'Logistic Regression'],
     category: 'data analysis',
