@@ -94,41 +94,82 @@ const certificates: Certificate[] = [
   }
 
 ];
-
-// Tech stack with categories and items
 const techStack = [
   {
-    category: 'Languages & Frameworks',
+    category: 'Programming Languages',
     items: [
-      { name: 'Python', icon: 'python', experience: '8+ years', description: 'Primary language for data science and ML projects' },
-      { name: 'R', icon: 'r-project', experience: '6+ years', description: 'Statistical analysis and academic research' },
-      { name: 'SQL', icon: 'database', experience: '7+ years', description: 'Data querying and database management' },
-      { name: 'JavaScript', icon: 'js', experience: '4+ years', description: 'Web-based visualization and dashboards' },
-      { name: 'TypeScript', icon: 'typescript', experience: '3+ years', description: 'Type-safe web development' },
+      { name: 'Python', icon: 'python', experience: 'Data Science, AI, Web Development', description: 'Versatile language for ML, AI, and web.' },
+      { name: 'JavaScript', icon: 'js', experience: 'Frontend & Backend Development', description: 'Dynamic scripting for web and server.' },
+      { name: 'R', icon: 'r-project', experience: 'Statistical Computing & Data Analysis', description: 'Advanced stats and analytics.' },
+      { name: 'MATLAB', icon: 'matlab', experience: 'Algorithm Development & Prototyping', description: 'Numerical computing and prototyping.' },
+      { name: 'SQL', icon: 'database', experience: 'Database Management & Query Optimization', description: 'Efficient data storage and queries.' },
     ]
   },
   {
-    category: 'ML & Data Science',
+    category: 'Natural Language Processing',
     items: [
-      { name: 'TensorFlow', icon: 'tensorflow', experience: '5+ years', description: 'Deep learning models and deployment' },
-      { name: 'PyTorch', icon: 'pytorch', experience: '4+ years', description: 'Research and prototyping neural networks' },
-      { name: 'scikit-learn', icon: 'scikit-learn', experience: '6+ years', description: 'Classical ML algorithms implementation' },
-      { name: 'pandas', icon: 'pandas', experience: '7+ years', description: 'Data manipulation and analysis' },
-      { name: 'NumPy', icon: 'numpy', experience: '7+ years', description: 'Numerical computing and array operations' }
+      { name: 'Text Processing', icon: 'align-left', experience: 'Tokenization, NER, POS Tagging', description: 'Core NLP tasks.' },
+      { name: 'Language Models', icon: 'robot', experience: 'BERT, GPT, Llama, Fasttext', description: 'State-of-the-art LLMs.' },
+      { name: 'spaCy', icon: 'spa', experience: 'NLP Framework', description: 'Industrial-strength NLP.' },
+      { name: 'LangChain', icon: 'chain', experience: 'LLM Applications', description: 'Framework for LLM-powered apps.' },
+      { name: 'Hugging Face', icon: 'hugging-face', experience: 'Transformers', description: 'Pretrained models for NLP.' },
+      { name: 'Semantic Analysis', icon: 'project-diagram', experience: 'NLP Semantics', description: 'Deep semantic understanding.' },
+    ]
+  },
+  {
+    category: 'Machine Learning & Deep Learning',
+    items: [
+      { name: 'Core ML Algorithms', icon: 'cogs', experience: 'Regression, Trees, SVM', description: 'Fundamental ML methods.' },
+      { name: 'Unsupervised Learning', icon: 'object-group', experience: 'K-Means, DBSCAN, PCA', description: 'Pattern discovery & reduction.' },
+      { name: 'Neural Networks', icon: 'brain', experience: 'MLP, CNN, RNN, Transformers', description: 'Deep learning for NLP, images, sequences.' },
+      { name: 'Graph Neural Networks', icon: 'network-wired', experience: 'GCN, GAT', description: 'Deep learning on graphs.' },
+      { name: 'Feature Selection', icon: 'filter', experience: 'ANOVA, MI, PCA', description: 'Signal boosting techniques.' },
+      { name: 'Hyperparameter Tuning', icon: 'sliders-h', experience: 'Grid, Random, Bayesian', description: 'Model optimization.' },
+      { name: 'Reinforcement Learning', icon: 'gamepad', experience: 'Q-Learning, DQN', description: 'Dynamic decision-making.' },
+    ]
+  },
+  {
+    category: 'AI & Data Science',
+    items: [
+      { name: 'Data Wrangling', icon: 'database', experience: 'Pandas, NumPy, SQL, Spark', description: 'Preprocessing structured/unstructured data.' },
+      { name: 'Predictive Modeling', icon: 'chart-line', experience: 'Scikit-Learn, XGBoost, LightGBM', description: 'Classification, regression, clustering.' },
+      { name: 'Time-Series Forecasting', icon: 'clock', experience: 'ARIMA, LSTM', description: 'Real-time prediction & anomaly detection.' },
+      { name: 'Big Data', icon: 'snowflake', experience: 'Snowflake', description: 'Scalable data pipelines.' },
+      { name: 'Graph Analytics', icon: 'project-diagram', experience: 'Neo4j, Cypher', description: 'Knowledge graphs & relationship extraction.' },
+      { name: 'Model Evaluation', icon: 'check-circle', experience: 'Cross-validation, SHAP, LIME, AUC, F1', description: 'Explainability & validation.' },
     ]
   },
   {
     category: 'Tools & Platforms',
     items: [
-      { name: 'Docker', icon: 'docker', experience: '5+ years', description: 'Containerization of ML applications' },
-      { name: 'Git', icon: 'git-alt', experience: '7+ years', description: 'Version control and collaboration' },
-      { name: 'AWS', icon: 'aws', experience: '4+ years', description: 'Cloud deployment and services' },
-      { name: 'Azure', icon: 'microsoft', experience: '3+ years', description: 'ML pipelines and enterprise solutions' },
-      { name: 'Kubernetes', icon: 'kubernetes', experience: '2+ years', description: 'Orchestration of containerized applications' }
+      { name: 'Git', icon: 'git-alt', experience: 'Version Control', description: 'Collaboration & code management.' },
+      { name: 'GitHub', icon: 'github', experience: 'Code Hosting', description: 'Remote repositories.' },
+      { name: 'VS Code', icon: 'code', experience: 'IDE', description: 'Development environment.' },
+      { name: 'Jupyter Notebook', icon: 'book', experience: 'Interactive Coding', description: 'Data science notebooks.' },
+      { name: 'MATLAB', icon: 'matlab', experience: 'IDE', description: 'Numerical computing.' },
+      { name: 'Ollama', icon: 'robot', experience: 'LLM Deployment', description: 'Custom LLM integration.' },
+    ]
+  },
+  {
+    category: 'Development & Frameworks',
+    items: [
+      { name: 'Flask', icon: 'flask', experience: 'Backend', description: 'REST API & microservices.' },
+      { name: 'Node.js', icon: 'node-js', experience: 'Backend', description: 'Server-side JS.' },
+      { name: 'React Native', icon: 'react', experience: 'Mobile Apps', description: 'Cross-platform development.' },
+      { name: 'Expo', icon: 'mobile-alt', experience: 'Mobile Apps', description: 'React Native toolkit.' },
+      { name: 'LangChain', icon: 'chain', experience: 'AI-powered Apps', description: 'LLM application framework.' },
+      { name: 'Llama-based Models', icon: 'robot', experience: 'AI-powered Apps', description: 'Custom LLMs.' },
+    ]
+  },
+  {
+    category: 'Databases & Knowledge Representation',
+    items: [
+      { name: 'SQL', icon: 'database', experience: 'Relational Databases', description: 'Structured data management.' },
+      { name: 'Neo4j', icon: 'project-diagram', experience: 'Graph Databases', description: 'Knowledge graphs & relationship modeling.' },
     ]
   }
 ];
-
+// Tech stac
 export default function Skills() {
   const [selectedCategory, setSelectedCategory] = useState(skillCategories[0].id);
   const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
